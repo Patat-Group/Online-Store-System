@@ -1,0 +1,185 @@
+{
+  "format": 1,
+  "restore": {
+    "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\API\\API.csproj": {}
+  },
+  "projects": {
+    "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\API\\API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\API\\API.csproj",
+        "projectName": "API",
+        "projectPath": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\Ahmad Nour\\.nuget\\packages\\",
+        "outputPath": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\API\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ahmad Nour\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Services\\Services.csproj": {
+                "projectPath": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Services\\Services.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Core\\Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Core\\Core.csproj",
+        "projectName": "Core",
+        "projectPath": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\Ahmad Nour\\.nuget\\packages\\",
+        "outputPath": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ahmad Nour\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Services\\Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Services\\Services.csproj",
+        "projectName": "Services",
+        "projectPath": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\Ahmad Nour\\.nuget\\packages\\",
+        "outputPath": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ahmad Nour\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Core\\Core.csproj": {
+                "projectPath": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\Core\\Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

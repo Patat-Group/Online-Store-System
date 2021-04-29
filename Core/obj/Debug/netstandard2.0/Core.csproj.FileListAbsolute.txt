@@ -1,0 +1,9 @@
+G:\Projects\IT-Albaath\OnlineStoreSystem\Core\bin\Debug\netstandard2.0\Core.deps.json
+G:\Projects\IT-Albaath\OnlineStoreSystem\Core\bin\Debug\netstandard2.0\Core.dll
+G:\Projects\IT-Albaath\OnlineStoreSystem\Core\bin\Debug\netstandard2.0\Core.pdb
+G:\Projects\IT-Albaath\OnlineStoreSystem\Core\obj\Debug\netstandard2.0\Core.csprojAssemblyReference.cache
+G:\Projects\IT-Albaath\OnlineStoreSystem\Core\obj\Debug\netstandard2.0\Core.AssemblyInfoInputs.cache
+G:\Projects\IT-Albaath\OnlineStoreSystem\Core\obj\Debug\netstandard2.0\Core.AssemblyInfo.cs
+G:\Projects\IT-Albaath\OnlineStoreSystem\Core\obj\Debug\netstandard2.0\Core.csproj.CoreCompileInputs.cache
+G:\Projects\IT-Albaath\OnlineStoreSystem\Core\obj\Debug\netstandard2.0\Core.dll
+G:\Projects\IT-Albaath\OnlineStoreSystem\Core\obj\Debug\netstandard2.0\Core.pdb
