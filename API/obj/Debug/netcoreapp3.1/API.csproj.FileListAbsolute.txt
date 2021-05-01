@@ -63,3 +63,4 @@ G:\Projects\IT-Albaath\OnlineStoreSystem\API\obj\Debug\netcoreapp3.1\staticwebas
 G:\Projects\IT-Albaath\OnlineStoreSystem\API\obj\Debug\netcoreapp3.1\API.dll
 G:\Projects\IT-Albaath\OnlineStoreSystem\API\obj\Debug\netcoreapp3.1\API.pdb
 G:\Projects\IT-Albaath\OnlineStoreSystem\API\obj\Debug\netcoreapp3.1\API.genruntimeconfig.cache
+G:\Projects\IT-Albaath\OnlineStoreSystem\API\bin\Debug\netcoreapp3.1\AutoMapper.dll

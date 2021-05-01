@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using Core.Entities;
+using Interfaces.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +25,7 @@ namespace API
             services.AddControllers();
             services.AddDbContext<StoreContext>(x =>
                 x.UseSqlite(_configuration.GetConnectionString("MyConnection")));
+            services.AddScoped<IGenericRepository<VIPAd,int>, AdsRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -15,7 +15,6 @@ namespace Services.Data
         public DbSet<User> Users { get; set; }
         public DbSet<UserRating> UserRatings { get; set; }
         public DbSet<VIPAd> VIPAds { get; set; }
-        public DbSet<VIPAdImage> VIPAdImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
