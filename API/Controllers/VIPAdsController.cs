@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs.VIPAdsDtos;
-using AutoMapper;
 using Core.Entities;
 using Interfaces.Core;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +11,10 @@ namespace API.Controllers
     [Route("api/vipads")]
     public class VIPAdsController : ControllerBase
     {
-        //private readonly IMapper _mapper;
         private readonly IGenericRepository<VIPAd, int> _vipRepo;
 
-        public VIPAdsController( IGenericRepository<VIPAd, int> vipRepo)
+        public VIPAdsController(IGenericRepository<VIPAd, int> vipRepo)
         {
-          //  _mapper = mapper;
             _vipRepo = vipRepo;
         }
 
@@ -46,12 +43,16 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAds(VIPAdsForCreationDto entity)
         {
+            
             var vipAd = new VIPAd()
             {
                 Name = entity.Name,
                 ImageUrl = entity.ImageUrl,
                 DateAdded = entity.DateAdded
             };
+            
+            if (await _vipRepo.GetById(vipAd.Id) != null)
+                return BadRequest("This Ad is exist.");
 
             if (await _vipRepo.Add(vipAd))
                 return Ok(vipAd);
@@ -69,6 +70,5 @@ namespace API.Controllers
                 return Ok();
             return BadRequest("Error happen when update Ads");
         }
-
     }
 }

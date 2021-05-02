@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "geTLMa0TEec/mm7D4DY7t5y92KCdEuiyJtLa+aCSayxebQ+FmyHDoOz7j31TNLx+dcbrErubqULhI6jFozOJlQ==",
+  "dgSpecHash": "norpIsijSngHnSOyLAwRSDXvOJlj5T/k4WaajtYBEi77/nNF7JGf5My/gMJYQY+VftYSgwj/HUDCoNqyQO7lyg==",
   "success": true,
   "projectFilePath": "G:\\Projects\\IT-Albaath\\OnlineStoreSystem\\API\\API.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Ahmad Nour\\.nuget\\packages\\automapper\\8.1.0\\automapper.8.1.0.nupkg.sha512",
+    "C:\\Users\\Ahmad Nour\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
+    "C:\\Users\\Ahmad Nour\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Users\\Ahmad Nour\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Ahmad Nour\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\Ahmad Nour\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

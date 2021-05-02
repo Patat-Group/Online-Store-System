@@ -1,4 +1,5 @@
-using System.Threading.Tasks;
+using API.Helpers;
+using AutoMapper;
 using Core.Entities;
 using Interfaces.Core;
 using Microsoft.AspNetCore.Builder;
@@ -22,10 +23,13 @@ namespace API
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfiles));
             services.AddControllers();
             services.AddDbContext<StoreContext>(x =>
                 x.UseSqlite(_configuration.GetConnectionString("MyConnection")));
             services.AddScoped<IGenericRepository<VIPAd,int>, AdsRepository>();
+            services.AddScoped<IGenericRepository<Category,int>, CategoryRepository>();
+            services.AddScoped<IGenericRepository<SubCategory,int>, SubCategoryRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
