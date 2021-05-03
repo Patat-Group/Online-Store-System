@@ -65,3 +65,8 @@ G:\Projects\IT-Albaath\OnlineStoreSystem\API\obj\Debug\netcoreapp3.1\API.pdb
 G:\Projects\IT-Albaath\OnlineStoreSystem\API\obj\Debug\netcoreapp3.1\API.genruntimeconfig.cache
 G:\Projects\IT-Albaath\OnlineStoreSystem\API\bin\Debug\netcoreapp3.1\AutoMapper.dll
 G:\Projects\IT-Albaath\OnlineStoreSystem\API\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+G:\Projects\IT-Albaath\OnlineStoreSystem\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+G:\Projects\IT-Albaath\OnlineStoreSystem\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+G:\Projects\IT-Albaath\OnlineStoreSystem\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+G:\Projects\IT-Albaath\OnlineStoreSystem\API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+G:\Projects\IT-Albaath\OnlineStoreSystem\API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll

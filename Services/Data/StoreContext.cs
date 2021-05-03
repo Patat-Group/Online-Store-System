@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Core.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Services.Data
 {
-    public class StoreContext :DbContext
+    public class StoreContext :IdentityDbContext<User ,Role ,string>
     {
         public StoreContext(DbContextOptions options) :base(options) { }
         public DbSet<Product> Products { get; set; }
@@ -45,7 +46,9 @@ namespace Services.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<User>()
-                .HasIndex(u => u.Name);
+                .HasIndex(u => u.UserName);
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email);
             modelBuilder.Entity<Product>()
                 .HasIndex(p => p.Name);
             modelBuilder.Entity<Category>()
