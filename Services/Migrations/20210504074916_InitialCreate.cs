@@ -64,7 +64,7 @@ namespace Services.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -246,35 +246,12 @@ namespace Services.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRatings",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    UserId = table.Column<string>(nullable: true),
-                    OneStar = table.Column<long>(nullable: false),
-                    TwoStar = table.Column<long>(nullable: false),
-                    ThreeStar = table.Column<long>(nullable: false),
-                    FourStar = table.Column<long>(nullable: false),
-                    FiveStar = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRatings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserRatings_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     ShortDescription = table.Column<string>(nullable: true),
                     LongDescription = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
@@ -443,11 +420,6 @@ namespace Services.Migrations
                 name: "IX_SubCategories_Name",
                 table: "SubCategories",
                 column: "Name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserRatings_UserId",
-                table: "UserRatings",
-                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -478,9 +450,6 @@ namespace Services.Migrations
 
             migrationBuilder.DropTable(
                 name: "SubCategories");
-
-            migrationBuilder.DropTable(
-                name: "UserRatings");
 
             migrationBuilder.DropTable(
                 name: "VIPAds");

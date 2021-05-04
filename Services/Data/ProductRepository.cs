@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Services.Data
 {
-    public class ProductRepository :IGenericRepository<Product,int>
+    public class ProductRepository : IGenericRepository<Product, int>
     {
         private readonly StoreContext _context;
-        
+
         public ProductRepository(StoreContext context)
         {
             _context = context;
@@ -19,19 +19,17 @@ namespace Services.Data
         {
             var products = await _context.Products
                 .Include(im =>im.Images)
-                .Include(u =>u.User)
                 .ToListAsync();
-            
+
             return products;
         }
-        
+
         public async Task<Product> GetById(int id)
         {
-            var product =await _context.Products
+            var product = await _context.Products
                 .Include(im =>im.Images)
-                .Include(u =>u.User)
-                .FirstOrDefaultAsync(p =>p.Id ==id);
-            
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             return product;
         }
 
@@ -41,7 +39,7 @@ namespace Services.Data
                 .FirstOrDefaultAsync(p => p.Id == id);
             if (product == null) return false;
             _context.Products.Remove(product);
-            if(await SaveChanges())
+            if (await SaveChanges())
                 return true;
             return false;
         }
@@ -49,7 +47,7 @@ namespace Services.Data
         public async Task<bool> Add(Product entity)
         {
             await _context.AddAsync(entity);
-            if(await SaveChanges()) 
+            if (await SaveChanges())
                 return true;
             return false;
         }
@@ -57,7 +55,7 @@ namespace Services.Data
         public async Task<bool> Update(Product entity)
         {
             _context.Update(entity);
-            if(await SaveChanges())
+            if (await SaveChanges())
                 return true;
             return false;
         }
@@ -126,7 +124,7 @@ namespace Services.Data
 
         public async Task<bool> SaveChanges()
         {
-            return await _context.SaveChangesAsync() >0 ? true :false;
+            return await _context.SaveChangesAsync() > 0 ? true : false;
         }
     }
 }

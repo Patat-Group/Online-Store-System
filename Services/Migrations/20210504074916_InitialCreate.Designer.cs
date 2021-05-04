@@ -9,7 +9,7 @@ using Services.Data;
 namespace Services.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20210503124846_InitialCreate")]
+    [Migration("20210504074916_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,9 @@ namespace Services.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .IsUnicode(true);
 
                     b.HasKey("Id");
 
@@ -53,6 +55,7 @@ namespace Services.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Price")
@@ -296,36 +299,6 @@ namespace Services.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Core.Entities.UserRating", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<long>("FiveStar")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("FourStar")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("OneStar")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("ThreeStar")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<long>("TwoStar")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserRatings");
-                });
-
             modelBuilder.Entity("Core.Entities.VIPAd", b =>
                 {
                     b.Property<int>("Id")
@@ -503,13 +476,6 @@ namespace Services.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Core.Entities.UserRating", b =>
-                {
-                    b.HasOne("Core.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

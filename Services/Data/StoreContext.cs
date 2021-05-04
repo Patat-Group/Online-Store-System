@@ -14,7 +14,6 @@ namespace Services.Data
         public DbSet<Report> Reports { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserRating> UserRatings { get; set; }
         public DbSet<VIPAd> VIPAds { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,6 +43,9 @@ namespace Services.Data
                 .WithMany(ur => ur.UsersSetReport)
                 .HasForeignKey(fk => fk.UserGetReportId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Category>()
+                .Property(n => n.Name).IsRequired().IsUnicode();
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.UserName);

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.Entities
 {
     public class Product
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        [Required] public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
         public double Price { get; set; }
-        public bool IsSold { get; set; }
+        public bool IsSold { get; set; } = false;
         public DateTime DateAdded { get; set; }
         public ICollection<ProductImage> Images { get; set; }
         public int CategoryId { get; set; }
