@@ -6,15 +6,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Services.Data
 {
-    public class CategoryRepository :IGenericRepository<Category,int>
+    public class CategoryRepository : IGenericRepository<Category, int>
     {
         private readonly StoreContext _context;
-        
+
         public CategoryRepository(StoreContext context)
         {
             _context = context;
         }
-        
+
         public async Task<IReadOnlyList<Category>> GetALl()
         {
             return await _context.Categories.ToListAsync();
@@ -23,7 +23,7 @@ namespace Services.Data
         public async Task<Category> GetById(int id)
         {
             return await _context.Categories
-                .FirstOrDefaultAsync(c =>c.Id ==id);
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<bool> Delete(int id)
@@ -50,5 +50,4 @@ namespace Services.Data
             return await _context.SaveChangesAsync() > 0 ? true : false;
         }
     }
-
 }

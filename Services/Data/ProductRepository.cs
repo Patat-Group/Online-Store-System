@@ -18,7 +18,7 @@ namespace Services.Data
         public async Task<IReadOnlyList<Product>> GetALl()
         {
             var products = await _context.Products
-                .Include(im =>im.Images)
+                .Include(im => im.Images)
                 .ToListAsync();
 
             return products;
@@ -27,7 +27,7 @@ namespace Services.Data
         public async Task<Product> GetById(int id)
         {
             var product = await _context.Products
-                .Include(im =>im.Images)
+                .Include(im => im.Images)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             return product;

@@ -18,10 +18,11 @@ namespace Core.Entities
         public DateTime DateCreated { get; set; }
         public DateTime LastSeen { get; set; }
         public bool RememberMe { get; set; }
-        public ICollection<Rating> UsersGetRating { get; set; }
-        public ICollection<Rating> UsersSetRating { get; set; }
-        public ICollection<Report> UsersGetReport { get; set; }
-        public ICollection<Report> UsersSetReport { get; set; }
+        
+        public ICollection<Rating> UsersSourceRating { get; set; }
+        public ICollection<Rating> UsersDestinationRating { get; set; }
+        public ICollection<Report> UsersSourceReport { get; set; }
+        public ICollection<Report> UsersDestinationReport { get; set; }
         public ICollection<Product> Products { get; set; }
     }
 }

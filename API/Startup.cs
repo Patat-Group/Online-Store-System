@@ -32,6 +32,7 @@ namespace API
             services.AddScoped<IGenericRepository<VIPAd,int>, AdsRepository>();
             services.AddScoped<IGenericRepository<Category,int>, CategoryRepository>();
             services.AddScoped<IGenericRepository<SubCategory,int>, SubCategoryRepository>();
+            services.AddScoped<IImageRepository, ProductImageRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,11 +41,13 @@ namespace API
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseRouting();
+            
+            app.UseStaticFiles();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

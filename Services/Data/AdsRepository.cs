@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Services.Data
 {
-    public class AdsRepository :IGenericRepository<VIPAd , int>
+    public class AdsRepository : IGenericRepository<VIPAd, int>
     {
         private readonly StoreContext _context;
-        
+
         public AdsRepository(StoreContext context)
         {
             _context = context;

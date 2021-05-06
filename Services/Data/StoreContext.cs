@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Services.Data
 {
-    public class StoreContext :IdentityDbContext<User ,Role ,string>
+    public class StoreContext :IdentityDbContext<User ,Role , string>
     {
         public StoreContext(DbContextOptions options) :base(options) { }
         public DbSet<Product> Products { get; set; }
@@ -15,33 +15,34 @@ namespace Services.Data
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<VIPAd> VIPAds { get; set; }
+        public DbSet<UserRated> UsersRated { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             
             modelBuilder.Entity<Rating>()
-                .HasOne(r => r.UserSetRate)
-                .WithMany(ur => ur.UsersGetRating)
-                .HasForeignKey(fk => fk.UserSetRateId)
+                .HasOne(r => r.UserSourceRate)
+                .WithMany(ur => ur.UsersDestinationRating)
+                .HasForeignKey(fk => fk.UserSourceRateId)
                 .OnDelete(DeleteBehavior.Restrict);
             
             modelBuilder.Entity<Rating>()
-                .HasOne(r => r.UserGetRate)
-                .WithMany(ur => ur.UsersSetRating)
-                .HasForeignKey(fk => fk.UserGetRateId)
+                .HasOne(r => r.UserDestinationRate)
+                .WithMany(ur => ur.UsersSourceRating)
+                .HasForeignKey(fk => fk.UserDestinationRateId)
                 .OnDelete(DeleteBehavior.Restrict);
             
             modelBuilder.Entity<Report>()
-                .HasOne(r => r.UserSetReport)
-                .WithMany(ur => ur.UsersGetReport)
-                .HasForeignKey(fk => fk.UserSetReportId)
+                .HasOne(r => r.UserSourceReport)
+                .WithMany(ur => ur.UsersDestinationReport)
+                .HasForeignKey(fk => fk.UserSourceReportId)
                 .OnDelete(DeleteBehavior.Restrict);
             
             modelBuilder.Entity<Report>()
-                .HasOne(r => r.UserGetReport)
-                .WithMany(ur => ur.UsersSetReport)
-                .HasForeignKey(fk => fk.UserGetReportId)
+                .HasOne(r => r.UserDestinationReport)
+                .WithMany(ur => ur.UsersSourceReport)
+                .HasForeignKey(fk => fk.UserDestinationReportId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Category>()

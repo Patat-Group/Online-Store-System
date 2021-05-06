@@ -110,17 +110,17 @@ namespace Services.Migrations
                     b.Property<int>("Star")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserGetRateId")
+                    b.Property<string>("UserDestinationRateId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserSetRateId")
+                    b.Property<string>("UserSourceRateId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserGetRateId");
+                    b.HasIndex("UserDestinationRateId");
 
-                    b.HasIndex("UserSetRateId");
+                    b.HasIndex("UserSourceRateId");
 
                     b.ToTable("Ratings");
                 });
@@ -131,17 +131,17 @@ namespace Services.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserGetReportId")
+                    b.Property<string>("UserDestinationReportId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserSetReportId")
+                    b.Property<string>("UserSourceReportId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserGetReportId");
+                    b.HasIndex("UserDestinationReportId");
 
-                    b.HasIndex("UserSetReportId");
+                    b.HasIndex("UserSourceReportId");
 
                     b.ToTable("Reports");
                 });
@@ -297,6 +297,37 @@ namespace Services.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Core.Entities.UserRated", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("FifthStarCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("FourthStarCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("OneStarCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("ThirdStarCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long>("TwoStarCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UsersRated");
+                });
+
             modelBuilder.Entity("Core.Entities.VIPAd", b =>
                 {
                     b.Property<int>("Id")
@@ -443,27 +474,27 @@ namespace Services.Migrations
 
             modelBuilder.Entity("Core.Entities.Rating", b =>
                 {
-                    b.HasOne("Core.Entities.User", "UserGetRate")
-                        .WithMany("UsersSetRating")
-                        .HasForeignKey("UserGetRateId")
+                    b.HasOne("Core.Entities.User", "UserDestinationRate")
+                        .WithMany("UsersSourceRating")
+                        .HasForeignKey("UserDestinationRateId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Core.Entities.User", "UserSetRate")
-                        .WithMany("UsersGetRating")
-                        .HasForeignKey("UserSetRateId")
+                    b.HasOne("Core.Entities.User", "UserSourceRate")
+                        .WithMany("UsersDestinationRating")
+                        .HasForeignKey("UserSourceRateId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Core.Entities.Report", b =>
                 {
-                    b.HasOne("Core.Entities.User", "UserGetReport")
-                        .WithMany("UsersSetReport")
-                        .HasForeignKey("UserGetReportId")
+                    b.HasOne("Core.Entities.User", "UserDestinationReport")
+                        .WithMany("UsersSourceReport")
+                        .HasForeignKey("UserDestinationReportId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Core.Entities.User", "UserSetReport")
-                        .WithMany("UsersGetReport")
-                        .HasForeignKey("UserSetReportId")
+                    b.HasOne("Core.Entities.User", "UserSourceReport")
+                        .WithMany("UsersDestinationReport")
+                        .HasForeignKey("UserSourceReportId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -474,6 +505,13 @@ namespace Services.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Entities.UserRated", b =>
+                {
+                    b.HasOne("Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

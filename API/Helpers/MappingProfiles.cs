@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using API.DTOs.CategoryDtos;
 using API.DTOs.ProductDtos;
+using API.DTOs.ProductImagesDtos;
 using API.DTOs.SubCategoryDtos;
 using AutoMapper;
 using Core.Entities;
@@ -17,6 +18,8 @@ namespace API.Helpers
                 .ForMember(dest => dest.ImagesUrl,
                     opt => opt.MapFrom(
                         src => src.Images.ToList()));
+            CreateMap<ProductImage,ProductImagesForReturnDto>();
+            CreateMap<ProductImage,ProductImageForAddDto>().ReverseMap();
         }
     }
 }

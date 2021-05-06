@@ -198,22 +198,22 @@ namespace Services.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserSetRateId = table.Column<string>(nullable: true),
-                    UserGetRateId = table.Column<string>(nullable: true),
+                    UserSourceRateId = table.Column<string>(nullable: true),
+                    UserDestinationRateId = table.Column<string>(nullable: true),
                     Star = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ratings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ratings_AspNetUsers_UserGetRateId",
-                        column: x => x.UserGetRateId,
+                        name: "FK_Ratings_AspNetUsers_UserDestinationRateId",
+                        column: x => x.UserDestinationRateId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Ratings_AspNetUsers_UserSetRateId",
-                        column: x => x.UserSetRateId,
+                        name: "FK_Ratings_AspNetUsers_UserSourceRateId",
+                        column: x => x.UserSourceRateId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -225,21 +225,45 @@ namespace Services.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserSetReportId = table.Column<string>(nullable: true),
-                    UserGetReportId = table.Column<string>(nullable: true)
+                    UserSourceReportId = table.Column<string>(nullable: true),
+                    UserDestinationReportId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reports", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reports_AspNetUsers_UserGetReportId",
-                        column: x => x.UserGetReportId,
+                        name: "FK_Reports_AspNetUsers_UserDestinationReportId",
+                        column: x => x.UserDestinationReportId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reports_AspNetUsers_UserSetReportId",
-                        column: x => x.UserSetReportId,
+                        name: "FK_Reports_AspNetUsers_UserSourceReportId",
+                        column: x => x.UserSourceReportId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UsersRated",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(nullable: true),
+                    OneStarCount = table.Column<long>(nullable: false),
+                    TwoStarCount = table.Column<long>(nullable: false),
+                    ThirdStarCount = table.Column<long>(nullable: false),
+                    FourthStarCount = table.Column<long>(nullable: false),
+                    FifthStarCount = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsersRated", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UsersRated_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -392,24 +416,24 @@ namespace Services.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ratings_UserGetRateId",
+                name: "IX_Ratings_UserDestinationRateId",
                 table: "Ratings",
-                column: "UserGetRateId");
+                column: "UserDestinationRateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ratings_UserSetRateId",
+                name: "IX_Ratings_UserSourceRateId",
                 table: "Ratings",
-                column: "UserSetRateId");
+                column: "UserSourceRateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reports_UserGetReportId",
+                name: "IX_Reports_UserDestinationReportId",
                 table: "Reports",
-                column: "UserGetReportId");
+                column: "UserDestinationReportId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reports_UserSetReportId",
+                name: "IX_Reports_UserSourceReportId",
                 table: "Reports",
-                column: "UserSetReportId");
+                column: "UserSourceReportId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubCategories_CategoryId",
@@ -420,6 +444,11 @@ namespace Services.Migrations
                 name: "IX_SubCategories_Name",
                 table: "SubCategories",
                 column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsersRated_UserId",
+                table: "UsersRated",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -450,6 +479,9 @@ namespace Services.Migrations
 
             migrationBuilder.DropTable(
                 name: "SubCategories");
+
+            migrationBuilder.DropTable(
+                name: "UsersRated");
 
             migrationBuilder.DropTable(
                 name: "VIPAds");
