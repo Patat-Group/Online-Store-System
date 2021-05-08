@@ -1,0 +1,50 @@
+[
+  {
+    "UserName": "Yaser01",
+    "Email": "test01@gmail.com",
+    "Password": "y12345611",
+    "EmailConfirmed": "True",
+    "Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+    "PhoneNumber": "0948963791",
+    "FirstName": "Real First Name 01",
+    "LastName": "Real Last Name 01",
+    "Gender": "Male",
+    "Address": "Idlib",
+    "PictureUrl": "SomeUrl//ss",
+    "FacebookUrl": "https://www.facebook.com/",
+    "WhatsappUrl": "https://www.whatsapp.com/",
+    "TelegramUrl": "https://t.me/yaser01"
+  },
+  {
+    "UserName": "Yaser02",
+    "Email": "test02@gmail.com",
+    "EmailConfirmed": "True",
+    "Password": "y12345622",
+    "Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+    "PhoneNumber": "0948963792",
+    "FirstName": "Real First Name 02",
+    "LastName": "Real Last Name 02",
+    "Gender": "Male",
+    "Address": "Idlib",
+    "PictureUrl": "SomeUrl//ss",
+    "FacebookUrl": "https://www.facebook.com/",
+    "WhatsappUrl": "https://www.whatsapp.com/",
+    "TelegramUrl": "https://t.me/yaser02"
+  },
+  {
+    "UserName": "Yaser03",
+    "Email": "test03@gmail.com",
+    "Password": "y12345633",
+    "EmailConfirmed": "False",
+    "Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
+    "PhoneNumber": "0948963793",
+    "FirstName": "Real First Name 03",
+    "LastName": "Real Last Name 03",
+    "Gender": "Female",
+    "Address": "Idlib",
+    "PictureUrl": "SomeUrl//ss",
+    "FacebookUrl": "https://www.facebook.com/",
+    "WhatsappUrl": "https://www.whatsapp.com/",
+    "TelegramUrl": "https://t.me/yaser03"
+  }
+]

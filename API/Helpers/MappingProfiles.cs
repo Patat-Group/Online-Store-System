@@ -2,7 +2,9 @@
 using API.DTOs.CategoryDtos;
 using API.DTOs.ProductDtos;
 using API.DTOs.ProductImagesDtos;
+using API.DTOs.ReportDtos;
 using API.DTOs.SubCategoryDtos;
+using API.DTOs.UserDtos;
 using AutoMapper;
 using Core.Entities;
 
@@ -20,6 +22,12 @@ namespace API.Helpers
                         src => src.Images.ToList()));
             CreateMap<ProductImage,ProductImagesForReturnDto>();
             CreateMap<ProductImage,ProductImageForAddDto>().ReverseMap();
+	        CreateMap<User, UserToReturnDto>();
+            CreateMap<User, UserUpdateInformationDto>().ReverseMap()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<UserRated, UserDetailedRateDto>();
+            CreateMap<Report, ReportToReturnDto>();
+
         }
     }
 }

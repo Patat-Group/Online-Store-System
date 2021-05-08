@@ -6,7 +6,9 @@
 
   <ItemGroup>
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.11.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +25,10 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="OnlineStore.db" />
   </ItemGroup>
     
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Entities;
+using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ namespace Services.Data
             _context = context;
         }
 
-        public async Task<IReadOnlyList<Category>> GetALl()
+        public async Task<IReadOnlyList<Category>> GetAll()
         {
             return await _context.Categories.ToListAsync();
         }

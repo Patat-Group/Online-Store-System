@@ -4,16 +4,15 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Services.Data
 {
-    public class StoreContext :IdentityDbContext<User ,Role , string>
+    public class StoreContext :IdentityDbContext<User>
     {
-        public StoreContext(DbContextOptions options) :base(options) { }
+        public StoreContext(DbContextOptions<StoreContext> options) :base(options) { }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<VIPAd> VIPAds { get; set; }
         public DbSet<UserRated> UsersRated { get; set; }
 

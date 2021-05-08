@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using API.DTOs.ProductDtos;
 using AutoMapper;
 using Core.Entities;
-using Interfaces.Core;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -32,7 +32,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IReadOnlyList<ProductsToReturnDto>> GetProducts()
         {
-            var products = await _productRepo.GetALl();
+            var products = await _productRepo.GetAll();
             var productForReturn = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
             
             return productForReturn;

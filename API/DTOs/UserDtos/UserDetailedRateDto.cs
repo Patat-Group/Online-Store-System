@@ -1,10 +1,7 @@
-﻿namespace Core.Entities
+﻿namespace API.DTOs.UserDtos
 {
-    public class UserRated
+    public class UserDetailedRateDto
     {
-        public int Id { get; set; }
-        public string UserId { get; set; }
-        public User User { get; set; }
         public long OneStarCount { get; set; }
         public long TwoStarCount { get; set; }
         public long ThreeStarCount { get; set; }
