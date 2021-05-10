@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Services.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -210,13 +210,13 @@ namespace Services.Migrations
                         column: x => x.UserDestinationRateId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Ratings_AspNetUsers_UserSourceRateId",
                         column: x => x.UserSourceRateId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -238,13 +238,13 @@ namespace Services.Migrations
                         column: x => x.UserDestinationReportId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Reports_AspNetUsers_UserSourceReportId",
                         column: x => x.UserSourceReportId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,7 +258,9 @@ namespace Services.Migrations
                     TwoStarCount = table.Column<long>(nullable: false),
                     ThreeStarCount = table.Column<long>(nullable: false),
                     FourStarCount = table.Column<long>(nullable: false),
-                    FiveStarCount = table.Column<long>(nullable: false)
+                    FiveStarCount = table.Column<long>(nullable: false),
+                    ReportString = table.Column<string>(nullable: true),
+                    ReportDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -268,7 +270,7 @@ namespace Services.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -300,7 +302,7 @@ namespace Services.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

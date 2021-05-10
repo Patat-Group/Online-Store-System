@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Helpers;
 
-namespace Core.Interfaces
+namespace Interfaces.Core
 {
     public interface IGenericRepository<T, TKey>
     {
-        public Task<IReadOnlyList<T>> GetAll();
+        public Task<IReadOnlyList<T>> GetALl();
+        public Task<PagedList<T>> GetALlWithPaging(ProductParams? productParams);
         public Task<T> GetById(TKey id);
         public Task<bool> Delete(TKey id);
         public Task<bool> Add(T entity);

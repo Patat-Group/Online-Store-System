@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -31,6 +28,12 @@ namespace API
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     await context.Database.MigrateAsync();
                     await UserSeed.SeedUserAsync(userManager,context);
+                    await CategorySeed.SeedCategory(context);
+                    await SubCategorySeed.SeedSubCategory(context);
+                    await VIPAdsSeed.SeedVIPAds(context);
+                    await ProductSeed.SeedProductAsync(context);
+                    await ProductImagesSeed.SeedProductImages(context);
+                    
                 }
                 catch (Exception e)
                 {

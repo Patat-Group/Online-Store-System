@@ -1,0 +1,34 @@
+﻿[
+  {
+    "Name":"Asus 223",
+    "ShortDescription": "Best laptop in the world.",
+    "LongDescription" : "Best laptop in the worldBest laptop in the worldBest laptop in the worldBest laptop in the world",
+    "Price": 99.6,
+    "CategoryId" : 1,
+    "UserId" : "fb6bf348-4414-4109-9e1a-4e34cf55d589"   
+  },
+  {
+    "Name" : "Lenovo 223",
+    "ShortDescription": "Best laptop in the world.",
+    "LongDescription" : "Best laptop in the worldBest laptop in the worldBest laptop in the worldBest laptop in the world",
+    "Price": 99.6,
+    "CategoryId" : 1,
+    "UserId" : "fb6bf348-4414-4109-9e1a-4e34cf55d589"
+  },
+  {
+    "Name" : "Learn C#",
+    "ShortDescription": "Best book in the world.",
+    "LongDescription" : "Best book in the worldBest book in the worldBest book in the worldBest book in the world",
+    "Price": 69.6,
+    "CategoryId" : 2,
+    "UserId" : "15518586-537c-4a6f-b94e-f69f8ddd83a7"
+  },
+  {
+    "Name" : "Learn Attack Of Titen",
+    "ShortDescription": "Best book in the world.",
+    "LongDescription" : "Best book in the worldBest book in the worldBest book in the worldBest book in the world",
+    "Price": 23.6,
+    "CategoryId" : 2,
+    "UserId" : "e961895a-c093-4595-b891-f9bcf921f7c1"
+  }
+]

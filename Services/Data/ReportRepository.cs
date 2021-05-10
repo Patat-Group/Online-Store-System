@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using SQLitePCL;
 
 namespace Services.Data
 {

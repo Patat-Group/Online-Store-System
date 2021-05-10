@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs.ProductDtos;
+using API.Helpers;
 using AutoMapper;
 using Core.Entities;
-using Core.Interfaces;
+using Interfaces.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -30,11 +31,12 @@ namespace API.Controllers
 
         // Need Refactor..
         [HttpGet]
-        public async Task<IReadOnlyList<ProductsToReturnDto>> GetProducts()
+        public async Task<IReadOnlyList<ProductsToReturnDto>> GetProducts([FromQuery] ProductParams? productParams)
         {
-            var products = await _productRepo.GetAll();
-            var productForReturn = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
-            
+            var products = await _productRepo.GetALlWithPaging(productParams);
+            var productForReturn = _mapper
+                .Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
+
             return productForReturn;
         }
 
@@ -72,7 +74,7 @@ namespace API.Controllers
             return BadRequest("Error happen when adding product");
         }
 
-        // Need Edit
+        // Need Refactor..
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductForUpdateDto entity)
         {
@@ -92,7 +94,7 @@ namespace API.Controllers
                 product.IsSold = entity.IsSold;
             if (entity.Name != null)
                 product.Name = entity.Name;
-            if (entity.Price != 0.0)
+            if (Math.Abs(entity.Price) > 0.0)
                 product.Price = entity.Price;
             if (entity.LongDescription != null)
                 product.LongDescription = entity.LongDescription;

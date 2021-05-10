@@ -1,8 +1,6 @@
-using API.Extensions;
 using API.Helpers;
 using AutoMapper;
 using Core.Entities;
-using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,8 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Services;
 using Services.Data;
+using API.Extensions;
+using Core.Interfaces;
+using Services;
 
 namespace API
 {
@@ -53,9 +53,11 @@ namespace API
             app.UseRouting();
             
             app.UseStaticFiles();
-	        app.UseAuthentication();
+                
+            app.UseAuthentication();
+
             app.UseAuthorization();
-            
+                
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

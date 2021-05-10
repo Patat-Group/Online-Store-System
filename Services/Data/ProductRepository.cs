@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using API.Helpers;
 using Core.Entities;
-using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,13 +18,22 @@ namespace Services.Data
             _context = context;
         }
 
-        public async Task<IReadOnlyList<Product>> GetAll()
+        public async Task<IReadOnlyList<Product>> GetALl()
         {
             var products = await _context.Products
                 .Include(im => im.Images)
                 .ToListAsync();
-
             return products;
+        }
+
+        public async Task<PagedList<Product>> GetALlWithPaging(ProductParams? productParams)
+        {
+            var products = _context.Products
+                .Include(im => im.Images)
+                .AsQueryable();
+
+            return await PagedList<Product>.CreatePagingListAsync(products, productParams.PageNumber,
+                productParams.PageSize);
         }
 
         public async Task<Product> GetById(int id)
@@ -60,68 +71,6 @@ namespace Services.Data
                 return true;
             return false;
         }
-
-        // public async Task<bool> AddImage(int productId, ProductImage productImage)
-        // {
-        //     if (productImage == null) return false;
-        //     var product = await GetById(productId);
-        //     if (product == null) return false;
-        //     
-        //     var image =new ProductImage()
-        //     {
-        //         Id =productImage.Id,
-        //         DateAdded = DateTime.Now,
-        //         ProductId = product.Id,
-        //         ImageUrl = productImage.ImageUrl,
-        //         IsMainPhoto = productImage.IsMainPhoto
-        //     };
-        //
-        //     // var images = await GetAllImages(productId);
-        //     // bool flag = false;
-        //     // foreach (var item in images)
-        //     // {
-        //     //     if (item.IsMainPhoto == true && item.Id != productImage.Id)
-        //     //         flag = true;
-        //     // }
-        //     // if (flag) image.IsMainPhoto = false;
-        //     
-        //     if(await SaveChanges())
-        //         return true;
-        //     return false;
-        // }
-        //
-        // public async Task<bool> DeleteImage(int id)
-        // {
-        //     var image = await _context.ProductImages
-        //         .FirstOrDefaultAsync(im => im.Id ==id);
-        //     if (image == null) return false;
-        //
-        //     _context.Remove(image);
-        //     if(await SaveChanges())
-        //         return true;
-        //     return false;
-        // }
-        //
-        // public async Task<IReadOnlyList<ProductImage>> GetAllImages(int productId)
-        // {
-        //     var images = await _context.ProductImages
-        //         .Where(pd =>pd.ProductId ==productId)
-        //         .ToListAsync();
-        //     return images;
-        // }
-        //
-        // public async Task<ProductImage> GetMainPhotoForProduct(int productId)
-        // {
-        //     var image = await _context.ProductImages
-        //         .FirstOrDefaultAsync(im =>im.ProductId ==productId && im.IsMainPhoto);
-        //     return image;
-        // }
-        // public async Task<ProductImage> GetImageById(int id)
-        // {
-        //     var image = await _context.ProductImages
-        //         .FirstOrDefaultAsync(im =>im.Id ==id);
-        //     return image;
-        // }
 
         public async Task<bool> SaveChanges()
         {

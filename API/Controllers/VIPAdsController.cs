@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using API.DTOs.VIPAdsDtos;
 using Core.Entities;
-using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +21,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IReadOnlyList<VIPAd>> GetAll()
         {
-            return await _vipRepo.GetAll();
+            return await _vipRepo.GetALl();
         }
 
         [HttpGet("{id}")]

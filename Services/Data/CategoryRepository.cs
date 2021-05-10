@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Helpers;
 using Core.Entities;
-using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,9 +17,14 @@ namespace Services.Data
             _context = context;
         }
 
-        public async Task<IReadOnlyList<Category>> GetAll()
+        public async Task<IReadOnlyList<Category>> GetALl()
         {
             return await _context.Categories.ToListAsync();
+        }
+
+        public Task<PagedList<Category>> GetALlWithPaging(ProductParams? productParams)
+        {
+            throw new System.NotImplementedException();
         }
 
         public async Task<Category> GetById(int id)

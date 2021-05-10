@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Helpers;
 using Core.Entities;
-using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,11 +16,17 @@ namespace Services.Data
             _context = context;
         }
 
-        public async Task<IReadOnlyList<VIPAd>> GetAll()
+        public async Task<IReadOnlyList<VIPAd>> GetALl()
         {
             var vipAds = await _context.VIPAds.ToListAsync();
             return vipAds;
         }
+
+        public Task<PagedList<VIPAd>> GetALlWithPaging(ProductParams? productParams)
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         public async Task<VIPAd> GetById(int id)
         {

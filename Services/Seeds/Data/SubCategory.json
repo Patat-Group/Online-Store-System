@@ -1,0 +1,22 @@
+﻿[
+  {
+    "name": "Mouse",
+    "categoryId": 1
+  },
+  {
+  "name": "Keyboard",
+  "categoryId": 1
+  },
+  {
+  "name": "IT",
+  "categoryId": 2
+  },
+  {
+  "name": "Romance",
+  "categoryId": 2
+  },
+  {
+  "name": "Anime",
+  "categoryId": 2
+  }
+]

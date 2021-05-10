@@ -5,7 +5,6 @@ using API.DTOs.CategoryDtos;
 using API.DTOs.SubCategoryDtos;
 using AutoMapper;
 using Core.Entities;
-using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +29,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IReadOnlyList<CategoryToReturnDto>> GetAll()
         {
-             var categories = await _categoryRepo.GetAll();
+             var categories = await _categoryRepo.GetALl();
              var data = _mapper.Map<IReadOnlyList<Category>, IReadOnlyList<CategoryToReturnDto>>(categories);
              return data.ToList();
         }
@@ -90,7 +89,7 @@ namespace API.Controllers
             var category = await _categoryRepo.GetById(categoryId);
             if (category == null)
                 return null;
-            var subCategories = await _subCategoryRepo.GetAll();
+            var subCategories = await _subCategoryRepo.GetALl();
             subCategories = subCategories.Where(x => x.CategoryId == categoryId).ToList();
             var subCategoriesToReturn = _mapper.Map<IReadOnlyList<SubCategory>,IReadOnlyList<SubCategoryToReturnDto>>(subCategories);
             return subCategoriesToReturn;

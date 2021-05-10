@@ -1,0 +1,14 @@
+﻿[
+  {
+    "name": "Asus",
+    "imageUrl": "images/ASUSAds.jpg"
+  },
+  {
+  "name": "Lenovo",
+  "imageUrl": "images/lenovoAds.jpg"
+  },
+  {
+  "Name": "Dell",
+  "imageUrl": "images/dellAds.jpg"
+  }
+]

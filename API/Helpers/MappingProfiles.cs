@@ -20,14 +20,13 @@ namespace API.Helpers
                 .ForMember(dest => dest.ImagesUrl,
                     opt => opt.MapFrom(
                         src => src.Images.ToList()));
-            CreateMap<ProductImage,ProductImagesForReturnDto>();
-            CreateMap<ProductImage,ProductImageForAddDto>().ReverseMap();
-	        CreateMap<User, UserToReturnDto>();
+            CreateMap<ProductImage, ProductImagesForReturnDto>();
+            CreateMap<ProductImage, ProductImageForAddDto>().ReverseMap();
+            CreateMap<User, UserToReturnDto>();
             CreateMap<User, UserUpdateInformationDto>().ReverseMap()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<UserRated, UserDetailedRateDto>();
             CreateMap<Report, ReportToReturnDto>();
-
         }
     }
 }

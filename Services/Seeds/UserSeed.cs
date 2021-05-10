@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -16,7 +15,7 @@ namespace Services.Seeds
         {
             if (!userManager.Users.Any())
             {
-                var usersData = File.ReadAllText("../Services/Seeds/Data/Users.json");
+                var usersData = await File.ReadAllTextAsync("../Services/Seeds/Data/Users.json");
                 var users = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(usersData);
                 foreach (var userData in users)
                 {

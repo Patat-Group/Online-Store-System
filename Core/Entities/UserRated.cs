@@ -1,4 +1,6 @@
-﻿namespace Core.Entities
+﻿using System;
+
+namespace Core.Entities
 {
     public class UserRated
     {
@@ -10,5 +12,7 @@
         public long ThreeStarCount { get; set; }
         public long FourStarCount { get; set; }
         public long FiveStarCount { get; set; }
+        public  string ReportString { get; set; }
+        public DateTime ReportDate { get; set; }
     }
 }

@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Services.Data
 {
-    public class UserRepository  :IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly StoreContext _context;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManger;
 
-        public UserRepository(StoreContext context,UserManager<User> userManager,SignInManager<User> signInManager)
+        public UserRepository(StoreContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _context = context;
             _userManger = userManager;
@@ -25,14 +25,14 @@ namespace Services.Data
         }
 
         public async Task<IReadOnlyList<User>> GetAll()
-        { 
+        {
             var users = await _context.Users.ToListAsync();
             return users;
         }
 
         public async Task<User> GetById(string id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u=>u.Id==id);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             return user;
         }
 
@@ -44,7 +44,7 @@ namespace Services.Data
 
         public async Task<User> GetByUserClaims(ClaimsPrincipal userClaimsPrincipal)
         {
-            var username =userClaimsPrincipal?.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
+            var username = userClaimsPrincipal?.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName)?.Value;
             var user = await _userManger.FindByNameAsync(username);
             return user;
         }
@@ -55,13 +55,13 @@ namespace Services.Data
             return user;
         }
 
-        public async Task<bool> Login(User user,string password)
+        public async Task<bool> Login(User user, string password)
         {
-            var result = await _signInManager.CheckPasswordSignInAsync(user,password,false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, password, false);
             return result.Succeeded;
         }
 
-        public async Task<User> Register(string username,string email,string password)
+        public async Task<User> Register(string username, string email, string password)
         {
             var user = new User
             {

@@ -1,0 +1,32 @@
+﻿[
+  {
+    "ProductId": 1,
+    "ImageUrl" : "images/PAsus.jfif",
+    "IsMainPhoto": true
+  },
+  {
+    "ProductId": 1,
+    "ImageUrl" : "images/PAsus2.jpeg",
+    "IsMainPhoto": false
+  },
+  {
+    "ProductId": 2,
+    "ImageUrl" : "images/pLenovo1.jpg",
+    "IsMainPhoto": true
+  },
+  {
+    "ProductId": 2,
+    "ImageUrl" : "images/PLenovo2.jfif",
+    "IsMainPhoto": false
+  },
+  {
+    "ProductId": 3,
+    "ImageUrl" : "images/PCsharp.jpg",
+    "IsMainPhoto": true
+  },
+  {
+    "ProductId": 4,
+    "ImageUrl" : "images/PAttack.jfif",
+    "IsMainPhoto": true
+  }
+]
