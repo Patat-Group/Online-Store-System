@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Services.Data;
 
@@ -12,8 +13,14 @@ namespace Services.Seeds
 {
     public class ProductSeed
     {
-        public static async Task SeedProductAsync(StoreContext context)
+        public static async Task SeedProductAsync(StoreContext context, UserManager<User> userManager)
         {
+            int counter =0;
+            List<string> userNames = new List<string>();
+            userNames.Add("Yaser01");
+            userNames.Add("Yaser02");
+            userNames.Add("Yaser03");
+
             if (!context.Products.Any())
             {
                 var productData = await File.ReadAllTextAsync("../Services/Seeds/Data/Product.json");
@@ -28,8 +35,11 @@ namespace Services.Seeds
                         Price = product.Price,
                         DateAdded = DateTime.UtcNow,
                         CategoryId = product.CategoryId,
-                        UserId = product.UserId,
                     };
+
+                    var user =await userManager.FindByNameAsync(userNames[counter]);
+                    counter ++;
+                    productForAdd.UserId =user.Id;
 
                     productForAdd.Category = await context.Categories
                         .FirstOrDefaultAsync(x => x.Id == productForAdd.CategoryId);
