@@ -7,6 +7,7 @@ using AutoMapper;
 using Core.Entities;
 using Interfaces.Core;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace API.Controllers
 {
@@ -18,15 +19,18 @@ namespace API.Controllers
         private readonly IGenericRepository<Product, int> _productRepo;
         private readonly IGenericRepository<Category, int> _categoryRepo;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _config;
 
         public ProductController(IGenericRepository<Product, int> productRepo,
             IGenericRepository<Category, int> categoryRepo,
-            IMapper mapper
+            IMapper mapper,
+            IConfiguration config
         )
         {
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
             _mapper = mapper;
+            _config = config;
         }
 
         // Need Refactor..
@@ -39,7 +43,7 @@ namespace API.Controllers
 
             return productForReturn;
         }
-
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {

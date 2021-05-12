@@ -9,7 +9,7 @@ using Services.Data;
 namespace Services.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20210508160058_InitialCreate")]
+    [Migration("20210512122405_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,25 @@ namespace Services.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Core.Entities.FavoriteProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavoriteProduct");
                 });
 
             modelBuilder.Entity("Core.Entities.Product", b =>
@@ -462,6 +481,13 @@ namespace Services.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Core.Entities.FavoriteProduct", b =>
+                {
+                    b.HasOne("Core.Entities.User", "User")
+                        .WithMany("FavoriteProducts")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Core.Entities.Product", b =>

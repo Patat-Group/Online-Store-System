@@ -34,6 +34,25 @@ namespace Services.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Core.Entities.FavoriteProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavoriteProduct");
+                });
+
             modelBuilder.Entity("Core.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -460,6 +479,13 @@ namespace Services.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Core.Entities.FavoriteProduct", b =>
+                {
+                    b.HasOne("Core.Entities.User", "User")
+                        .WithMany("FavoriteProducts")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Core.Entities.Product", b =>

@@ -193,6 +193,26 @@ namespace Services.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FavoriteProduct",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriteProduct", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FavoriteProduct_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ratings",
                 columns: table => new
                 {
@@ -400,6 +420,11 @@ namespace Services.Migrations
                 column: "Name");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FavoriteProduct_UserId",
+                table: "FavoriteProduct",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProductImages_ProductId",
                 table: "ProductImages",
                 column: "ProductId");
@@ -471,6 +496,9 @@ namespace Services.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "FavoriteProduct");
 
             migrationBuilder.DropTable(
                 name: "ProductImages");

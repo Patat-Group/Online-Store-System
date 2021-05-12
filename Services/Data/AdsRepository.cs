@@ -5,6 +5,7 @@ using Core.Entities;
 using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Services.Data
 {
     public class AdsRepository : IGenericRepository<VIPAd, int>
@@ -26,7 +27,6 @@ namespace Services.Data
         {
             throw new System.NotImplementedException();
         }
-
 
         public async Task<VIPAd> GetById(int id)
         {

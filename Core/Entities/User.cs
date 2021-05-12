@@ -24,5 +24,6 @@ namespace Core.Entities
         public ICollection<Report> UsersSourceReport { get; set; }
         public ICollection<Report> UsersDestinationReport { get; set; }
         public ICollection<Product> Products { get; set; }
+        public ICollection<FavoriteProduct> FavoriteProducts { get; set; }
     }
 }
