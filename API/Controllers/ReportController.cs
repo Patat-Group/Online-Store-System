@@ -24,13 +24,13 @@ namespace API.Controllers
             _reportRepo = reportRepo;
             _mapper = mapper;
         }
-        [HttpPost("report_user")]
+        [HttpPut]
         [Authorize]
-        public async Task<ActionResult>ReportUser([FromQuery] string username,[FromForm]string report)
+        public async Task<ActionResult>ReportUser([FromBody] ReportForCreationDto reportForCreationDto)
         {
-            var userReporter = await _userRepo.GetByUserClaims(HttpContext.User);
+            var userReporter = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (userReporter == null) return BadRequest("Bad Token");
-            var userReported= await _userRepo.GetByUsername(username);
+            var userReported= await _userRepo.GetUserByUsername(reportForCreationDto.Username);
             if (userReported == null) return BadRequest("User Not Found");
             if (userReporter.Id == userReported.Id) return BadRequest("You Can't Report Yourself");
             var lastReportDate = await _reportRepo.GetLastReportDate(userReporter.Id, userReported.Id);
@@ -40,7 +40,7 @@ namespace API.Controllers
             {
                 UserSourceReportId = userReporter.Id,
                 UserDestinationReportId = userReported.Id,
-                ReportString = report,
+                ReportString = reportForCreationDto.ReportString,
                 ReportDate = DateTime.Now
             };
             var result = await _reportRepo.AddReport(newReport);
@@ -48,7 +48,7 @@ namespace API.Controllers
                 return Ok("Report done successfully");
             return BadRequest("Error Occured While Reporting User");
         }
-        [HttpPost("get_all")]
+        [HttpGet("All")]
         public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>>GetAll()
         {
             var result = await _reportRepo.GetAll();
@@ -57,10 +57,10 @@ namespace API.Controllers
                 return Ok(reportsToReturn);
             return NotFound("No Reports");
         }
-        [HttpPost("get_all_reports_to_user")]
-        public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>>GetReportsToUser([FromQuery] string username)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>>GetReportsToUser(string username)
         {
-            var user= await _userRepo.GetByUsername(username);
+            var user= await _userRepo.GetUserByUsername(username);
             if (user == null) return BadRequest("User Not Found");
             var result = await _reportRepo.GetAllReportsByUserId(user.Id);
             var reportsToReturn=_mapper.Map<IReadOnlyList<Report>, IReadOnlyList<ReportToReturnDto>>(result);
@@ -68,10 +68,10 @@ namespace API.Controllers
                 return Ok(reportsToReturn);
             return NotFound("No Reports");
         }
-        [HttpPost("delete")]
-        public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>>GetReportsToUser([FromQuery]ReportToDelete reportToDelete)
+        [HttpDelete]
+        public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>>GetReportsToUser([FromBody]ReportToDeleteDto reportToDeleteDto)
         {
-            var result = await _reportRepo.DeleteReport(reportToDelete.Id);
+            var result = await _reportRepo.DeleteReport(reportToDeleteDto.Id);
             if (result)
                 return Ok("Report Deleting Succeeded");
             return BadRequest("Report Not Found");

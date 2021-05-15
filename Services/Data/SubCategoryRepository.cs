@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Helpers;
 using Core.Entities;
+using Core.Helpers;
+using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +18,12 @@ namespace Services.Data
             _context = context;
         }
 
-        public async Task<IReadOnlyList<SubCategory>> GetALl()
+        public async Task<IReadOnlyList<SubCategory>> GetAll()
         {
             return await _context.SubCategories.ToListAsync();
         }
 
-        public Task<PagedList<SubCategory>> GetALlWithPaging(ProductParams? productParams)
+        public Task<PagedList<SubCategory>> GetAllWithPaging(ProductParams? productParams)
         {
             throw new System.NotImplementedException();
         }

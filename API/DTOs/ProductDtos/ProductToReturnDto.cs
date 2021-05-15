@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace API.DTOs.ProductDtos
 {
-    public class ProductsToReturnDto
+    public class ProductToReturnDto
     {
         public string Name { get; set; }
         public string ShortDescription { get; set; }

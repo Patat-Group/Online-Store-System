@@ -57,8 +57,15 @@ namespace Services.Data
         }
         private async Task<bool> SaveChanges()
         {
-            var result = await _context.SaveChangesAsync();
-            return result > 0 ? true : false;
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

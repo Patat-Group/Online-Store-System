@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using API.DTOs.RatingDtos;
 using API.DTOs.UserDtos;
 using AutoMapper;
 using Core.Entities;
@@ -25,13 +27,21 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("give_rate")]
-        [Authorize]
-        public async Task<ActionResult> GiveRate([FromQuery] string username, int value)
+        [HttpGet("all")]
+        public async Task<ActionResult<IReadOnlyList<RatingToReturnDto>>> GetAllRatings()
         {
-            var userSourceRate = await _userRepo.GetByUserClaims(HttpContext.User);
+            var ratings = await _ratingRepo.GetAllRatings();
+            var ratingsToReturn = _mapper.Map<IReadOnlyList<Rating>, IReadOnlyList<RatingToReturnDto>>(ratings);
+            return Ok(ratingsToReturn);
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<ActionResult> GiveRate([FromBody] RatingForCreationDto ratingForCreationDto)
+        {
+            var userSourceRate = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (userSourceRate == null) return BadRequest("Bad Token");
-            var userDestinationRate = await _userRepo.GetByUsername(username);
+            var userDestinationRate = await _userRepo.GetUserByUsername(ratingForCreationDto.Username);
             if (userDestinationRate == null) return BadRequest("User Not Found");
             if (userSourceRate.Id == userDestinationRate.Id) return BadRequest("You Can't Rate Yourself");
             var resultRemoveOldRate =
@@ -41,20 +51,20 @@ namespace API.Controllers
             {
                 UserSourceRateId = userSourceRate.Id,
                 UserDestinationRateId = userDestinationRate.Id,
-                Star = (RatingStar) (value - 1),
+                Star = (RatingStar) (ratingForCreationDto.Value - 1),
             };
             var result = await _ratingRepo.GiveRate(newUserRate);
             if (result)
                 return Ok("Setting new rate done successfully");
             return BadRequest("Error Occured While Setting New Rate");
         }
-        [HttpPost("remove_rate")]
+        [HttpDelete("myrate/{username}")]
         [Authorize]
-        public async Task<ActionResult>RemoveRate([FromQuery] string username)
+        public async Task<ActionResult>RemoveRate(string username)
         {
-            var userFromRate = await _userRepo.GetByUserClaims(HttpContext.User);
+            var userFromRate = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (userFromRate == null) return BadRequest("Bad Token");
-            var userToRate = await _userRepo.GetByUsername(username);
+            var userToRate = await _userRepo.GetUserByUsername(username);
             if (userToRate == null) return BadRequest("User Not Found");
             if (userFromRate.Id == userToRate.Id) return BadRequest("You Can't Remove Your Own Rate");
             var result = await _ratingRepo.RemoveOldRateIfExists(userFromRate.Id, userToRate.Id);
@@ -62,54 +72,54 @@ namespace API.Controllers
                 return Ok("Removing rate done successfully");
             return BadRequest("Error Occured While Removing Rate");
         }
-        [HttpPost("get_detailed_rate")]
+        [HttpGet("myrate/details")]
         [Authorize]
         public async Task<ActionResult<UserDetailedRateDto>>GetDetailedRate()
         {
-            var user = await _userRepo.GetByUserClaims(HttpContext.User);
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (user == null) return BadRequest("Bad Token");
             var result = await _ratingRepo.GetDetailedRate(user.Id);
             var detailedRate=_mapper.Map<UserRated,UserDetailedRateDto>(result);
             return detailedRate;
         }
-        [HttpPost("get_rate")]
+        [HttpGet("myrate")]
         [Authorize]
         public async Task<ActionResult<double>>GetRateByClaims()
         {
-            var user = await _userRepo.GetByUserClaims(HttpContext.User);
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (user == null) return BadRequest("Bad Token");
             var rate= await GetRate(user);
             if (rate < 0)
                 return NotFound("User Not Rated Yet");
             return Ok(rate);
         }
-        [HttpPost("get_my_rate_to_user")]
+        [HttpGet("myrate/{username}")]
         [Authorize]
-        public async Task<ActionResult>GetMyRateToUser([FromQuery] string username)
+        public async Task<ActionResult>GetMyRateToUser(string username)
         {
-            var userFromRate = await _userRepo.GetByUserClaims(HttpContext.User);
+            var userFromRate = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (userFromRate == null) return BadRequest("Bad Token");
-            var userToRate = await _userRepo.GetByUsername(username);
+            var userToRate = await _userRepo.GetUserByUsername(username);
             if (userToRate == null) return BadRequest("User Not Found");
             if (userFromRate.Id == userToRate.Id) return BadRequest("You Can't Rate Yourself!!");
             var result = await _ratingRepo.GetMyRateToUser(userFromRate.Id, userToRate.Id);
             return result>0 ? Ok(result) : StatusCode(
                 404,"User Not Rated Yet");
         }
-        [HttpPost("get_rate_by_username")]
-        public async Task<ActionResult<double>>GetRateByUsername([FromQuery]string username)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<double>>GetRateByUsername(string username)
         {
-            var user = await _userRepo.GetByUsername(username);
+            var user = await _userRepo.GetUserByUsername(username);
             if (user == null) return BadRequest("User Not Found");
             var rate= await GetRate(user);
             if (rate < 0)
                 return NotFound("User Not Rated Yet");
             return Ok(rate);
         }
-        [HttpPost("get_detailed_rate_by_username")]
-        public async Task<ActionResult<UserDetailedRateDto>>GetDetailedRateByUsername([FromQuery]string username)
+        [HttpGet("details/{username}")]
+        public async Task<ActionResult<UserDetailedRateDto>>GetDetailedRateByUsername(string username)
         {
-            var user = await _userRepo.GetByUsername(username);
+            var user = await _userRepo.GetUserByUsername(username);
             if (user == null) return BadRequest("User Not Found");
             var result = await _ratingRepo.GetDetailedRate(user.Id);
             var detailedRate=_mapper.Map<UserRated,UserDetailedRateDto>(result);

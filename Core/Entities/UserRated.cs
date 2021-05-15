@@ -12,7 +12,5 @@ namespace Core.Entities
         public long ThreeStarCount { get; set; }
         public long FourStarCount { get; set; }
         public long FiveStarCount { get; set; }
-        public  string ReportString { get; set; }
-        public DateTime ReportDate { get; set; }
     }
 }

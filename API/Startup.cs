@@ -39,8 +39,10 @@ namespace API
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
+            services.AddScoped<IFavoriteProductRepository, FavoriteProductRepository>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddIdentityServices(_configuration);
+            
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

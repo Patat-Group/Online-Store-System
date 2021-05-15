@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using API.DTOs.ProductImagesDtos;
 using AutoMapper;
 using Core.Entities;
+using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.AspNetCore.Mvc;
 

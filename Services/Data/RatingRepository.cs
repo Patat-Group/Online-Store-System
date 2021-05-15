@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Entities;
 using Core.Entities.Enums;
 using Core.Interfaces;
@@ -14,6 +16,13 @@ namespace Services.Data
         {
             _context = context;
         }
+
+        public async Task<IReadOnlyList<Rating>> GetAllRatings()
+        {
+            var ratings = await _context.Ratings.ToListAsync();
+            return ratings;
+        }
+
         public async Task<bool> GiveRate(Rating rate)
         {
             var userDestinationTotalRating = await _context.UsersRated.SingleOrDefaultAsync(x =>
@@ -95,8 +104,15 @@ namespace Services.Data
         }
         private async Task<bool> SaveChanges()
         {
-            var result = await _context.SaveChangesAsync();
-            return result > 0 ? true : false;
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

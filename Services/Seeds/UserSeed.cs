@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using Services.Data;
+using Services.Seeds.DTOs;
 
 namespace Services.Seeds
 {
@@ -16,35 +18,31 @@ namespace Services.Seeds
             if (!userManager.Users.Any())
             {
                 var usersData = await File.ReadAllTextAsync("../Services/Seeds/Data/Users.json");
-                var users = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(usersData);
+                var users = JsonSerializer.Deserialize<List<UserSeedDataDto>>(usersData);
                 foreach (var userData in users)
                 {
+                    Console.WriteLine(userData.Username);
                     var user = new User
                     {
-                        UserName = userData["UserName"],
-                        Email = userData["Email"],
-                        EmailConfirmed = bool.Parse(userData["EmailConfirmed"]),
-                        Description = userData["Description"],
-                        PhoneNumber = userData["PhoneNumber"],
-                        FirstName = userData["FirstName"],
-                        LastName = userData["LastName"],
-                        Gender = userData["Gender"],
-                        Address = userData["Address"],
-                        PictureUrl = userData["PictureUrl"],
-                        FacebookUrl = userData["FacebookUrl"],
-                        WhatsappUrl = userData["WhatsappUrl"],
-                        TelegramUrl = userData["TelegramUrl"],
-                        DateCreated = System.DateTime.Now,
+                        UserName = userData.Username,
+                        Email = userData.Email,
+                        EmailConfirmed = bool.Parse(userData.EmailConfirmed),
+                        Description = userData.Description,
+                        PhoneNumber = userData.PhoneNumber,
+                        FirstName = userData.FirstName,
+                        LastName = userData.LastName,
+                        Gender = userData.Gender,
+                        Address = userData.Address,
+                        PictureUrl = userData.PictureUrl,
+                        FacebookUrl = userData.FacebookUrl,
+                        WhatsappUrl = userData.WhatsappUrl,
+                        TelegramUrl = userData.TelegramUrl,
+                        DateCreated = DateTime.Now,
                     };
-                    await userManager.CreateAsync(user, password: userData["Password"]);
+                    await userManager.CreateAsync(user,userData.Password);
                     var newUserRate = new UserRated
                     {
-                        UserId = (await userManager.FindByNameAsync(userData["UserName"])).Id,
-                        OneStarCount = 0,
-                        TwoStarCount = 0,
-                        ThreeStarCount = 0,
-                        FourStarCount = 0,
-                        FiveStarCount = 0,
+                        UserId = (await userManager.FindByNameAsync(userData.Username)).Id
                     };
                     await context.UsersRated.AddAsync(newUserRate);
                     await context.SaveChangesAsync();

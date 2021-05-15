@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Services.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -193,26 +193,6 @@ namespace Services.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FavoriteProduct",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(nullable: true),
-                    ProductId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FavoriteProduct", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FavoriteProduct_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Ratings",
                 columns: table => new
                 {
@@ -278,9 +258,7 @@ namespace Services.Migrations
                     TwoStarCount = table.Column<long>(nullable: false),
                     ThreeStarCount = table.Column<long>(nullable: false),
                     FourStarCount = table.Column<long>(nullable: false),
-                    FiveStarCount = table.Column<long>(nullable: false),
-                    ReportString = table.Column<string>(nullable: true),
-                    ReportDate = table.Column<DateTime>(nullable: false)
+                    FiveStarCount = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -322,7 +300,7 @@ namespace Services.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -341,6 +319,32 @@ namespace Services.Migrations
                         name: "FK_SubCategories_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FavoriteProducts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(nullable: true),
+                    ProductId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavoriteProducts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FavoriteProducts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FavoriteProducts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -420,8 +424,13 @@ namespace Services.Migrations
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavoriteProduct_UserId",
-                table: "FavoriteProduct",
+                name: "IX_FavoriteProducts_ProductId",
+                table: "FavoriteProducts",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteProducts_UserId",
+                table: "FavoriteProducts",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -498,7 +507,7 @@ namespace Services.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "FavoriteProduct");
+                name: "FavoriteProducts");
 
             migrationBuilder.DropTable(
                 name: "ProductImages");

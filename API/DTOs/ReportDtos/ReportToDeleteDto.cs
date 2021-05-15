@@ -2,7 +2,7 @@
 
 namespace API.DTOs.ReportDtos
 {
-    public class ReportToDelete
+    public class ReportToDeleteDto
     {
         [Required]
         public int Id { get; set; }

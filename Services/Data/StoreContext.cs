@@ -4,19 +4,21 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Services.Data
 {
-    public class StoreContext : IdentityDbContext<User, Role, string>
+    public class StoreContext : IdentityDbContext<User>
     {
         public StoreContext(DbContextOptions options) : base(options)
         {
+            
         }
 
         public DbSet<Product> Products { get; set; }
+        
+        public DbSet<FavoriteProduct> FavoriteProducts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<VIPAd> VIPAds { get; set; }
         public DbSet<UserRated> UsersRated { get; set; }
 
@@ -47,9 +49,33 @@ namespace Services.Data
                 .WithMany(ur => ur.UsersSourceReport)
                 .HasForeignKey(fk => fk.UserDestinationReportId)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.User)
+                .WithMany(ur => ur.Products)
+                .HasForeignKey(fk => fk.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<FavoriteProduct>()
+                .HasOne(p => p.User)
+                .WithMany(ur => ur.FavoriteProducts)
+                .HasForeignKey(fk => fk.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<FavoriteProduct>()
+                .HasOne(p => p.Product)
+                .WithMany(ur => ur.FavoritedByUsers)
+                .HasForeignKey(fk => fk.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<Category>()
                 .Property(n => n.Name).IsRequired().IsUnicode();
+            modelBuilder.Entity<Report>().Property(s => s.ReportString).IsUnicode();
+            modelBuilder.Entity<User>().Property(f => f.FirstName).IsUnicode();
+            modelBuilder.Entity<User>().Property(l => l.LastName).IsUnicode();
+            modelBuilder.Entity<User>().Property(d => d.Description).IsUnicode();
+            modelBuilder.Entity<User>().Property(a => a.Address).IsUnicode();
+            modelBuilder.Entity<Product>().Property(ld =>ld.LongDescription ).IsUnicode();
+            modelBuilder.Entity<Product>().Property(sd =>sd.ShortDescription ).IsUnicode();
+            modelBuilder.Entity<Product>().Property(n =>n.Name ).IsUnicode();
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.UserName);

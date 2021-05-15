@@ -48,6 +48,8 @@ namespace Services.Seeds
 
                     await context.AddAsync(productForAdd);
                     await context.SaveChangesAsync();
+                    if (counter == userNames.Count)
+                        counter = 0;
                 }
             }
         }

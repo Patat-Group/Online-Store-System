@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Helpers;
 using Core.Entities;
+using Core.Helpers;
+using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +19,7 @@ namespace Services.Data
             _context = context;
         }
 
-        public async Task<IReadOnlyList<Product>> GetALl()
+        public async Task<IReadOnlyList<Product>> GetAll()
         {
             var products = await _context.Products
                 .Include(im => im.Images)
@@ -26,7 +27,7 @@ namespace Services.Data
             return products;
         }
 
-        public async Task<PagedList<Product>> GetALlWithPaging(ProductParams? productParams)
+        public async Task<PagedList<Product>> GetAllWithPaging(ProductParams? productParams)
         {
             var products = _context.Products
                 .Include(im => im.Images)

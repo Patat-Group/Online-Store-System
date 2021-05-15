@@ -1,10 +1,12 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs.ProductDtos;
-using API.Helpers;
 using AutoMapper;
 using Core.Entities;
+using Core.Helpers;
+using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -35,11 +37,11 @@ namespace API.Controllers
 
         // Need Refactor..
         [HttpGet]
-        public async Task<IReadOnlyList<ProductsToReturnDto>> GetProducts([FromQuery] ProductParams? productParams)
+        public async Task<IReadOnlyList<ProductToReturnDto>> GetProducts([FromQuery] ProductParams? productParams)
         {
-            var products = await _productRepo.GetALlWithPaging(productParams);
+            var products = await _productRepo.GetAllWithPaging(productParams);
             var productForReturn = _mapper
-                .Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
+                .Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
 
             return productForReturn;
         }
@@ -49,7 +51,7 @@ namespace API.Controllers
         {
             var product = await _productRepo.GetById(id);
 
-            var productForReturn = _mapper.Map<ProductsToReturnDto>(product);
+            var productForReturn = _mapper.Map<ProductToReturnDto>(product);
             return Ok(productForReturn);
         }
 

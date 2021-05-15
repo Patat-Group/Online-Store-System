@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using API.DTOs.VIPAdsDtos;
 using AutoMapper;
 using Core.Entities;
+using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IReadOnlyList<VIPAdsForRetutrnAdsDto>> GetAll()
         {
-            var images = await _vipRepo.GetALl();
+            var images = await _vipRepo.GetAll();
             var imagesToReturn = _mapper.Map<IReadOnlyList<VIPAd> , IReadOnlyList<VIPAdsForRetutrnAdsDto>>(images);
             return imagesToReturn;
         }

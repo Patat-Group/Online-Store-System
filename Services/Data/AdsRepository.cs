@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Helpers;
 using Core.Entities;
+using Core.Helpers;
+using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,13 +19,13 @@ namespace Services.Data
             _context = context;
         }
 
-        public async Task<IReadOnlyList<VIPAd>> GetALl()
+        public async Task<IReadOnlyList<VIPAd>> GetAll()
         {
             var vipAds = await _context.VIPAds.ToListAsync();
             return vipAds;
         }
 
-        public Task<PagedList<VIPAd>> GetALlWithPaging(ProductParams? productParams)
+        public Task<PagedList<VIPAd>> GetAllWithPaging(ProductParams? productParams)
         {
             throw new System.NotImplementedException();
         }

@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using API.DTOs.CategoryDtos;
+using API.DTOs.FavoriteProductDtos;
 using API.DTOs.ProductDtos;
 using API.DTOs.ProductImagesDtos;
+using API.DTOs.RatingDtos;
 using API.DTOs.ReportDtos;
 using API.DTOs.SubCategoryDtos;
 using API.DTOs.UserDtos;
@@ -18,7 +20,7 @@ namespace API.Helpers
         {
             CreateMap<Category, CategoryToReturnDto>();
             CreateMap<SubCategory, SubCategoryToReturnDto>();
-            CreateMap<Product, ProductsToReturnDto>()
+            CreateMap<Product, ProductToReturnDto>()
                 .ForMember(dest => dest.ImagesUrl,
                     opt => opt.MapFrom(
                         src => src.Images.Select(x => apiUrl + x.ImageUrl).ToList()));
@@ -30,6 +32,8 @@ namespace API.Helpers
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<UserRated, UserDetailedRateDto>();
             CreateMap<Report, ReportToReturnDto>();
+            CreateMap<Rating, RatingToReturnDto>();
+            CreateMap<FavoriteProduct, FavoriteProductToReturnDto>();
             CreateMap<VIPAd, VIPAdsForRetutrnAdsDto>()
                 .ForMember(dest => dest.ImageUrl, src => src.MapFrom<VIPAdsImagesUrlResolver>());
         }

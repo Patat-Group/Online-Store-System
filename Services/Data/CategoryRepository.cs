@@ -1,8 +1,9 @@
 ﻿#nullable enable
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Helpers;
 using Core.Entities;
+using Core.Helpers;
+using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +18,12 @@ namespace Services.Data
             _context = context;
         }
 
-        public async Task<IReadOnlyList<Category>> GetALl()
+        public async Task<IReadOnlyList<Category>> GetAll()
         {
             return await _context.Categories.ToListAsync();
         }
 
-        public Task<PagedList<Category>> GetALlWithPaging(ProductParams? productParams)
+        public Task<PagedList<Category>> GetAllWithPaging(ProductParams? productParams)
         {
             throw new System.NotImplementedException();
         }

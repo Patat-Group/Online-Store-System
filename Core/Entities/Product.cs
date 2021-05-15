@@ -19,5 +19,6 @@ namespace Core.Entities
         public Category Category { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
+        public ICollection<FavoriteProduct> FavoritedByUsers { get; set; }
     }
 }

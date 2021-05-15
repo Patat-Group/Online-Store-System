@@ -48,9 +48,11 @@ namespace Services.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductId");
+
                     b.HasIndex("UserId");
 
-                    b.ToTable("FavoriteProduct");
+                    b.ToTable("FavoriteProducts");
                 });
 
             modelBuilder.Entity("Core.Entities.Product", b =>
@@ -69,17 +71,20 @@ namespace Services.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LongDescription")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .IsUnicode(true);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .IsUnicode(true);
 
                     b.Property<double>("Price")
                         .HasColumnType("REAL");
 
                     b.Property<string>("ShortDescription")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .IsUnicode(true);
 
                     b.Property<string>("UserId")
                         .HasColumnType("TEXT");
@@ -154,7 +159,8 @@ namespace Services.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ReportString")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .IsUnicode(true);
 
                     b.Property<string>("UserDestinationReportId")
                         .HasColumnType("TEXT");
@@ -169,32 +175,6 @@ namespace Services.Migrations
                     b.HasIndex("UserSourceReportId");
 
                     b.ToTable("Reports");
-                });
-
-            modelBuilder.Entity("Core.Entities.Role", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("Core.Entities.SubCategory", b =>
@@ -227,7 +207,8 @@ namespace Services.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .IsUnicode(true);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -237,7 +218,8 @@ namespace Services.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .IsUnicode(true);
 
                     b.Property<string>("Email")
                         .HasColumnType("TEXT")
@@ -250,13 +232,15 @@ namespace Services.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .IsUnicode(true);
 
                     b.Property<string>("Gender")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .IsUnicode(true);
 
                     b.Property<DateTime>("LastSeen")
                         .HasColumnType("TEXT");
@@ -337,12 +321,6 @@ namespace Services.Migrations
                     b.Property<long>("OneStarCount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("ReportDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ReportString")
-                        .HasColumnType("TEXT");
-
                     b.Property<long>("ThreeStarCount")
                         .HasColumnType("INTEGER");
 
@@ -377,6 +355,32 @@ namespace Services.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VIPAds");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -483,9 +487,16 @@ namespace Services.Migrations
 
             modelBuilder.Entity("Core.Entities.FavoriteProduct", b =>
                 {
+                    b.HasOne("Core.Entities.Product", "Product")
+                        .WithMany("FavoritedByUsers")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Core.Entities.User", "User")
                         .WithMany("FavoriteProducts")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Core.Entities.Product", b =>
@@ -498,7 +509,8 @@ namespace Services.Migrations
 
                     b.HasOne("Core.Entities.User", "User")
                         .WithMany("Products")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Core.Entities.ProductImage", b =>
@@ -554,7 +566,7 @@ namespace Services.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Core.Entities.Role", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -581,7 +593,7 @@ namespace Services.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Core.Entities.Role", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
