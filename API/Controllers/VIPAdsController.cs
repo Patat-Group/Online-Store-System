@@ -5,6 +5,7 @@ using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Interfaces.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -14,12 +15,14 @@ namespace API.Controllers
     public class VIPAdsController : ControllerBase
     {
         private readonly IGenericRepository<VIPAd, int> _vipRepo;
-
+        private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
 
-        public VIPAdsController(IGenericRepository<VIPAd, int> vipRepo, IMapper mapper)
+        public VIPAdsController(IGenericRepository<VIPAd, int> vipRepo,
+            IUserRepository _userRepo, IMapper mapper)
         {
             _vipRepo = vipRepo;
+            _userRepo = _userRepo;
             _mapper = mapper;
         }
 
@@ -27,7 +30,7 @@ namespace API.Controllers
         public async Task<IReadOnlyList<VIPAdsForRetutrnAdsDto>> GetAll()
         {
             var images = await _vipRepo.GetAll();
-            var imagesToReturn = _mapper.Map<IReadOnlyList<VIPAd> , IReadOnlyList<VIPAdsForRetutrnAdsDto>>(images);
+            var imagesToReturn = _mapper.Map<IReadOnlyList<VIPAd>, IReadOnlyList<VIPAdsForRetutrnAdsDto>>(images);
             return imagesToReturn;
         }
 
@@ -35,22 +38,29 @@ namespace API.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var vipAd = await _vipRepo.GetById(id);
-            var imageToReturn =_mapper.Map<VIPAdsForRetutrnAdsDto>(vipAd);
+            var imageToReturn = _mapper.Map<VIPAdsForRetutrnAdsDto>(vipAd);
             if (vipAd != null) return Ok(imageToReturn);
             return BadRequest("This Ads is not exist");
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             if (await _vipRepo.Delete(id))
                 return Ok();
             return BadRequest("Error happen when remove Ads");
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddAds(VIPAdsForCreationDto entity)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
 
             var vipAd = new VIPAd()
             {
@@ -68,8 +78,12 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> Update(int id, [FromBody] VIPAdsForUpdateDto entity)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             var vipAd = await _vipRepo.GetById(id);
             if (vipAd == null) return BadRequest("This Ad is not exist");
             vipAd.Name = entity.Name;

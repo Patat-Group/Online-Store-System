@@ -7,9 +7,8 @@ using AutoMapper;
 using Core.Entities;
 using Core.Helpers;
 using Core.Interfaces;
-using Interfaces.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace API.Controllers
 {
@@ -21,18 +20,19 @@ namespace API.Controllers
         private readonly IGenericRepository<Product, int> _productRepo;
         private readonly IGenericRepository<Category, int> _categoryRepo;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _config;
+        private readonly IUserRepository _userRepo;
+
 
         public ProductController(IGenericRepository<Product, int> productRepo,
             IGenericRepository<Category, int> categoryRepo,
             IMapper mapper,
-            IConfiguration config
+             IUserRepository userRepo
         )
         {
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
             _mapper = mapper;
-            _config = config;
+            _userRepo = userRepo;
         }
 
         // Need Refactor..
@@ -44,22 +44,31 @@ namespace API.Controllers
                 .Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
 
             return productForReturn;
+
+            throw new Exception("Error happen when get products, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
-        
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
+
             var product = await _productRepo.GetById(id);
 
             var productForReturn = _mapper.Map<ProductToReturnDto>(product);
             return Ok(productForReturn);
+
+            throw new Exception("Error happen when get product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         // Need Edit
         [HttpPost("{userId}/addProduct/{categoryId}")]
+        [Authorize]
         public async Task<IActionResult> AddProduct(string userId, int categoryId,
             [FromBody] ProductForCreationDto entity)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             if (await _categoryRepo.GetById(categoryId) == null)
                 return BadRequest("Category is not exist");
 
@@ -77,13 +86,18 @@ namespace API.Controllers
             if (await _productRepo.Add(product) == true)
                 return Ok();
 
-            return BadRequest("Error happen when adding product");
+
+            throw new Exception("Error happen when Add product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         // Need Refactor..
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductForUpdateDto entity)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             var product = await _productRepo.GetById(id);
             if (product == null)
                 return BadRequest(@"you can't update product not exist");
@@ -109,15 +123,21 @@ namespace API.Controllers
 
             if (await _productRepo.Update(product) == true)
                 return Ok();
-            return BadRequest("Error happen when updating product");
+
+            throw new Exception("Error happen when update product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct(int id)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             if (await _productRepo.Delete(id) == true)
                 return Ok("Done");
-            return BadRequest("Error happen when deleting product");
+
+            throw new Exception("Error happen when delete product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
     }
 }

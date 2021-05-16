@@ -18,7 +18,7 @@ namespace API.Controllers
         private readonly IReportRepository _reportRepo;
         private readonly IMapper _mapper;
 
-        public ReportController(IUserRepository userRepo,IReportRepository reportRepo, IMapper mapper)
+        public ReportController(IUserRepository userRepo, IReportRepository reportRepo, IMapper mapper)
         {
             _userRepo = userRepo;
             _reportRepo = reportRepo;
@@ -26,11 +26,12 @@ namespace API.Controllers
         }
         [HttpPut]
         [Authorize]
-        public async Task<ActionResult>ReportUser([FromBody] ReportForCreationDto reportForCreationDto)
+        public async Task<ActionResult> ReportUser([FromBody] ReportForCreationDto reportForCreationDto)
         {
             var userReporter = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (userReporter == null) return BadRequest("Bad Token");
-            var userReported= await _userRepo.GetUserByUsername(reportForCreationDto.Username);
+            if (userReporter == null) return Unauthorized("User is Unauthorized");
+            
+            var userReported = await _userRepo.GetUserByUsername(reportForCreationDto.Username);
             if (userReported == null) return BadRequest("User Not Found");
             if (userReporter.Id == userReported.Id) return BadRequest("You Can't Report Yourself");
             var lastReportDate = await _reportRepo.GetLastReportDate(userReporter.Id, userReported.Id);
@@ -46,31 +47,39 @@ namespace API.Controllers
             var result = await _reportRepo.AddReport(newReport);
             if (result)
                 return Ok("Report done successfully");
-            return BadRequest("Error Occured While Reporting User");
+
+            throw new Exception("Error Occured While Reporting User, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
+
         [HttpGet("All")]
-        public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>>GetAll()
+        public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>> GetAll()
         {
             var result = await _reportRepo.GetAll();
-            var reportsToReturn=_mapper.Map<IReadOnlyList<Report>, IReadOnlyList<ReportToReturnDto>>(result);
-            if (result.Count>0)
+            var reportsToReturn = _mapper.Map<IReadOnlyList<Report>, IReadOnlyList<ReportToReturnDto>>(result);
+            if (result.Count > 0)
                 return Ok(reportsToReturn);
             return NotFound("No Reports");
         }
+
         [HttpGet("{username}")]
-        public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>>GetReportsToUser(string username)
+        public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>> GetReportsToUser(string username)
         {
-            var user= await _userRepo.GetUserByUsername(username);
+            var user = await _userRepo.GetUserByUsername(username);
             if (user == null) return BadRequest("User Not Found");
             var result = await _reportRepo.GetAllReportsByUserId(user.Id);
-            var reportsToReturn=_mapper.Map<IReadOnlyList<Report>, IReadOnlyList<ReportToReturnDto>>(result);
-            if (result.Count>0)
+            var reportsToReturn = _mapper.Map<IReadOnlyList<Report>, IReadOnlyList<ReportToReturnDto>>(result);
+            if (result.Count > 0)
                 return Ok(reportsToReturn);
             return NotFound("No Reports");
         }
+
         [HttpDelete]
-        public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>>GetReportsToUser([FromBody]ReportToDeleteDto reportToDeleteDto)
+        [Authorize]
+        public async Task<ActionResult<IReadOnlyList<ReportToReturnDto>>> GetReportsToUser([FromBody] ReportToDeleteDto reportToDeleteDto)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             var result = await _reportRepo.DeleteReport(reportToDeleteDto.Id);
             if (result)
                 return Ok("Report Deleting Succeeded");

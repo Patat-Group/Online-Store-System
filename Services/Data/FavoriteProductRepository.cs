@@ -45,7 +45,6 @@ namespace Services.Data
                 .Include(img=>img.Product.Images)
                 .AsQueryable();
 
-
             return await PagedList<FavoriteProduct>.CreatePagingListAsync(favoriteProduct, productParams.PageNumber,
                 productParams.PageSize);
         }
@@ -57,7 +56,6 @@ namespace Services.Data
                 .Include(p=>p.Product)
                 .Include(img=>img.Product.Images)
                 .AsQueryable();
-
 
             return await PagedList<FavoriteProduct>.CreatePagingListAsync(favoriteProduct, productParams.PageNumber,
                 productParams.PageSize);

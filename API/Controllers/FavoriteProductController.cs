@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs.FavoriteProductDtos;
@@ -14,6 +15,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/favorite")]
+    [Authorize]
     public class FavoriteProductController : ControllerBase
     {
         private readonly IFavoriteProductRepository _favoriteRepo;
@@ -29,24 +31,32 @@ namespace API.Controllers
             _userRepo = userRepo;
             _mapper = mapper;
         }
+        
         [HttpGet("all")]
-        public async Task<IReadOnlyList<FavoriteProductToReturnDto>> GetAllFavoritesWithPaging([FromQuery] ProductParams? productParams)
+        public async Task<IReadOnlyList<FavoriteProductToReturnDto>?> GetAllFavoritesWithPaging([FromQuery] ProductParams? productParams)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return null;
+
             var favorites = await _favoriteRepo.GetAllWithPaging(productParams);
             var favoritesToReturn =
                 _mapper.Map<IReadOnlyList<FavoriteProduct>, IReadOnlyList<FavoriteProductToReturnDto>>(favorites);
             return favoritesToReturn;
+            throw new Exception("Error happen when get From Favorite, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
+
         [HttpGet("myFavorite/all")]
         [Authorize]
         public async Task<ActionResult<IReadOnlyList<FavoriteProductToReturnDto>>> GetAllFavoritesByUser([FromQuery] ProductParams? productParams)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return BadRequest("Bad User Token");
-            var favorites = await _favoriteRepo.GetAllByUserIdWithPaging(user.Id,productParams);
+            if (user == null) return Unauthorized("User is Unauthorized");
+
+            var favorites = await _favoriteRepo.GetAllByUserIdWithPaging(user.Id, productParams);
             var favoritesToReturn =
                 _mapper.Map<IReadOnlyList<FavoriteProduct>, IReadOnlyList<FavoriteProductToReturnDto>>(favorites);
             return Ok(favoritesToReturn);
+            throw new Exception("Error happen when get From Favorite, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         [HttpPut("product/{productId}")]
@@ -54,11 +64,12 @@ namespace API.Controllers
         public async Task<ActionResult> AddToFavorite(int productId)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return BadRequest("Bad User Token");
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             var product = await _productRepo.GetById(productId);
             if (product == null) return BadRequest("Bad Product Id");
             var favoriteProduct = await _favoriteRepo.Get(user.Id, productId);
-            if (favoriteProduct!= null) return BadRequest("Already In Favorites");
+            if (favoriteProduct != null) return BadRequest("Already In Favorites");
             var newFavoriteProduct = new FavoriteProduct
             {
                 UserId = user.Id,
@@ -67,33 +78,37 @@ namespace API.Controllers
             var result = await _favoriteRepo.Add(newFavoriteProduct);
             if (result)
                 return Ok("Add To Favorite Succeeded");
-            return BadRequest("Error Happen When adding to Favorites");
+            throw new Exception("Error happen when adding From Favorite, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
+
         [HttpDelete("product/{productId}")]
         [Authorize]
         public async Task<ActionResult> DeleteFromFavorite(int productId)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return BadRequest("Bad User Token");
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             var product = await _productRepo.GetById(productId);
             if (product == null) return BadRequest("Bad Product Id");
             var favoriteProduct = await _favoriteRepo.Get(user.Id, productId);
-            if (favoriteProduct== null) return BadRequest("this product isn't favorited by this user");
+            if (favoriteProduct == null) return BadRequest("this product isn't favorited by this user");
             var result = await _favoriteRepo.Delete(favoriteProduct);
             if (result)
                 return Ok("Deleting From Favorite Succeeded");
-            return BadRequest("Error Happen When Deleting From Favorite");
+            throw new Exception("Error happen when Deleting From Favorite, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
+
         [HttpPost("product/{productId}")]
         [Authorize]
         public async Task<ActionResult> CheckIfFavoritedByUser(int productId)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return BadRequest("Bad User Token");
+            if (user == null) return Unauthorized("User is Unauthorized");
+            
             var product = await _productRepo.GetById(productId);
             if (product == null) return BadRequest("Bad Product Id");
             var favoriteProduct = await _favoriteRepo.Get(user.Id, productId);
-            return Ok(favoriteProduct== null ? "false" : "True");
+            return Ok(favoriteProduct == null ? "false" : "True");
         }
     }
 }

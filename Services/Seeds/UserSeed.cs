@@ -13,7 +13,7 @@ namespace Services.Seeds
 {
     public class UserSeed
     {
-        public static async Task SeedUserAsync(UserManager<User> userManager,StoreContext context)
+        public static async Task SeedUserAsync(UserManager<User> userManager, StoreContext context)
         {
             if (!userManager.Users.Any())
             {
@@ -39,7 +39,7 @@ namespace Services.Seeds
                         TelegramUrl = userData.TelegramUrl,
                         DateCreated = DateTime.Now,
                     };
-                    await userManager.CreateAsync(user,userData.Password);
+                    await userManager.CreateAsync(user, userData.Password);
                     var newUserRate = new UserRated
                     {
                         UserId = (await userManager.FindByNameAsync(userData.Username)).Id

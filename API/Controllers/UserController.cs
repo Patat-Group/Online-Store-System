@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs.UserDtos;
 using AutoMapper;
@@ -11,8 +8,6 @@ using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Hosting.Internal;
-using Services.Data;
 
 namespace API.Controllers
 {
@@ -39,23 +34,26 @@ namespace API.Controllers
             return Ok(usersToReturn);
         }
 
-        [HttpDelete("All")]
-        public async Task<ActionResult> DeleteAllUsers()
-        {
-            var users = await _userRepo.GetAllUsers();
-            foreach (var user in users)
-                await _userRepo.DeleteByUsername(user.UserName);
-            return Ok("Delete All users Succeeded");
-        }
+        // We not have admin now for this method .
+        // [HttpDelete("All")]
+        // [Authorize]
+        // public async Task<ActionResult> DeleteAllUsers()
+        // {
+        //     var users = await _userRepo.GetAllUsers();
+        //     foreach (var user in users)
+        //         await _userRepo.DeleteByUsername(user.UserName);
+        //     return Ok("Delete All users Succeeded");
+        // }
 
         [HttpGet]
         [Authorize]
         public async Task<ActionResult<UserToReturnDto>> GetCurrentUser()
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return BadRequest("Bad User Token");
+            if (user == null) return Unauthorized("User is Unauthorized");
             var userForReturn = _mapper.Map<User, UserToReturnDto>(user);
             return userForReturn;
+            throw new Exception("Error Occured when Get Current User, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         [HttpGet("{username}")]
@@ -65,6 +63,7 @@ namespace API.Controllers
             if (user == null) return BadRequest("User Not Found");
             var userForReturn = _mapper.Map<User, UserToReturnDto>(user);
             return userForReturn;
+            throw new Exception("Error Occured when Get User Details, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         [HttpPut]
@@ -73,12 +72,13 @@ namespace API.Controllers
             [FromBody] UserUpdateInformationDto userUpdateInformationDto)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return BadRequest("Bad User Token");
+            if (user == null) return Unauthorized("User is Unauthorized");
             _mapper.Map(userUpdateInformationDto, user);
             var result = await _userRepo.UpdateUser(user);
             if (result)
                 return Ok("Update Succeeded");
-            return BadRequest("Error Happen When Update");
+
+            throw new Exception("Error Happen When Update User, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         [HttpPut("password")]
@@ -87,7 +87,7 @@ namespace API.Controllers
             [FromBody] UserChangePasswordDto userChangePasswordDto)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return BadRequest("Bad User Token");
+            if (user == null) return Unauthorized("User is Unauthorized");
             var checkIfOldPasswordCorrect = await _userRepo.Login(user, userChangePasswordDto.CurrentPassword);
             if (checkIfOldPasswordCorrect == false) return BadRequest("Current Password Is Wrong");
             var checkIfNewPasswordValid = await _userRepo.ValidatePassword(userChangePasswordDto.NewPassword);
@@ -98,7 +98,8 @@ namespace API.Controllers
                 userChangePasswordDto.NewPassword);
             if (result)
                 return Ok("Password Update Succeeded");
-            return BadRequest("Error Happen When Updating The Password");
+
+            throw new Exception("Error Happen When Updating The Password, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         [HttpGet("emailExist")]
@@ -118,6 +119,7 @@ namespace API.Controllers
 
 
         [HttpDelete("{username}")]
+        [Authorize]
         public async Task<ActionResult> DeleteUser(string username)
         {
             if ((await CheckIfUsernameExist(username)).Value == false)
@@ -126,6 +128,8 @@ namespace API.Controllers
             if (result)
                 return Ok("user deleting Succeeded");
             return BadRequest("Error Happen When Deleting User");
+            throw new Exception("Error Happen When Deleting User, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+
         }
 
         [HttpPost("login")]
@@ -173,7 +177,7 @@ namespace API.Controllers
                 };
             }
 
-            return BadRequest("Error In Creating User");
+            throw new Exception("Error In Creating User, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
     }
 }

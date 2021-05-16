@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using API.DTOs.ProductImagesDtos;
@@ -6,6 +7,7 @@ using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using Interfaces.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -16,13 +18,15 @@ namespace API.Controllers
     {
         private readonly IImageRepository _imageRepository;
         private readonly IGenericRepository<Product, int> _productRepo;
+        private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
 
         public ProductImageController(IImageRepository imageRepository,
-            IGenericRepository<Product, int> productRepo, IMapper mapper)
+            IGenericRepository<Product, int> productRepo, IUserRepository _userRepo, IMapper mapper)
         {
             _imageRepository = imageRepository;
             _productRepo = productRepo;
+            _userRepo = _userRepo;
             _mapper = mapper;
         }
 
@@ -45,8 +49,12 @@ namespace API.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddImage(int productId, [FromForm] ProductImageForAddDto entity)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             var product = await _productRepo.GetById(productId);
             if (product == null)
                 return BadRequest("You can't add image for product not exist.");
@@ -73,20 +81,28 @@ namespace API.Controllers
             if (await _imageRepository.AddImage(imageForAdd))
                 return Ok();
 
-            return BadRequest("Error happen when add photo to your product.");
+            throw new Exception("Error happen when add photo to your product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");   
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> SetImageMain(int id)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             if (await _imageRepository.SetMainImage(id))
                 return Ok();
-            return BadRequest("Error when set image main.");
+            throw new Exception("Error happen when set image main, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteImage(int id)
         {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
+
             var image = await _imageRepository.GetImageById(id);
 
             if (System.IO.File.Exists("wwwroot" + image.ImageUrl))
@@ -96,7 +112,7 @@ namespace API.Controllers
 
             if (await _imageRepository.DeleteImage(id))
                 return Ok();
-            return BadRequest("Error when remove image.");
+            throw new Exception("Error happen when remove image, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
     }
 }

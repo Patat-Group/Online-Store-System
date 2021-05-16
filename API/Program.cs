@@ -27,18 +27,17 @@ namespace API
                     var context = services.GetRequiredService<StoreContext>();
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     await context.Database.MigrateAsync();
-                    await UserSeed.SeedUserAsync(userManager,context);
+                    await UserSeed.SeedUserAsync(userManager, context);
                     await CategorySeed.SeedCategory(context);
                     await SubCategorySeed.SeedSubCategory(context);
                     await VIPAdsSeed.SeedVIPAds(context);
-                    await ProductSeed.SeedProductAsync(context,userManager);
+                    await ProductSeed.SeedProductAsync(context, userManager);
                     await ProductImagesSeed.SeedProductImages(context);
-                    
                 }
                 catch (Exception e)
                 {
                     var logger = loggerFactory.CreateLogger<Program>();
-                    logger.LogError(e,"error happen in migration");
+                    logger.LogError(e, "error happen in migration");
                 }
             }
             host.Run();
