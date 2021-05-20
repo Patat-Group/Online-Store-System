@@ -21,8 +21,7 @@ namespace Services.Seeds
                 {
                     var subCategoryForAdd = new SubCategory
                     {
-                        Name = subCategory.Name,
-                        CategoryId = subCategory.CategoryId
+                        Name = subCategory.Name.ToLower()
                     };
 
                     await context.AddAsync(subCategoryForAdd);

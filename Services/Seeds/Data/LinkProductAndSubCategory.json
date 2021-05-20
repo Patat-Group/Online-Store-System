@@ -1,0 +1,22 @@
+[
+    {
+        "ProductId": 1,
+        "SubCategoryId": 1
+    },
+    {
+        "ProductId": 2,
+        "SubCategoryId": 1
+    },
+    {
+        "ProductId": 3,
+        "SubCategoryId": 2
+    },
+    {
+        "ProductId": 4,
+        "SubCategoryId": 4
+    },
+    {
+        "ProductId": 5,
+        "SubCategoryId": 6
+    }
+]

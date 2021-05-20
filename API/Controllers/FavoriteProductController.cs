@@ -33,12 +33,12 @@ namespace API.Controllers
         }
         
         [HttpGet("all")]
-        public async Task<IReadOnlyList<FavoriteProductToReturnDto>?> GetAllFavoritesWithPaging([FromQuery] ProductParams? productParams)
+        public async Task<IReadOnlyList<FavoriteProductToReturnDto>?> GetAllFavoritesWithSpec([FromQuery] ProductParams? productParams)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (user == null) return null;
 
-            var favorites = await _favoriteRepo.GetAllWithPaging(productParams);
+            var favorites = await _favoriteRepo.GetAllWithSpec(productParams);
             var favoritesToReturn =
                 _mapper.Map<IReadOnlyList<FavoriteProduct>, IReadOnlyList<FavoriteProductToReturnDto>>(favorites);
             return favoritesToReturn;
@@ -52,7 +52,7 @@ namespace API.Controllers
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (user == null) return Unauthorized("User is Unauthorized");
 
-            var favorites = await _favoriteRepo.GetAllByUserIdWithPaging(user.Id, productParams);
+            var favorites = await _favoriteRepo.GetAllByUserIdWithSpec(user.Id, productParams);
             var favoritesToReturn =
                 _mapper.Map<IReadOnlyList<FavoriteProduct>, IReadOnlyList<FavoriteProductToReturnDto>>(favorites);
             return Ok(favoritesToReturn);

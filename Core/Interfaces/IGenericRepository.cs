@@ -8,7 +8,7 @@ namespace Core.Interfaces
     public interface IGenericRepository<T, TKey>
     {
         public Task<IReadOnlyList<T>> GetAll();
-        public Task<PagedList<T>> GetAllWithPaging(ProductParams? productParams);
+        public Task<PagedList<T>> GetAllWithSpec(ProductParams? productParams);
         public Task<T> GetById(TKey id);
         public Task<bool> Delete(TKey id);
         public Task<bool> Add(T entity);

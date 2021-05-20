@@ -19,10 +19,10 @@ namespace API.Controllers
         private readonly IMapper _mapper;
 
         public VIPAdsController(IGenericRepository<VIPAd, int> vipRepo,
-            IUserRepository _userRepo, IMapper mapper)
+            IUserRepository userRepo, IMapper mapper)
         {
             _vipRepo = vipRepo;
-            _userRepo = _userRepo;
+            _userRepo = userRepo;
             _mapper = mapper;
         }
 

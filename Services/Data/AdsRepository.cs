@@ -25,7 +25,7 @@ namespace Services.Data
             return vipAds;
         }
 
-        public Task<PagedList<VIPAd>> GetAllWithPaging(ProductParams? productParams)
+        public Task<PagedList<VIPAd>> GetAllWithSpec(ProductParams? productParams)
         {
             throw new System.NotImplementedException();
         }

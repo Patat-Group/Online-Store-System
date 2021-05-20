@@ -1,6 +1,6 @@
-﻿namespace API.DTOs.CategoryDtos
+namespace API.DTOs.SubCategoryDtos
 {
-    public class CategoryToReturnDto
+    public class SubCategoryForAddDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -37,15 +37,17 @@ namespace API
 
             services.AddScoped<IGenericRepository<Product, int>, ProductRepository>();
             services.AddScoped<IGenericRepository<VIPAd, int>, AdsRepository>();
-            services.AddScoped<IGenericRepository<Category, int>, CategoryRepository>();
             services.AddScoped<IGenericRepository<SubCategory, int>, SubCategoryRepository>();
             services.AddScoped<IImageRepository, ProductImageRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISubCategoriesAndProduct, SubCategoriesAndProduct>();
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
             services.AddScoped<IFavoriteProductRepository, FavoriteProductRepository>();
             services.AddScoped<ITokenService, TokenService>();
+
             services.AddIdentityServices(_configuration);
+
             services.AddSwaggerGen(opt =>
             {
                 opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Ptata Project", Version = "1.0" });
@@ -64,7 +66,7 @@ namespace API
                     }
                 };
 
-                opt.AddSecurityDefinition("Bearer" , securitySchema);
+                opt.AddSecurityDefinition("Bearer", securitySchema);
                 var securityRequirement = new OpenApiSecurityRequirement
                 {
                     {securitySchema , new [] {"Bearer"}}
@@ -110,8 +112,7 @@ namespace API
             app.UseSwaggerUI(config =>
             {
                 config.SwaggerEndpoint("../swagger/v1/swagger.json", "Ptata Project v1");
-            // config.RoutePrefix = string.Empty;
-        });
+            });
 
             app.UseEndpoints(endpoints =>
             {

@@ -9,6 +9,6 @@ namespace API.DTOs.ProductDtos
         public string LongDescription { get; set; } = null;
         public double Price { get; set; } = 0.0;
         public bool IsSold { get; set; } = false;
-        public int CategoryId { get; set; } = 0;
+        public string CategoryName { get; set; }
     }
 }

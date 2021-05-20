@@ -11,16 +11,9 @@ namespace API.DTOs.ProductImagesDtos
             DateAdded = DateTime.UtcNow;
         }
 
-        [Required] 
-        public int ProductId { get; set; }
-
-        [Required]
-        public string ImageUrl { get; set; }
-
         [Required]
         public IFormFile File { get; set; }
 
-        public bool IsMainPhoto { get; set; } = false;
-        public DateTime DateAdded { get; set; }
+        public DateTime DateAdded { get; }
     }
 }

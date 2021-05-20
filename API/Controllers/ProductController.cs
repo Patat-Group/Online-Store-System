@@ -12,34 +12,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    // Need Edit..
     [Route("api/Product")]
     [ApiController]
     public class ProductController : ControllerBase
     {
         private readonly IGenericRepository<Product, int> _productRepo;
-        private readonly IGenericRepository<Category, int> _categoryRepo;
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepo;
 
 
-        public ProductController(IGenericRepository<Product, int> productRepo,
-            IGenericRepository<Category, int> categoryRepo,
-            IMapper mapper,
-             IUserRepository userRepo
-        )
+        public ProductController(IGenericRepository<Product, int> productRepo, IMapper mapper, IUserRepository userRepo)
         {
             _productRepo = productRepo;
-            _categoryRepo = categoryRepo;
             _mapper = mapper;
             _userRepo = userRepo;
         }
 
-        // Need Refactor..
         [HttpGet]
         public async Task<IReadOnlyList<ProductToReturnDto>> GetProducts([FromQuery] ProductParams? productParams)
         {
-            var products = await _productRepo.GetAllWithPaging(productParams);
+            var products = await _productRepo.GetAllWithSpec(productParams);
             var productForReturn = _mapper
                 .Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
 
@@ -60,37 +52,30 @@ namespace API.Controllers
             throw new Exception("Error happen when get product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
-        // Need Edit
-        [HttpPost("{userId}/addProduct/{categoryId}")]
+        [HttpPost("addProduct")]
         [Authorize]
-        public async Task<IActionResult> AddProduct(string userId, int categoryId,
-            [FromBody] ProductForCreationDto entity)
+        public async Task<IActionResult> AddProduct([FromBody] ProductForCreationDto entity)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (user == null) return Unauthorized("User is Unauthorized");
 
-            if (await _categoryRepo.GetById(categoryId) == null)
-                return BadRequest("Category is not exist");
-
             var product = new Product()
             {
-                Name = entity.Name,
+                Name = entity.Name.ToLower(),
                 Price = entity.Price,
                 LongDescription = entity.LongDescription,
                 ShortDescription = entity.ShortDescription,
+                CategoryName = entity.CategoryName.ToLower(),
                 DateAdded = entity.DateAdded,
-                CategoryId = categoryId,
-                UserId = userId
+                UserId = user.Id
             };
 
             if (await _productRepo.Add(product) == true)
                 return Ok();
 
-
             throw new Exception("Error happen when Add product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
-        // Need Refactor..
         [HttpPut("{id}")]
         [Authorize]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductForUpdateDto entity)
@@ -102,18 +87,16 @@ namespace API.Controllers
             if (product == null)
                 return BadRequest(@"you can't update product not exist");
 
-            if (entity.CategoryId != 0)
-            {
-                var category = await _categoryRepo.GetById(entity.CategoryId);
-                if (category == null)
-                    return BadRequest(@"you can't update category not exist for product");
-                product.CategoryId = entity.CategoryId;
-            }
+            if (product.UserId != user.Id)
+                return Unauthorized("You cannot Update a product owned by another user");
 
+
+            if (entity.CategoryName != null)
+                product.CategoryName = entity.CategoryName.ToLower();
             if (entity.IsSold != false)
                 product.IsSold = entity.IsSold;
             if (entity.Name != null)
-                product.Name = entity.Name;
+                product.Name = entity.Name.ToLower();
             if (Math.Abs(entity.Price) > 0.0)
                 product.Price = entity.Price;
             if (entity.LongDescription != null)
@@ -133,6 +116,13 @@ namespace API.Controllers
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (user == null) return Unauthorized("User is Unauthorized");
+
+            var product = await _productRepo.GetById(id);
+            if (product == null)
+                return BadRequest(@"you can't delete product not exist");
+
+            if (product.UserId != user.Id)
+                return Unauthorized("You cannot Delete a product owned by another user");
 
             if (await _productRepo.Delete(id) == true)
                 return Ok("Done");

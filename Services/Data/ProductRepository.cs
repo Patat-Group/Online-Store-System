@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Core.Entities;
 using Core.Helpers;
 using Core.Interfaces;
-using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Services.Data
@@ -27,11 +26,63 @@ namespace Services.Data
             return products;
         }
 
-        public async Task<PagedList<Product>> GetAllWithPaging(ProductParams? productParams)
+        public async Task<PagedList<Product>> GetAllWithSpec(ProductParams? productParams)
         {
             var products = _context.Products
                 .Include(im => im.Images)
                 .AsQueryable();
+
+            products = products.OrderByDescending(d => d.DateAdded);
+
+            if (!string.IsNullOrEmpty(productParams.CategoryNameFilter))
+            {
+                products = _context.Products
+                .Include(im => im.Images)
+                .AsQueryable();
+
+                products = products.Where(c => c.CategoryName == productParams.CategoryNameFilter);
+
+
+                if (!string.IsNullOrEmpty(productParams.SubCategoryNameFilter))
+                {
+                    var subCategory = await _context.SubCategories
+                        .FirstOrDefaultAsync(n => n.Name == productParams.SubCategoryNameFilter.ToLower());
+                    if (subCategory != null)
+                    {
+                        var productsBySubCategory = _context.productAndSubCategories
+                            .Where(i => i.SubCategoryId == subCategory.Id);
+
+                        if (productsBySubCategory != null)
+                        {
+                            products = products.Where(x => productsBySubCategory.Any(e => e.ProductId == x.Id));
+                        }
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(productParams.Search))
+            {
+                products = _context.Products
+                .Include(im => im.Images)
+                .AsQueryable();
+
+                products = products.Where(p => p.Name.Contains(productParams.Search.ToLower()));
+            }
+
+            if (productParams.SortByLowerPrice)
+            {
+                products = products.OrderBy(p => p.Price);
+            }
+
+            if (productParams.SortByNewest)
+            {
+                products = products.OrderByDescending(d => d.DateAdded);
+            }
+
+            if (productParams.SortByHigerPrice)
+            {
+                products = products.OrderByDescending(p => p.Price);
+            }
 
             return await PagedList<Product>.CreatePagingListAsync(products, productParams.PageNumber,
                 productParams.PageSize);

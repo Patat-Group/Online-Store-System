@@ -21,7 +21,7 @@ namespace Services.Seeds
                 {
                     var vipAdForAdd = new VIPAd
                     {
-                        Name = vipAd.Name,
+                        Name = vipAd.Name.ToLower(),
                         ImageUrl = vipAd.ImageUrl,
                         DateAdded = DateTime.UtcNow
                     };

@@ -24,7 +24,7 @@ namespace API.Controllers
             _userRepo = userRepo;
             _mapper = mapper;
             _tokenService = tokenService;
-        }
+        } 
 
         [HttpGet("All")]
         public async Task<ActionResult<IReadOnlyList<UserToReturnDto>>> GetAllUsers()
@@ -117,7 +117,6 @@ namespace API.Controllers
             return user != null;
         }
 
-
         [HttpDelete("{username}")]
         [Authorize]
         public async Task<ActionResult> DeleteUser(string username)
@@ -166,6 +165,7 @@ namespace API.Controllers
             if (checkIfPasswordValid == false)
                 return BadRequest(
                     "BadPassword\nPassword Must Have at least one:{digit,Uppercase letter,Lowercase letter} and length 6 or more}");
+
             var user = await _userRepo.Register(registerDto.Username, registerDto.Email, registerDto.Password);
             if (user != null)
             {

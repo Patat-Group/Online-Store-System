@@ -38,7 +38,7 @@ namespace Services.Data
             return favoriteProduct;
         }
 
-        public async Task<PagedList<FavoriteProduct>> GetAllWithPaging(ProductParams? productParams)
+        public async Task<PagedList<FavoriteProduct>> GetAllWithSpec(ProductParams? productParams)
         {
             var favoriteProduct = _context.FavoriteProducts
                 .Include(p=>p.Product)
@@ -49,7 +49,7 @@ namespace Services.Data
                 productParams.PageSize);
         }
 
-        public async Task<PagedList<FavoriteProduct>> GetAllByUserIdWithPaging(string userId, ProductParams? productParams)
+        public async Task<PagedList<FavoriteProduct>> GetAllByUserIdWithSpec(string userId, ProductParams? productParams)
         {
             var favoriteProduct = _context.FavoriteProducts
                 .Where(u=>u.UserId==userId)

@@ -1,22 +1,23 @@
 ﻿[
   {
-    "Name": "Mouse",
-    "CategoryId": 1
+    "Name": "Laptops"
   },
   {
-  "Name": "Keyboard",
-  "CategoryId": 1
+    "Name": "Mouse"
   },
   {
-  "Name": "IT",
-  "CategoryId": 2
+    "Name": "Keyboard"
   },
   {
-  "Name": "Romance",
-  "CategoryId": 2
+    "Name": "IT"
   },
   {
-  "Name": "Anime",
-  "CategoryId": 2
+    "Name": "Romance"
+  },
+  {
+    "Name": "Anime"
+  },
+  {
+    "Name": "Learn"
   }
 ]

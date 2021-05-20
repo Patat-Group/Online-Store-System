@@ -15,7 +15,7 @@ namespace Services.Seeds
     {
         public static async Task SeedProductAsync(StoreContext context, UserManager<User> userManager)
         {
-            int counter =0;
+            int counter = 0;
             List<string> userNames = new List<string>();
             userNames.Add("Yaser01");
             userNames.Add("Yaser02");
@@ -29,20 +29,18 @@ namespace Services.Seeds
                 {
                     var productForAdd = new Product()
                     {
-                        Name = product.Name,
+                        Name = product.Name.ToLower(),
                         ShortDescription = product.ShortDescription,
                         LongDescription = product.LongDescription,
                         Price = product.Price,
                         DateAdded = DateTime.UtcNow,
-                        CategoryId = product.CategoryId,
+                        CategoryName = product.CategoryName.ToLower(),
                     };
 
-                    var user =await userManager.FindByNameAsync(userNames[counter]);
-                    counter ++;
-                    productForAdd.UserId =user.Id;
+                    var user = await userManager.FindByNameAsync(userNames[counter]);
+                    counter++;
+                    productForAdd.UserId = user.Id;
 
-                    productForAdd.Category = await context.Categories
-                        .FirstOrDefaultAsync(x => x.Id == productForAdd.CategoryId);
                     productForAdd.User = await context.Users
                         .FirstOrDefaultAsync(x => x.Id == productForAdd.UserId);
 

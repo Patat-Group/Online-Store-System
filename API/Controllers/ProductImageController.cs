@@ -22,11 +22,11 @@ namespace API.Controllers
         private readonly IMapper _mapper;
 
         public ProductImageController(IImageRepository imageRepository,
-            IGenericRepository<Product, int> productRepo, IUserRepository _userRepo, IMapper mapper)
+            IGenericRepository<Product, int> productRepo, IUserRepository userRepo, IMapper mapper)
         {
             _imageRepository = imageRepository;
             _productRepo = productRepo;
-            _userRepo = _userRepo;
+            _userRepo = userRepo;
             _mapper = mapper;
         }
 
@@ -43,6 +43,8 @@ namespace API.Controllers
         public async Task<ActionResult<ProductImagesForReturnDto>> GetImage(int id)
         {
             var image = await _imageRepository.GetImageById(id);
+            if (image == null)
+                return NotFound("this image is not exist.");
             var imageForReturn = _mapper.Map<ProductImagesForReturnDto>(image);
             return imageForReturn;
         }
@@ -59,6 +61,9 @@ namespace API.Controllers
             if (product == null)
                 return BadRequest("You can't add image for product not exist.");
 
+            if (product.UserId != user.Id)
+                return Unauthorized("You cannot add an image product owned by another user");
+
             var images = await _imageRepository.GetAllImagesForProduct(productId);
             if (images.Count == 4)
                 return BadRequest("Sorry, you can't add more than 4 images to your product.");
@@ -72,16 +77,16 @@ namespace API.Controllers
             await file.CopyToAsync(stream);
             await stream.DisposeAsync();
 
-            entity.ImageUrl = path.Substring(7);
-            entity.ProductId = product.Id;
-            if (images.Count == 0)
-                entity.IsMainPhoto = true;
-
             var imageForAdd = _mapper.Map<ProductImage>(entity);
+            imageForAdd.ProductId = productId;
+            if (images.Count == 0)
+                imageForAdd.IsMainPhoto = true;
+            imageForAdd.ImageUrl = path.Substring(7);
+
             if (await _imageRepository.AddImage(imageForAdd))
                 return Ok();
 
-            throw new Exception("Error happen when add photo to your product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");   
+            throw new Exception("Error happen when add photo to your product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         [HttpPut("{id}")]
@@ -90,6 +95,12 @@ namespace API.Controllers
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (user == null) return Unauthorized("User is Unauthorized");
+
+            var image = await _imageRepository.GetImageById(id);
+            var product = await _productRepo.GetById(image.ProductId);
+
+            if (product.UserId != user.Id)
+                return Unauthorized("You cannot Update an image product owned by another user");
 
             if (await _imageRepository.SetMainImage(id))
                 return Ok();
@@ -104,6 +115,10 @@ namespace API.Controllers
             if (user == null) return Unauthorized("User is Unauthorized");
 
             var image = await _imageRepository.GetImageById(id);
+            var product = await _productRepo.GetById(image.ProductId);
+
+            if (product.UserId != user.Id)
+                return Unauthorized("You cannot Delete an image product owned by another user");
 
             if (System.IO.File.Exists("wwwroot" + image.ImageUrl))
                 System.IO.File.Delete("wwwroot" + image.ImageUrl);

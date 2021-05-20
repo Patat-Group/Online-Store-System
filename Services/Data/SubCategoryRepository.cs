@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Helpers;
 using Core.Interfaces;
-using Interfaces.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Services.Data
@@ -23,7 +21,7 @@ namespace Services.Data
             return await _context.SubCategories.ToListAsync();
         }
 
-        public Task<PagedList<SubCategory>> GetAllWithPaging(ProductParams? productParams)
+        public Task<PagedList<SubCategory>> GetAllWithSpec(ProductParams? productParams)
         {
             throw new System.NotImplementedException();
         }

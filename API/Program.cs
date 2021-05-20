@@ -28,11 +28,11 @@ namespace API
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     await context.Database.MigrateAsync();
                     await UserSeed.SeedUserAsync(userManager, context);
-                    await CategorySeed.SeedCategory(context);
                     await SubCategorySeed.SeedSubCategory(context);
                     await VIPAdsSeed.SeedVIPAds(context);
                     await ProductSeed.SeedProductAsync(context, userManager);
                     await ProductImagesSeed.SeedProductImages(context);
+                    await ProductLinkSubCategory.SeedProductLinkSubCategoriesAsync(context);
                 }
                 catch (Exception e)
                 {

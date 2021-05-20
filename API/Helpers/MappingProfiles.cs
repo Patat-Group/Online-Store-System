@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using API.DTOs.CategoryDtos;
 using API.DTOs.FavoriteProductDtos;
+using API.DTOs.ProductAndSubCategoryDtos;
 using API.DTOs.ProductDtos;
 using API.DTOs.ProductImagesDtos;
 using API.DTOs.RatingDtos;
@@ -18,8 +18,8 @@ namespace API.Helpers
         string apiUrl = @"http://localhost:5000/";
         public MappingProfiles()
         {
-            CreateMap<Category, CategoryToReturnDto>();
             CreateMap<SubCategory, SubCategoryToReturnDto>();
+            CreateMap<SubCategoryForAddDto, SubCategory>();
             CreateMap<Product, ProductToReturnDto>()
                 .ForMember(dest => dest.ImagesUrl,
                     opt => opt.MapFrom(
@@ -36,6 +36,7 @@ namespace API.Helpers
             CreateMap<FavoriteProduct, FavoriteProductToReturnDto>();
             CreateMap<VIPAd, VIPAdsForRetutrnAdsDto>()
                 .ForMember(dest => dest.ImageUrl, src => src.MapFrom<VIPAdsImagesUrlResolver>());
+            CreateMap<ProductAndSubCategoryForAddDto, ProductAndSubCategory>();
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Core.Interfaces
     {
         public Task<IReadOnlyList<FavoriteProduct>> GetAll();
         public Task<IReadOnlyList<FavoriteProduct>> GetAllByUserId(string userId);
-        public Task<PagedList<FavoriteProduct>> GetAllWithPaging(ProductParams? productParams);
-        public Task<PagedList<FavoriteProduct>> GetAllByUserIdWithPaging(string userId,ProductParams? productParams);
+        public Task<PagedList<FavoriteProduct>> GetAllWithSpec(ProductParams? productParams);
+        public Task<PagedList<FavoriteProduct>> GetAllByUserIdWithSpec(string userId,ProductParams? productParams);
         public Task<FavoriteProduct?> Get(string userId, int productId);
         public Task<bool> Delete(FavoriteProduct favoriteProduct);
         public Task<bool> Add(FavoriteProduct favoriteProduct);
