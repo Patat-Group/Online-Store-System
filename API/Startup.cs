@@ -74,6 +74,7 @@ namespace API
                 opt.AddSecurityRequirement(securityRequirement);
             });
 
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -101,6 +102,11 @@ namespace API
             }
 
             app.UseRouting();
+            
+            app.UseCors(x =>x.WithOrigins("https://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials());
 
             app.UseStaticFiles();
 

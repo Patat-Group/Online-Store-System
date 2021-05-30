@@ -12,9 +12,9 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggleCollapsed(): void {
+ toggleCollapsed(): void {
     this.collapsed = !this.collapsed;3
     console.log("sdfsdf")
   }
 
-}
+} 
