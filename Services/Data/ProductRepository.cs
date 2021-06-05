@@ -30,23 +30,33 @@ namespace Services.Data
         {
             var products = _context.Products
                 .Include(im => im.Images)
+                .Include(us => us.User)
                 .AsQueryable();
 
             products = products.OrderByDescending(d => d.DateAdded);
+            products = products.Where(p => p.IsSold == false);
 
-            if (!string.IsNullOrEmpty(productParams.CategoryNameFilter))
+            if (productParams.CategoryIdFilter != 0)
             {
                 products = _context.Products
                 .Include(im => im.Images)
+                .Include(us => us.User)
                 .AsQueryable();
 
-                products = products.Where(c => c.CategoryName == productParams.CategoryNameFilter);
+                if (productParams.CategoryIdFilter != 0)
+                {
+                    var category = await _context.Categories
+                        .FirstOrDefaultAsync(x => x.Id == productParams.CategoryIdFilter);
+                    if (category != null)
+                    {
+                        products = products.Where(c => c.CategoryId == category.Id);
+                    }
+                }
 
-
-                if (!string.IsNullOrEmpty(productParams.SubCategoryNameFilter))
+                if (productParams.SubCategoryIdFilter != 0)
                 {
                     var subCategory = await _context.SubCategories
-                        .FirstOrDefaultAsync(n => n.Name == productParams.SubCategoryNameFilter.ToLower());
+                        .FirstOrDefaultAsync(n => n.Id == productParams.SubCategoryIdFilter);
                     if (subCategory != null)
                     {
                         var productsBySubCategory = _context.productAndSubCategories
@@ -64,6 +74,7 @@ namespace Services.Data
             {
                 products = _context.Products
                 .Include(im => im.Images)
+                .Include(us => us.User)
                 .AsQueryable();
 
                 products = products.Where(p => p.Name.Contains(productParams.Search.ToLower()));
@@ -83,6 +94,24 @@ namespace Services.Data
             {
                 products = products.OrderByDescending(p => p.Price);
             }
+
+            return await PagedList<Product>.CreatePagingListAsync(products, productParams.PageNumber,
+                productParams.PageSize);
+        }
+
+
+
+
+        public async Task<PagedList<Product>> GetProductsByCategory(int categoryId, ProductParams? productParams)
+        {
+            var products = _context.Products
+                .Include(im => im.Images)
+                .Include(us => us.User)
+                .AsQueryable();
+
+            products = products.Where(c => c.CategoryId == categoryId);
+            products = products.OrderByDescending(d => d.DateAdded);
+            products = products.Where(p => p.IsSold == false);
 
             return await PagedList<Product>.CreatePagingListAsync(products, productParams.PageNumber,
                 productParams.PageSize);

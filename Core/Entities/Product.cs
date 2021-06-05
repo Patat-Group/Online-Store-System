@@ -15,11 +15,12 @@ namespace Core.Entities
         public bool IsSold { get; set; } = false;
         public DateTime DateAdded { get; set; }
         [Required]
-        public string CategoryName { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
-        public ICollection<ProductImage> Images { get; set; }
-        public ICollection<ProductAndSubCategory> productAndSubCategories { get; set; }
+        public ICollection<ProductImage>? Images { get; set; }
+        public ICollection<ProductAndSubCategory>? productAndSubCategories { get; set; }
         public ICollection<FavoriteProduct> FavoritedByUsers { get; set; }
     }
 }

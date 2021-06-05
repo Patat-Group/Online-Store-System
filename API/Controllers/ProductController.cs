@@ -29,17 +29,28 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IReadOnlyList<ProductToReturnDto>> GetProducts([FromQuery] ProductParams? productParams)
+        public async Task<IReadOnlyList<ProductsToReturnDto>> GetProducts([FromQuery] ProductParams? productParams)
         {
             var products = await _productRepo.GetAllWithSpec(productParams);
             var productForReturn = _mapper
-                .Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+                .Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
 
             return productForReturn;
 
             throw new Exception("Error happen when get products, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
+        [HttpGet("category/{categoryId}")]
+        public async Task<IReadOnlyList<ProductsToReturnDto>> GetProductsByCategoryName(int categoryId, [FromQuery] ProductParams? productParams)
+        {
+            var products = await _productRepo.GetProductsByCategory(categoryId, productParams);
+            var productForReturn = _mapper
+                            .Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
+
+            return productForReturn;
+
+            throw new Exception("Error happen when get products, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+        }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
@@ -65,7 +76,6 @@ namespace API.Controllers
                 Price = entity.Price,
                 LongDescription = entity.LongDescription,
                 ShortDescription = entity.ShortDescription,
-                CategoryName = entity.CategoryName.ToLower(),
                 DateAdded = entity.DateAdded,
                 UserId = user.Id
             };
@@ -90,9 +100,6 @@ namespace API.Controllers
             if (product.UserId != user.Id)
                 return Unauthorized("You cannot Update a product owned by another user");
 
-
-            if (entity.CategoryName != null)
-                product.CategoryName = entity.CategoryName.ToLower();
             if (entity.IsSold != false)
                 product.IsSold = entity.IsSold;
             if (entity.Name != null)

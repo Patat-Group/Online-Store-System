@@ -2,7 +2,8 @@
     width: 100%;
     height: 80px;
     clear: both;
-    position: relative;
+    position: absolute;
+    background-color: #f7f7fa;
 }
 
 #part2 {
@@ -38,11 +39,25 @@ a:hover {
 
 @media only screen and (max-width: 850px) {
     #txt6 {
-        position: relative;
+        position: absolute;
         left: 3%;
     }
     #txt7 {
-        position: relative;
-        left: 10%;
+        position: absolute;
+        left: 71%;
+    }
+}
+
+@media only screen and (max-width: 695px) {
+    #txt6 {
+        position: absolute;
+        left: 30000%;
+    }
+    #txt7 {
+        position: absolute;
+        left: 7100000%;
+    }
+    #part2 {
+        background-color: #fff;
     }
 }

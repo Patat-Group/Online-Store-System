@@ -4,34 +4,39 @@
     "ShortDescription": "Best laptop in the world.",
     "LongDescription" : "Best laptop in the worldBest laptop in the worldBest laptop in the worldBest laptop in the world",
     "CategoryName":"Laptop & Computer",
-    "Price": 99.6
+    "Price": 99.6,
+    "CategoryId" :3
   },
   {
     "Name" : "Lenovo 223",
     "ShortDescription": "Best laptop in the world.",
     "LongDescription" : "Best laptop in the worldBest laptop in the worldBest laptop in the worldBest laptop in the world",
     "CategoryName":"Laptop & Computer",
-    "Price": 99.6
+    "Price": 99.6,
+    "CategoryId" :3
   },
   {
     "Name":"Mouse Asus 223",
     "ShortDescription": "Best Mouse in the world.",
     "LongDescription" : "Best laptop in the worldBest laptop in the worldBest laptop in the worldBest laptop in the world",
     "CategoryName":"Laptop & Computer",
-    "Price": 99.6
+    "Price": 99.6,
+    "CategoryId" :3
   },
   {
     "Name" : "Learn C#",
     "ShortDescription": "Best book in the world.",
     "LongDescription" : "Best book in the worldBest book in the worldBest book in the worldBest book in the world",
     "CategoryName":"Books",
-    "Price": 69.6
+    "Price": 69.6,
+    "CategoryId" :11
   },
   {
     "Name" : "Learn Attack Of Titen",
     "ShortDescription": "Best book in the world.",
     "LongDescription" : "Best book in the worldBest book in the worldBest book in the worldBest book in the world",
     "CategoryName":"Books",
-    "Price": 23.6
+    "Price": 23.6,
+    "CategoryId" :11
   }
 ]

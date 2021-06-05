@@ -37,6 +37,7 @@ namespace API
 
             services.AddScoped<IGenericRepository<Product, int>, ProductRepository>();
             services.AddScoped<IGenericRepository<VIPAd, int>, AdsRepository>();
+            services.AddScoped<IGenericRepository<Category, int>, CategoryRepository>();
             services.AddScoped<IGenericRepository<SubCategory, int>, SubCategoryRepository>();
             services.AddScoped<IImageRepository, ProductImageRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -102,8 +103,8 @@ namespace API
             }
 
             app.UseRouting();
-            
-            app.UseCors(x =>x.WithOrigins("https://localhost:4200")
+
+            app.UseCors(x => x.WithOrigins("https://localhost:4200")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials());

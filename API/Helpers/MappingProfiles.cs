@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using API.DTOs.Category;
 using API.DTOs.FavoriteProductDtos;
 using API.DTOs.ProductAndSubCategoryDtos;
 using API.DTOs.ProductDtos;
@@ -19,7 +20,17 @@ namespace API.Helpers
         public MappingProfiles()
         {
             CreateMap<SubCategory, SubCategoryToReturnDto>();
+            CreateMap<Category, CategoryReturnDto>()
+                .ForMember(dest => dest.ImageUrl, src => src.MapFrom<CategoryImageUrlResolver>());
             CreateMap<SubCategoryForAddDto, SubCategory>();
+
+            CreateMap<Product, ProductsToReturnDto>()
+                .ForMember(dest => dest.ImageUrl,
+                    opt => opt.MapFrom(
+                        src => src.Images.Where(im =>im.IsMainPhoto).Select(x => apiUrl + x.ImageUrl)))
+                .ForMember(dest =>dest.Address,
+                    opt =>opt.MapFrom(src =>src.User.Address));
+
             CreateMap<Product, ProductToReturnDto>()
                 .ForMember(dest => dest.ImagesUrl,
                     opt => opt.MapFrom(

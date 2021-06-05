@@ -34,7 +34,7 @@ namespace Services.Seeds
                         LongDescription = product.LongDescription,
                         Price = product.Price,
                         DateAdded = DateTime.UtcNow,
-                        CategoryName = product.CategoryName.ToLower(),
+                        CategoryId =product.CategoryId
                     };
 
                     var user = await userManager.FindByNameAsync(userNames[counter]);
@@ -44,6 +44,8 @@ namespace Services.Seeds
                     productForAdd.User = await context.Users
                         .FirstOrDefaultAsync(x => x.Id == productForAdd.UserId);
 
+                    productForAdd.Category = await context.Categories
+                        .FirstOrDefaultAsync(c => c.Id == productForAdd.CategoryId);
                     await context.AddAsync(productForAdd);
                     await context.SaveChangesAsync();
                     if (counter == userNames.Count)

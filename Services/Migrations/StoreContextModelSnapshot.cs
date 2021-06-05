@@ -16,6 +16,23 @@ namespace Services.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.9");
 
+            modelBuilder.Entity("Core.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("Core.Entities.FavoriteProduct", b =>
                 {
                     b.Property<int>("Id")
@@ -43,9 +60,8 @@ namespace Services.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("TEXT");
@@ -73,6 +89,8 @@ namespace Services.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("Name");
 
@@ -185,10 +203,15 @@ namespace Services.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("Name");
 
@@ -498,6 +521,12 @@ namespace Services.Migrations
 
             modelBuilder.Entity("Core.Entities.Product", b =>
                 {
+                    b.HasOne("Core.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Core.Entities.User", "User")
                         .WithMany("Products")
                         .HasForeignKey("UserId")
@@ -552,6 +581,15 @@ namespace Services.Migrations
                         .WithMany("UsersDestinationReport")
                         .HasForeignKey("UserSourceReportId")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Core.Entities.SubCategory", b =>
+                {
+                    b.HasOne("Core.Entities.Category", "Category")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Entities.UserRated", b =>

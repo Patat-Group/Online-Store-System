@@ -14,6 +14,7 @@ namespace Services.Data
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<ProductAndSubCategory> productAndSubCategories { get; set; }
         public DbSet<VIPAd> VIPAds { get; set; }
@@ -64,7 +65,7 @@ namespace Services.Data
                 .WithMany(ur => ur.FavoritedByUsers)
                 .HasForeignKey(fk => fk.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
-                
+
             modelBuilder.Entity<Report>().Property(s => s.ReportString).IsUnicode();
             modelBuilder.Entity<User>().Property(f => f.FirstName).IsUnicode();
             modelBuilder.Entity<User>().Property(l => l.LastName).IsUnicode();

@@ -56,5 +56,10 @@ namespace Services.Data
         {
             return await _context.SaveChangesAsync() > 0 ? true : false;
         }
+
+        public Task<PagedList<SubCategory>> GetProductsByCategory(int categoryId, ProductParams productParams)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

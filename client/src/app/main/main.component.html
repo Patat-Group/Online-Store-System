@@ -1,33 +1,33 @@
-<div>
-  <app-nav-bar></app-nav-bar>
-</div>
-<section class="container-carousel">
-  <ngb-carousel>
-    <ng-template ngbSlide *ngFor="let img of vipAds">
-      <div class="picsum-img-wrapper">
-        <img src={{img.imageUrl}} height="300" width="100%" style="object-fit: cover;">
-      </div>
-    </ng-template>
-  </ngb-carousel>
-</section>
+<div ngClass="page">
+  <div>
+    <app-nav-bar></app-nav-bar>
+  </div>
+  <section class="container-carousel">
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let img of vipAds">
+        <div class="picsum-img-wrapper">
+          <img src={{img.imageUrl}} height="300" width="100%" style="object-fit: cover;">
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </section>
 
-<section class="wrapper">
+  <section class="wrapper">
 
-  <div class="row text-center">
-    <div class="col-sm-3 mt-2 text-center" *ngFor ="let productCategory of products">
-
-      <div class="card text-white card-has-bg click-col"
-        style="background-image:url('https://source.unsplash.com/600x900/?tech,street');">
-        <img class="card-img d-none" src="https://source.unsplash.com/600x900/?tech,street"
-          alt="Goverment Lorem Ipsum Sit Amet Consectetur dipisi?">
-        <div class="card-img-overlay d-flex flex-column">
-          <div class="card-body align-items-center d-flex justify-content-center">
-            <h4 class="card-title mt-0 "><a class="text-white" herf="#">{{productCategory.categoryName}}</a></h4>
+    <div class="row text-center">
+      <div class="col-sm-3 mt-2 text-center" *ngFor="let category of categories">
+        <div class="card text-white card-has-bg click-col" style="background-image:url('{{category.imageUrl}}');">
+          <img class="card-img d-none" src="{{category.imageUrl}}">
+          <div class="card-img-overlay d-flex flex-column">
+            <div class="card-body align-items-center d-flex justify-content-center">
+              <h4 class="card-title mt-0 "><a class="text-white" routerLink="/products/{{category.id}}">
+                  {{category.name}}</a></h4>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
-  </div>
-</section>
-<app-footer></app-footer>
+  </section>
+  <app-footer></app-footer>
+
+</div>

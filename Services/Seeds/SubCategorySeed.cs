@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using Services.Data;
 
 namespace Services.Seeds
@@ -21,7 +22,8 @@ namespace Services.Seeds
                 {
                     var subCategoryForAdd = new SubCategory
                     {
-                        Name = subCategory.Name.ToLower()
+                        Name = subCategory.Name.ToLower(),
+                        CategoryId = subCategory.CategoryId
                     };
 
                     await context.AddAsync(subCategoryForAdd);

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCarousel, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
-import { Products } from '../Models/Products';
+import { Category } from '../Models/Category';
 import { VipAds } from '../Models/VipAds';
-import { ProductsService } from '../Services/ProductService/products.service';
-import { VipService } from '../Services/VIPService/vip.service';
+import { CategoryServicesService } from '../Services/CategoryServices/category-services.service';
+import { VipService } from '../Services/VIPServices/vip.service';
+import { Router } from '@angular/router';
 
 
 
@@ -13,18 +14,19 @@ import { VipService } from '../Services/VIPService/vip.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit {
+
+export class MainPageComponent implements OnInit {
 
   vipAds: VipAds[] | any;
-  products: Products[] | any;
+  categories: Category[] | any;
 
-  constructor(config: NgbCarouselConfig, private productsServices: ProductsService
-    , private vipAdsServices: VipService) {
+  constructor(config: NgbCarouselConfig, private categoryService: CategoryServicesService
+    , private vipAdsServices: VipService, private router: Router) {
     config.interval = 2000;
     config.keyboard = true;
     config.pauseOnHover = true;
     vipAds: [];
-    products: [];
+    categories: [];
   }
 
   paused = false;
@@ -39,8 +41,8 @@ export class MainComponent implements OnInit {
       this.vipAds = list;
     }, err => console.log(err));
 
-    this.productsServices.GetProducts().subscribe(list => {
-      this.products = list;
+    this.categoryService.GetCategory().subscribe(list => {
+      this.categories = list;
     }, err => console.log(err));
   }
 
@@ -65,5 +67,6 @@ export class MainComponent implements OnInit {
       this.togglePaused();
     }
   }
+
 
 }

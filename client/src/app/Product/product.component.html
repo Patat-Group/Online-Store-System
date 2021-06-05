@@ -1,0 +1,114 @@
+<div ngClass="page">
+
+  <div>
+    <app-nav-bar></app-nav-bar>
+  </div>
+
+  <div class="part2 row txt6">
+    <div class="col-md-4">
+      <strong>1</strong>-<strong>50</strong> results for "<strong>Laptop</strong>"
+    </div>
+    <div class="col-md-4">
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      &nbsp;&nbsp;
+      &nbsp;
+      Tags:&nbsp;
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-secondary" id="dropdownMenuButton" ngbDropdownToggle>Dropdown button</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+          <button ngbDropdownItem>Action</button>
+          <button ngbDropdownItem>Another Action</button>
+          <button ngbDropdownItem>Something else here</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      &nbsp;&nbsp;
+      &nbsp;
+      Sort by:&nbsp;
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-secondary" id="dropdownMenuButton" ngbDropdownToggle>Dropdown button</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+          <button ngbDropdownItem>Action</button>
+          <button ngbDropdownItem>Another Action</button>
+          <button ngbDropdownItem>Something else here</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <section class="wrapper" >
+    <div class="row" >
+      <div class="col-md-3" *ngFor="let item of products">
+        <div class="card-sl">
+          <div class="card-image">
+            <img src="{{item.imageUrl}}" style="width: 400px; height: 200px;"/>
+          </div>
+          <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
+          <div class="card-heading">
+            <a href="#"> {{item.name}}</a>
+          </div>
+          <div class="card-text">
+            {{item.shortDescription}}
+          </div>
+          <div class="card-heading">
+            {{item.price}}
+          </div>
+          <div>
+            <div class="card-text">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              {{item.address}}
+              &nbsp;
+              &nbsp;
+              &nbsp;
+              &nbsp;
+              &nbsp;
+              &nbsp;
+              &nbsp;&nbsp;
+              &nbsp;
+              &nbsp;&nbsp;
+              &nbsp;
+              &nbsp;
+              <i class="fa fa-star" aria-hidden="true"></i>
+              4.7
+              (33)
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+
+  <nav class="d-flex">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <app-footer></app-footer>
+
+</div>

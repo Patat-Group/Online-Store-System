@@ -1,0 +1,46 @@
+[
+    {
+        "Name": "Fashion",
+        "ImageUrl": "images/fashion.jpg"
+    },
+    {
+        "Name": "Baby & Toys",
+        "ImageUrl": "images/baby.jpg"
+    },
+    {
+        "Name": "Computer & Laptop",
+        "ImageUrl": "images/laptop.jpg"
+    },
+    {
+        "Name": "Mobiles & Accessories",
+        "ImageUrl": "images/mobiles.jpg"
+    },
+    {
+        "Name": "Home & Kitchen",
+        "ImageUrl": "images/home.jpg"
+    },
+    {
+        "Name": "Medical",
+        "ImageUrl": "images/medical.PNG"
+    },
+    {
+        "Name": "Mackup & Gifts",
+        "ImageUrl": "images/makup.jpg"
+    },
+    {
+        "Name": "Electronic Device",
+        "ImageUrl": "images/electronics.png"
+    },
+    {
+        "Name": "Vehicles",
+        "ImageUrl": "images/cars.jpg"
+    },
+    {
+        "Name": "Sports",
+        "ImageUrl": "images/sports.jpg"
+    },
+    {
+        "Name": "Books",
+        "ImageUrl": "images/books.jpg"
+    }
+]
