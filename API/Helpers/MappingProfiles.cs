@@ -27,14 +27,21 @@ namespace API.Helpers
             CreateMap<Product, ProductsToReturnDto>()
                 .ForMember(dest => dest.ImageUrl,
                     opt => opt.MapFrom(
-                        src => src.Images.Where(im =>im.IsMainPhoto).Select(x => apiUrl + x.ImageUrl)))
-                .ForMember(dest =>dest.Address,
-                    opt =>opt.MapFrom(src =>src.User.Address));
+                        src => src.Images.Where(im => im.IsMainPhoto).Select(x => apiUrl + x.ImageUrl)))
+                .ForMember(dest => dest.Address,
+                    opt => opt.MapFrom(src => src.User.Address))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
 
             CreateMap<Product, ProductToReturnDto>()
                 .ForMember(dest => dest.ImagesUrl,
                     opt => opt.MapFrom(
-                        src => src.Images.Select(x => apiUrl + x.ImageUrl).ToList()));
+                        src => src.Images.Select(x => apiUrl + x.ImageUrl).ToList()))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.User.Address))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
+                .ForMember(dest => dest.FacebookUrl, opt => opt.MapFrom(src => src.User.FacebookUrl))
+                .ForMember(dest => dest.TelegramUrl, opt => opt.MapFrom(src => src.User.TelegramUrl))
+                .ForMember(dest => dest.WhatsappUrl, opt => opt.MapFrom(src => src.User.WhatsappUrl));
+
             CreateMap<ProductImage, ProductImagesForReturnDto>()
                 .ForMember(dest => dest.ImageUrl, src => src.MapFrom<ProductImagesUrlResolver>());
             CreateMap<ProductImage, ProductImageForAddDto>().ReverseMap();

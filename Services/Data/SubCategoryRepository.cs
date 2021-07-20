@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Helpers;
@@ -21,11 +22,30 @@ namespace Services.Data
             return await _context.SubCategories.ToListAsync();
         }
 
+        public Task<PagedList<SubCategory>> GetProductsByCategory(int categoryId, ProductParams productParams)
+        {
+            throw new System.NotImplementedException();
+        }
+        public async Task<IReadOnlyList<SubCategory>> GetAllSubCategoriesByProductId(int productId)
+        {
+            var subCategoriesIds = await _context.productAndSubCategories
+                .Where(i => i.ProductId == productId).Select(sc => sc.SubCategoryId).ToListAsync();
+            var list = new List<SubCategory>();
+            foreach (var id in subCategoriesIds)
+            {
+                var SubCategories = await _context.SubCategories
+                    .FirstOrDefaultAsync(i => i.Id == id);
+                if (SubCategories != null)
+                {
+                    list.Add(SubCategories);
+                }
+            }
+            return list;
+        }
         public Task<PagedList<SubCategory>> GetAllWithSpec(ProductParams? productParams)
         {
             throw new System.NotImplementedException();
         }
-
 
         public async Task<SubCategory> GetById(int id)
         {
@@ -55,11 +75,6 @@ namespace Services.Data
         public async Task<bool> SaveChanges()
         {
             return await _context.SaveChangesAsync() > 0 ? true : false;
-        }
-
-        public Task<PagedList<SubCategory>> GetProductsByCategory(int categoryId, ProductParams productParams)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

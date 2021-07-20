@@ -40,7 +40,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "./node_modules/bootstrap/dist/js/bootstrap.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.js",
+              "./node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {
@@ -109,7 +110,7 @@
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["./node_modules/jquery/dist/jquery.min.js" ]
           }
         },
         "lint": {

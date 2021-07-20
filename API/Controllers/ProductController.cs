@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs.ProductDtos;
+using API.Extensions;
 using AutoMapper;
 using Core.Entities;
 using Core.Helpers;
@@ -35,9 +36,12 @@ namespace API.Controllers
             var productForReturn = _mapper
                 .Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
 
+            Response.AddPagination(productParams.PageNumber, productParams.PageSize,
+               productParams.MaxPageNumber, productParams.NumberOfPages);
+
             return productForReturn;
 
-            throw new Exception("Error happen when get products, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when get products..");
         }
 
         [HttpGet("category/{categoryId}")]
@@ -47,10 +51,14 @@ namespace API.Controllers
             var productForReturn = _mapper
                             .Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
 
+            Response.AddPagination(productParams.PageNumber, productParams.PageSize,
+               productParams.MaxPageNumber, productParams.NumberOfPages);
+               
             return productForReturn;
 
-            throw new Exception("Error happen when get products, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when get products");
         }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProduct(int id)
         {
@@ -60,7 +68,7 @@ namespace API.Controllers
             var productForReturn = _mapper.Map<ProductToReturnDto>(product);
             return Ok(productForReturn);
 
-            throw new Exception("Error happen when get product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when get product");
         }
 
         [HttpPost("addProduct")]
@@ -83,7 +91,7 @@ namespace API.Controllers
             if (await _productRepo.Add(product) == true)
                 return Ok();
 
-            throw new Exception("Error happen when Add product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when Add product");
         }
 
         [HttpPut("{id}")]
@@ -114,7 +122,7 @@ namespace API.Controllers
             if (await _productRepo.Update(product) == true)
                 return Ok();
 
-            throw new Exception("Error happen when update product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when update product");
         }
 
         [HttpDelete("{id}")]
@@ -134,7 +142,7 @@ namespace API.Controllers
             if (await _productRepo.Delete(id) == true)
                 return Ok("Done");
 
-            throw new Exception("Error happen when delete product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when delete product");
         }
     }
 }

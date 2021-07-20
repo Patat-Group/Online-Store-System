@@ -67,6 +67,4 @@ export class MainPageComponent implements OnInit {
       this.togglePaused();
     }
   }
-
-
 }

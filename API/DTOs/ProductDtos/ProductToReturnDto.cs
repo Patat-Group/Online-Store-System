@@ -8,10 +8,12 @@ namespace API.DTOs.ProductDtos
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
-        public string CategoryName { get; set; }
         public double Price { get; set; }
-        public bool IsSold { get; set; }
-        public DateTime DateAdded { get; set; }
+        public string Address { get; set; }
+        public string UserName { get; set; }
+        public string FacebookUrl { get; set; }
+        public string WhatsappUrl { get; set; }
+        public string TelegramUrl { get; set; }
         public IReadOnlyList<string> ImagesUrl { get; set; }
     }
 }

@@ -100,8 +100,6 @@ namespace Services.Data
         }
 
 
-
-
         public async Task<PagedList<Product>> GetProductsByCategory(int categoryId, ProductParams? productParams)
         {
             var products = _context.Products
@@ -113,6 +111,38 @@ namespace Services.Data
             products = products.OrderByDescending(d => d.DateAdded);
             products = products.Where(p => p.IsSold == false);
 
+
+            if (productParams.SubCategoryIdFilter != 0)
+            {
+                var subCategory = await _context.SubCategories
+                    .FirstOrDefaultAsync(n => n.Id == productParams.SubCategoryIdFilter);
+                if (subCategory != null)
+                {
+                    var productsBySubCategory = _context.productAndSubCategories
+                        .Where(i => i.SubCategoryId == subCategory.Id);
+
+                    if (productsBySubCategory != null)
+                    {
+                        products = products.Where(x => productsBySubCategory.Any(e => e.ProductId == x.Id));
+                    }
+                }
+            }
+
+            if (productParams.SortByLowerPrice)
+            {
+                products = products.OrderBy(p => p.Price);
+            }
+
+            if (productParams.SortByNewest)
+            {
+                products = products.OrderByDescending(d => d.DateAdded);
+            }
+
+            if (productParams.SortByHigerPrice)
+            {
+                products = products.OrderByDescending(p => p.Price);
+            }
+
             return await PagedList<Product>.CreatePagingListAsync(products, productParams.PageNumber,
                 productParams.PageSize);
         }
@@ -121,6 +151,7 @@ namespace Services.Data
         {
             var product = await _context.Products
                 .Include(im => im.Images)
+                .Include(us => us.User)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             return product;
@@ -156,6 +187,11 @@ namespace Services.Data
         public async Task<bool> SaveChanges()
         {
             return await _context.SaveChangesAsync() > 0 ? true : false;
+        }
+
+        public Task<IReadOnlyList<Product>> GetAllSubCategoriesByProductId(int productId)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

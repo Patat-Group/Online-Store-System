@@ -38,6 +38,5 @@ namespace API.Controllers
             throw new Exception("Error happen when get Category, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
-
     }
 }

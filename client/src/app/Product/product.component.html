@@ -4,7 +4,7 @@
     <app-nav-bar></app-nav-bar>
   </div>
 
-  <div class="part2 row txt6">
+  <div class=" row txt6">
     <div class="col-md-4">
       <strong>1</strong>-<strong>50</strong> results for "<strong>Laptop</strong>"
     </div>
@@ -52,7 +52,7 @@
           </div>
           <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
           <div class="card-heading">
-            <a href="#"> {{item.name}}</a>
+            <a routerLink="/productDetail/{{item.id}}" > {{item.name}}</a>
           </div>
           <div class="card-text">
             {{item.shortDescription}}

@@ -86,7 +86,7 @@ namespace API.Controllers
             if (await _imageRepository.AddImage(imageForAdd))
                 return Ok();
 
-            throw new Exception("Error happen when add photo to your product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when add photo to your product");
         }
 
         [HttpPut("{id}")]
@@ -104,7 +104,7 @@ namespace API.Controllers
 
             if (await _imageRepository.SetMainImage(id))
                 return Ok();
-            throw new Exception("Error happen when set image main, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when set image main");
         }
 
         [HttpDelete("{id}")]
@@ -127,7 +127,7 @@ namespace API.Controllers
 
             if (await _imageRepository.DeleteImage(id))
                 return Ok();
-            throw new Exception("Error happen when remove image, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when remove image");
         }
     }
 }

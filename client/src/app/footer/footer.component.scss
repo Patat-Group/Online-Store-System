@@ -1,63 +1,85 @@
-#container {
-    width: 100%;
-    height: 80px;
-    clear: both;
-    position: absolute;
-    background-color: #f7f7fa;
+.new_footer_area {
+  background: #221e3a;
+  color: #fff;
 }
-
-#part2 {
-    width: 100%;
-    height: 50px;
-    background-color: #221e3a;
-    bottom: 0;
-    clear: both;
-    position: absolute;
-    margin-top: auto;
+.new_footer_area .footer_bottom {
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
-
-#txt6 {
-    color: white;
-    position: relative;
-    top: 13px;
-    left: 8%;
-    width: 80%;
-}
-
-#txt7 {
-    color: white;
-    position: absolute;
-    left: 80%;
-    top: 13px;
+.footer_bottom {
+  font-size: 14px;
+  line-height: 20px;
+  color: #fff;
+  padding: 23px 0px;
 }
 a {
-    color: white;
+  color: white;
 }
 a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-@media only screen and (max-width: 850px) {
-    #txt6 {
-        position: absolute;
-        left: 3%;
-    }
-    #txt7 {
-        position: absolute;
-        left: 71%;
-    }
-}
+// .page-footer {
+//   width: 100%;
+//   position: relative;
+//   clear: both;
+//   left: 0;
+//   bottom: 0;
+// }
 
-@media only screen and (max-width: 695px) {
-    #txt6 {
-        position: absolute;
-        left: 30000%;
-    }
-    #txt7 {
-        position: absolute;
-        left: 7100000%;
-    }
-    #part2 {
-        background-color: #fff;
-    }
-}
+// #part2 {
+//   width: 100%;
+//   height: 50px;
+//   background-color: #221e3a;
+//   bottom: 0;
+//   clear: both;
+//   position: absolute;
+//   margin-top: auto;
+// }
+
+// #txt6 {
+//   color: white;
+//   position: relative;
+//   top: 13px;
+//   left: 8%;
+//   width: 80%;
+// }
+
+// #txt7 {
+//   color: white;
+//   position: absolute;
+//   left: 80%;
+//   top: 13px;
+// }
+
+// a:hover {
+//   text-decoration: none;
+// }
+
+// @media only screen and (max-width: 850px) {
+
+//   .page-footer {
+//     width: 100%;
+//     position: relative;
+//     clear: both;
+//     left: 0;
+//     bottom: 0;
+//   }
+
+//   #txt6 {
+//     position: absolute;
+//   }
+//   #txt7 {
+//     position: absolute;
+//   }
+// }
+
+// @media only screen and (max-width: 695px) {
+//   #txt6 {
+//     position: absolute;
+//   }
+
+//   #txt7 {
+//     position: absolute;
+//   }
+// }

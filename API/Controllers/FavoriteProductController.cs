@@ -42,7 +42,7 @@ namespace API.Controllers
             var favoritesToReturn =
                 _mapper.Map<IReadOnlyList<FavoriteProduct>, IReadOnlyList<FavoriteProductToReturnDto>>(favorites);
             return favoritesToReturn;
-            throw new Exception("Error happen when get From Favorite, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when get From Favorite");
         }
 
         [HttpGet("myFavorite/all")]
@@ -56,7 +56,7 @@ namespace API.Controllers
             var favoritesToReturn =
                 _mapper.Map<IReadOnlyList<FavoriteProduct>, IReadOnlyList<FavoriteProductToReturnDto>>(favorites);
             return Ok(favoritesToReturn);
-            throw new Exception("Error happen when get From Favorite, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when get From Favorite");
         }
 
         [HttpPut("product/{productId}")]
@@ -78,7 +78,7 @@ namespace API.Controllers
             var result = await _favoriteRepo.Add(newFavoriteProduct);
             if (result)
                 return Ok("Add To Favorite Succeeded");
-            throw new Exception("Error happen when adding From Favorite, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when adding From Favorite");
         }
 
         [HttpDelete("product/{productId}")]
@@ -95,7 +95,7 @@ namespace API.Controllers
             var result = await _favoriteRepo.Delete(favoriteProduct);
             if (result)
                 return Ok("Deleting From Favorite Succeeded");
-            throw new Exception("Error happen when Deleting From Favorite, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when Deleting From Favorite");
         }
 
         [HttpPost("product/{productId}")]

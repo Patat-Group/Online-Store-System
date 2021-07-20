@@ -71,5 +71,10 @@ namespace Services.Data
         {
             throw new System.NotImplementedException();
         }
+
+        public Task<IReadOnlyList<VIPAd>> GetAllSubCategoriesByProductId(int productId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

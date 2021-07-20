@@ -48,7 +48,7 @@ namespace API.Controllers
             if (result)
                 return Ok("Report done successfully");
 
-            throw new Exception("Error Occured While Reporting User, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error Occured While Reporting User");
         }
 
         [HttpGet("All")]

@@ -41,7 +41,16 @@ namespace API.Controllers
             var subCategory = await _subCategoryRepo.GetById(id);
             var data = _mapper.Map<SubCategory, SubCategoryToReturnDto>(subCategory);
             if (subCategory != null) return Ok(data);
-            throw new Exception("Error happen when get SubCategory, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when get SubCategory ");
+        }
+
+        [HttpGet("product/{productId}")]
+        public async Task<IReadOnlyList<SubCategoryToReturnDto>> GetAllBtProductId(int productId)
+        {
+            var subCategories = await _subCategoryRepo.GetAllSubCategoriesByProductId(productId);
+            var data = _mapper.Map<IReadOnlyList<SubCategory>, IReadOnlyList<SubCategoryToReturnDto>>(subCategories);
+            return data.ToList();
+            throw new Exception("Error happen when get SubCategory ");
         }
 
         [HttpPost]
@@ -61,7 +70,7 @@ namespace API.Controllers
 
             if (await _subCategoryRepo.Add(subCategoryForAdd))
                 return Ok();
-            throw new Exception("Error happen when add SubCategory, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when add SubCategory ");
         }
 
         [HttpPut("{id}")]
@@ -78,7 +87,7 @@ namespace API.Controllers
             subCategory.Name = entity.Name.ToLower();
             if (await _subCategoryRepo.Update(subCategory))
                 return Ok();
-            throw new Exception("Error happen when update SubCategory, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when update SubCategory, Ahmad Nour hate Exception ):,Excepion hate Ahmad Nour ): please don't make any error, i see you *-*");
         }
 
         [HttpDelete("{id}")]
@@ -94,7 +103,7 @@ namespace API.Controllers
 
             if (await _subCategoryRepo.Delete(id))
                 return Ok();
-            throw new Exception("Error happen when delete SubCategory, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when delete SubCategory ");
         }
     }
 }

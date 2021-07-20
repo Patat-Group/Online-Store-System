@@ -53,7 +53,7 @@ namespace API.Controllers
             if (user == null) return Unauthorized("User is Unauthorized");
             var userForReturn = _mapper.Map<User, UserToReturnDto>(user);
             return userForReturn;
-            throw new Exception("Error Occured when Get Current User, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error Occured when Get Current User ");
         }
 
         [HttpGet("{username}")]
@@ -63,7 +63,7 @@ namespace API.Controllers
             if (user == null) return BadRequest("User Not Found");
             var userForReturn = _mapper.Map<User, UserToReturnDto>(user);
             return userForReturn;
-            throw new Exception("Error Occured when Get User Details, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error Occured when Get User Details ");
         }
 
         [HttpPut]
@@ -78,7 +78,7 @@ namespace API.Controllers
             if (result)
                 return Ok("Update Succeeded");
 
-            throw new Exception("Error Happen When Update User, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error Happen When Update User ");
         }
 
         [HttpPut("password")]
@@ -99,7 +99,7 @@ namespace API.Controllers
             if (result)
                 return Ok("Password Update Succeeded");
 
-            throw new Exception("Error Happen When Updating The Password, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error Happen When Updating The Password ");
         }
 
         [HttpGet("emailExist")]
@@ -127,7 +127,7 @@ namespace API.Controllers
             if (result)
                 return Ok("user deleting Succeeded");
             return BadRequest("Error Happen When Deleting User");
-            throw new Exception("Error Happen When Deleting User, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error Happen When Deleting User ");
 
         }
 
@@ -177,7 +177,7 @@ namespace API.Controllers
                 };
             }
 
-            throw new Exception("Error In Creating User, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error In Creating User ");
         }
     }
 }

@@ -63,7 +63,7 @@ namespace API.Controllers
 
             if (await _subCategoriesAndProduct.AddSubCategoryToProduct(dataForAdd))
                 return Ok();
-            throw new Exception("Error happen when Add SubCategory To Product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when Add SubCategory To Product");
         }
 
         [HttpPut("{id}")]
@@ -87,7 +87,7 @@ namespace API.Controllers
             
             if (await _subCategoriesAndProduct.UpdateSubCategoryWithProduct(dataForUpdate))
                 return Ok();
-            throw new Exception("Error happen when Update SubCategory To Product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when Update SubCategory To Product");
         }
 
         [HttpDelete("{id}")]
@@ -100,7 +100,7 @@ namespace API.Controllers
             var dateForDelete = await _subCategoriesAndProduct.DeleteSubCategoryWithProduct(id);
             if (dateForDelete)
                 return Ok();
-            throw new Exception("Error happen when Delete SubCategory To Product, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error happen when Delete SubCategory To Product");
         }
     }
 }

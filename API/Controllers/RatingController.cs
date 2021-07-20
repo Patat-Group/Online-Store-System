@@ -58,7 +58,7 @@ namespace API.Controllers
             var result = await _ratingRepo.GiveRate(newUserRate);
             if (result)
                 return Ok("Setting new rate done successfully");
-            throw new Exception("Error Occured While Setting New Rate, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error Occured While Setting New Rate.");
         }
 
         [HttpDelete("myrate/{username}")]
@@ -74,7 +74,7 @@ namespace API.Controllers
             var result = await _ratingRepo.RemoveOldRateIfExists(userFromRate.Id, userToRate.Id);
             if (result)
                 return Ok("Removing rate done successfully");
-            throw new Exception("Error Occured While Removing Rate, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error Occured While Removing Rate");
         }
 
         [HttpGet("myrate/details")]
@@ -87,7 +87,7 @@ namespace API.Controllers
             var result = await _ratingRepo.GetDetailedRate(user.Id);
             var detailedRate = _mapper.Map<UserRated, UserDetailedRateDto>(result);
             return detailedRate;
-            throw new Exception("Error Occured While Get Detailed Rate, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error Occured While Get Detailed Rate");
         }
 
         [HttpGet("myrate")]
@@ -102,7 +102,7 @@ namespace API.Controllers
                 return NotFound("User Not Rated Yet");
             return Ok(rate);
 
-            throw new Exception("Error Occured While Get Rate By Claims, Ahmad Nour hate Exception ):,Exception hate Ahmad Nour ): please don't make any error, i see you *-*");
+            throw new Exception("Error Occured While Get Rate By Claims");
         }
 
         [HttpGet("myrate/{username}")]

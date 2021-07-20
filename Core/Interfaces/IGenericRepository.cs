@@ -9,8 +9,8 @@ namespace Core.Interfaces
     {
         public Task<IReadOnlyList<T>> GetAll();
         public Task<PagedList<T>> GetAllWithSpec(ProductParams? productParams);
-        public Task<PagedList<T>> GetProductsByCategory(int categoryId ,ProductParams? productParams);
-        
+        public Task<PagedList<T>> GetProductsByCategory(int categoryId, ProductParams? productParams);
+        public Task<IReadOnlyList<T>> GetAllSubCategoriesByProductId(int productId);
         public Task<T> GetById(TKey id);
         public Task<bool> Delete(TKey id);
         public Task<bool> Add(T entity);
