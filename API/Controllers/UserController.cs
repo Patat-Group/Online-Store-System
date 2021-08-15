@@ -68,26 +68,25 @@ namespace API.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<ActionResult<bool>> UpdateUserInformation(
+        public async Task<ActionResult> UpdateUserInformation(
             [FromBody] UserUpdateInformationDto userUpdateInformationDto)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return Unauthorized("User is Unauthorized");
+            if (user == null) return Unauthorized((new {message="User is Unauthorized"}));
             _mapper.Map(userUpdateInformationDto, user);
             var result = await _userRepo.UpdateUser(user);
-            if (result)
-                return Ok("Update Succeeded");
+            if (result) return Ok(new {message="Update Succeeded"});
 
-            throw new Exception("Error Happen When Update User ");
+        throw new Exception("Error Happen When Update User ");
         }
 
         [HttpPut("password")]
         [Authorize]
-        public async Task<ActionResult<bool>> ChangePassword(
+        public async Task<ActionResult> ChangePassword(
             [FromBody] UserChangePasswordDto userChangePasswordDto)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return Unauthorized("User is Unauthorized");
+            if (user == null) return Unauthorized(new {message="User is Unauthorized"});
             var checkIfOldPasswordCorrect = await _userRepo.Login(user, userChangePasswordDto.CurrentPassword);
             if (checkIfOldPasswordCorrect == false) return BadRequest("Current Password Is Wrong");
             var checkIfNewPasswordValid = await _userRepo.ValidatePassword(userChangePasswordDto.NewPassword);
@@ -97,7 +96,7 @@ namespace API.Controllers
             var result = await _userRepo.ChangePassword(user, userChangePasswordDto.CurrentPassword,
                 userChangePasswordDto.NewPassword);
             if (result)
-                return Ok("Password Update Succeeded");
+                return Ok(new {message="Password Update Succeeded"});
 
             throw new Exception("Error Happen When Updating The Password ");
         }
