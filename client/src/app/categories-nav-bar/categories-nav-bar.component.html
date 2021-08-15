@@ -1,0 +1,44 @@
+
+
+
+<nav class="navbar navbar-expand navbar-light bg-custom">
+  <a  class="all-cat-link" type="button" [matMenuTriggerFor]="menu">
+    <div class="navbar-brand row no-select">
+    <div class="col">
+    <div class="all-icon no-select"></div>
+    <div class="all-icon no-select"></div>
+    <div class="all-icon no-select"></div>
+    </div>
+    <div class="col all-cat ">
+    All Categories
+    </div>
+    </div></a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">ELECTRONICS</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">CARS</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<mat-menu #menu="matMenu" class="real-menu">
+
+  <ng-template matMenuContent >
+
+    <a mat-menu-item *ngFor="let item of categoryItems" href="{{item.imageUrl}}">
+      {{item.name}}
+    </a>
+  </ng-template>
+
+</mat-menu>
+

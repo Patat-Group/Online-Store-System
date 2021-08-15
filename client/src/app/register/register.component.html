@@ -1,0 +1,158 @@
+<div class="main-div">
+  <app-nav-bar></app-nav-bar>
+  <app-categories-nav-bar></app-categories-nav-bar>
+  <div class="register-div">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" [hidden]="registerPhase2">
+      <div class="row">
+        <div class="col">
+          <h2 class="register-header no-select-with-text">Register</h2>
+          <div class="form-group">
+            <label for="InputUsername" class="no-select-with-text"></label>
+            <input [class]="emptyUsername ?'form-control has-error':'form-control'" id="InputUsername"
+                   formControlName="InputUsername" aria-describedby="usernameHelp" placeholder="Username"
+                   [required]="true" (input)="onUsernameChange($event)" (keypress)="omitSpecialChar($event)">
+            <div class="row  username-tips" [class.shadow-tip]="emptyUsernameAfterModify">
+              <div class="col-sm-1"><i [class]="isUsernameLengthGood ? 'fa fa-check':'fa fa-close'"
+                                       [hidden]="emptyUsernameAfterModify"></i></div>
+              <div class="col-sm-auto username-tips-text" [class.good-tip]="isUsernameLengthGood"
+                   [class.error-tip]="!isUsernameLengthGood  && !emptyUsernameAfterModify">Length must be in range
+                [3-20].
+              </div>
+              <div class="col-sm-1 "><i [class]="isUsernameValid ? 'fa fa-check':'fa fa-close'"
+                                        [hidden]="emptyUsernameAfterModify"></i></div>
+              <div class="col-sm-4 username-tips-text" [class.good-tip]="isUsernameValid"
+                   [class.error-tip]="!isUsernameValid  && !emptyUsernameAfterModify"
+                   [hidden]="emptyUsernameAfterModify">Username available
+              </div>
+            </div>
+            <label for="InputEmail" class="no-select-with-text" hidden></label>
+            <input [class]="emptyEmail ?'form-control has-error':'form-control'" id="InputEmail"
+                   formControlName="InputEmail" aria-describedby="emailHelp" placeholder="Email" [required]="true"
+                   (input)="onEmailChange($event)">
+            <div class="row  username-tips" [class.shadow-tip]="emptyEmailAfterModify">
+              <div class="col-sm-1"><i [class]="isEmailValid ? 'fa fa-check':'fa fa-close'"
+                                       [hidden]="emptyEmailAfterModify"></i></div>
+              <div class="col-sm-5 username-tips-text" [class.good-tip]="isEmailValid"
+                   [class.error-tip]="!isEmailValid  && !emptyEmailAfterModify">Vaild Email
+              </div>
+              <div class="col-sm-1 "><i [class]="isEmailNotUsed ? 'fa fa-check':'fa fa-close'"
+                                        [hidden]="emptyEmailAfterModify"></i></div>
+              <div class="col-sm-5 username-tips-text" [class.good-tip]="isEmailNotUsed"
+                   [class.error-tip]="!isEmailNotUsed  && !emptyEmailAfterModify" [hidden]="emptyEmailAfterModify">Email
+                avalable.
+              </div>
+            </div>
+            <label for="InputPassword" class="no-select" hidden></label>
+            <div class="row div-password"><input [type]="showPassword? 'text' :'password'"
+                                                 [class]="emptyPassword ?'form-control input-password has-error':'form-control input-password'"
+                                                 id="InputPassword" formControlName="InputPassword"
+                                                 placeholder="Password" (input)="onPasswordChange($event)">
+              <button type="button"
+                      [class]="showPassword ? 'fa fa-eye show-hide-password no-select' : 'fa fa-eye-slash show-hide-password no-select'"
+                      (click)="toggleShow()" tabindex="-1">
+              </button>
+            </div>
+            <div class="tip-for-password">
+              <div class="container">
+                <div class="row password-tips " [class.shadow-tip]="emptyPasswordAfterModify">
+                  <span class="password-conditions">Password conditions:</span>
+                  <div class="col-sm-1"><i [class]="isPasswordMinimumLengthGood ? 'fa fa-check':'fa fa-close'"
+                                           [hidden]="emptyPasswordAfterModify"></i></div>
+                  <div class="col-sm-5" [class.good-tip]="isPasswordMinimumLengthGood"
+                       [class.error-tip]="!isPasswordMinimumLengthGood  && !emptyPasswordAfterModify">minimum length of
+                    6.
+                  </div>
+                  <div class="col-sm-1"><i [class]="isPasswordAtLeastOneDigit ? 'fa fa-check':'fa fa-close'"
+                                           [hidden]="emptyPasswordAfterModify"></i></div>
+                  <div class="col-sm-5 " [class.good-tip]="isPasswordAtLeastOneDigit"
+                       [class.error-tip]="!isPasswordAtLeastOneDigit && !emptyPasswordAfterModify">at least one digit.
+                  </div>
+                  <div class="w-100"></div>
+                  <div class="col-sm-1"><i [class]="isPasswordAtLeastOneUppercase ? 'fa fa-check':'fa fa-close'"
+                                           [hidden]="emptyPasswordAfterModify"></i></div>
+                  <div class="col-sm-5" [class.good-tip]="isPasswordAtLeastOneUppercase"
+                       [class.error-tip]="!isPasswordAtLeastOneUppercase  && !emptyPasswordAfterModify">at least one
+                    uppercase.
+                  </div>
+                  <div class="col-sm-1"><i [class]="isPasswordAtLeastOneLowercase ? 'fa fa-check':'fa fa-close'"
+                                           [hidden]="emptyPasswordAfterModify"></i></div>
+                  <div class="col-sm-5" [class.good-tip]="isPasswordAtLeastOneLowercase"
+                       [class.error-tip]="!isPasswordAtLeastOneLowercase  && !emptyPasswordAfterModify">at least one
+                    lowercase.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <label for="InputPassword2" class="no-select" hidden></label>
+            <div class="row div-password2"><input [type]="showPassword? 'text' :'password'"
+                                                  [class]="emptyPassword2 ?'form-control input-password has-error':'form-control input-password'"
+                                                  id="InputPassword2" formControlName="InputPassword2"
+                                                  placeholder="Confirm Password" (input)="onPassword2Change($event)">
+            </div>
+            <div class="row  password2-tips" [hidden]="emptyPassword2AfterModify">
+              <div class="col-sm-1 "><i [class]="isPassword2Matches ? 'fa fa-check':'fa fa-close'"
+                                        [hidden]="emptyPassword2AfterModify"></i></div>
+              <div class="col-sm-11 password2-tips-text" [class.good-tip]="isPassword2Matches"
+                   [class.error-tip]="!isPassword2Matches && !emptyPassword2AfterModify">Passwords matches.
+              </div>
+              <div class="w-100"></div>
+            </div>
+            <label class="no-select to-be-hidden"></label>
+          </div>
+
+          <button type="submit" class="btn btn-primary register">Register</button>
+          <div class="login">
+            <p class="no-select-with-text">Already have account? <a routerLink="/login" class="login-link">Login</a></p>
+          </div>
+        </div>
+        <div class="col">
+          <img class="registerImage no-select-with-text" [src]="imageToShow"
+               alt="Place image title">
+        </div>
+      </div>
+    </form>
+    <form [formGroup]="registerForm2" (ngSubmit)="onSubmit2()" [hidden]="!registerPhase2">
+      <div class="row">
+        <div class="col">
+          <h2 class="register-header no-select-with-text">Complete your register</h2>
+          <div class="form-group">
+            <label></label>
+            <div class="row  input-name-div">
+              <div class="col-sm-5">
+                <label for="InputFirstName" class="no-select-with-text" hidden></label>
+                <input class="form-control input-name" id="InputFirstName" formControlName="InputFirstName"
+                       aria-describedby="firstNameHelp" placeholder="First Name" [required]="true" (input)="onFirstNameChange($event)"></div>
+              <div class="col-sm-auto"><span></span></div>
+              <div class="col-sm-5"><label for="InputLastName" class="no-select-with-text" hidden></label>
+                <input class="form-control input-name" id="InputLastName" formControlName="InputLastName"
+                       aria-describedby="lastNameHelp" placeholder="Last Name" [required]="true" (input)="onLastNameChange($event)"></div>
+            </div>
+            <label for="InputPhoneNumber" class="no-select-with-text" ></label>
+            <input class="form-control" id="InputPhoneNumber" formControlName="InputPhoneNumber"
+                   aria-describedby="phoneNumberHelp" placeholder="Phone Number" [required]="true" (keypress)="omitSpecialCharToPhoneNumber($event)" (input)="onPhoneNumberChange($event)">
+            <label for="InputAddress" class="no-select-with-text"></label>
+            <input class="form-control" id="InputAddress" formControlName="InputAddress" aria-describedby="addressHelp"
+                   placeholder="Address" [required]="true" (input)="onAddressChange($event)">
+          </div>
+          <div class="gender-div">
+          <label>
+            <input type="radio" [defaultChecked]="true" name="gender" value="male" (input)="onGenderChange($event)">
+          </label> Male  &nbsp;
+          <label>
+            <input type="radio" name="gender" value="female" (input)="onGenderChange($event)">
+          </label> Female
+          </div>
+          <button type="submit" class="btn btn-primary register-done">Done</button>
+
+
+        </div>
+        <div class="col">
+          <img class="registerImage no-select-with-text" [src]="imageToShow"
+               alt="Place image title">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <app-footer></app-footer>
+</div>

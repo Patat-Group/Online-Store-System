@@ -1,0 +1,38 @@
+<div class="main-div">
+<app-nav-bar></app-nav-bar>
+  <app-categories-nav-bar></app-categories-nav-bar>
+<div class="login-div">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col">
+        <h2 class ="login-header no-select-with-text">Login</h2>
+    <div class="form-group ">
+      <label for="InputEmail" class="no-select-with-text"></label>
+      <input [class]="emptyUsername ?'form-control has-error':'form-control'" id="InputEmail" formControlName="InputEmail" aria-describedby="emailHelp" placeholder="Enter Your Username/Email" [required]="true" (input)="onUsernameChange($event)">
+      <label for="InputPassword" class="no-select"  disabled></label>
+        <div class="row div-password" ><input [type]="showPassword? 'text' :'password'" [class]="emptyPassword ?'form-control input-password has-error':'form-control input-password'" id="InputPassword"  formControlName="InputPassword" placeholder="Enter Your Password" (input)="onPasswordChange($event)">
+      <button  type="button" [class]="showPassword ? 'fa fa-eye show-hide-password no-select' : 'fa fa-eye-slash show-hide-password no-select'" (click)="toggleShow()" tabindex="-1">
+      </button></div>
+      <span class="error-for-password" [hidden]="!errorInLogin">{{errorLoginMessage}}</span>
+      <label for="rememberMeCheck" class="no-select-with-text" disabled></label>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="rememberMeCheck">
+        <label class="form-check-label noselect" for="rememberMeCheck" >Remember me</label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary login">Login</button>
+        <div class="register">
+          <p class="no-select-with-text">Doesn't have account? <a routerLink="/register" class="register-link">Register</a></p>
+        </div>
+    </div>
+      <div class="col">
+        <img class="loginImage no-select-with-text" [src]="imageToShow"
+             alt="Place image title">
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-footer></app-footer>
+</div>

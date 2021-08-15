@@ -41,7 +41,7 @@ export class MainPageComponent implements OnInit {
       this.vipAds = list;
     }, err => console.log(err));
 
-    this.categoryService.GetCategory().subscribe(list => {
+    this.categoryService.GetCategories().subscribe(list => {
       this.categories = list;
     }, err => console.log(err));
   }

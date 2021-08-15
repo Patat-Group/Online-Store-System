@@ -1,0 +1,73 @@
+.bg-custom{
+  background-color: #3A3652;
+}
+.navbar .navbar-nav .nav-link {
+  color: aliceblue;
+}
+.nav-item , .navbar-brand {
+  color: aliceblue;
+}
+.navbar-brand:hover{
+  color: aliceblue;
+}
+.navbar-brand{
+  margin-right: 0;
+}
+.navbar{
+  height: 50px;
+}
+/*.test {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(240, 248, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  border-width: 0;
+}*/
+.all-icon{
+  width: 25px;
+  height: 2px;
+  border-radius: 100px;
+  background-color: white;
+  margin: 5px 0 5px 8px;
+}
+.no-select {
+  color: transparent;
+  text-shadow: 0 0 0 #000000;
+  user-focus: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+  &:focus {
+    outline: none;
+  }
+}
+.all-cat{
+  color: white;
+  position: relative;
+  left: -17px;
+  bottom: 2px;
+  border-right: 0;
+  padding-right: 0;
+  margin-right: 0;
+}
+.all-cat-link {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+.category-link{
+  text-decoration: none;
+}
+.mat-menu-item:hover{
+  background-color: #3A3652;
+  color: #FFFFFF;
+}
+.mat-menu-item{
+  font-size: 17px;
+  font-family: "Segoe UI", serif;
+  border-radius: 5px;
+  text-decoration: none;
+}
+::ng-deep .real-menu .mat-menu-content {
+  height: 60vh;
+}
