@@ -38,5 +38,13 @@
     "CategoryName":"Books",
     "Price": 23.6,
     "CategoryId" :11
+  },
+  {
+    "Name" : "Sun Glass",
+    "ShortDescription": "Best Sun Glass in the world.",
+    "LongDescription" : "Best book in the worldBest book in the worldBest book in the worldBest book in the world",
+    "CategoryName":"Books",
+    "Price": 23.6,
+    "CategoryId" :11
   }
 ]

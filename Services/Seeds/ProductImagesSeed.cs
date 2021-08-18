@@ -15,7 +15,7 @@ namespace Services.Seeds
         {
             if (!context.ProductImages.Any())
             {
-                var imagesData = await File.ReadAllTextAsync("../services/Seeds/Data/ProductImages.json");
+                var imagesData = await File.ReadAllTextAsync("../Services/Seeds/Data/ProductImages.json");
                 var images = JsonSerializer.Deserialize<List<ProductImage>>(imagesData);
                 foreach (var image in images)
                 {

@@ -16,7 +16,7 @@ namespace Services.Seeds
         {
             if (!context.SubCategories.Any())
             {
-                var subCategoriesData = await File.ReadAllTextAsync("../services/Seeds/Data/SubCategory.json");
+                var subCategoriesData = await File.ReadAllTextAsync("../Services/Seeds/Data/SubCategory.json");
                 var subCategories = JsonSerializer.Deserialize<List<SubCategory>>(subCategoriesData);
                 foreach (var subCategory in subCategories)
                 {

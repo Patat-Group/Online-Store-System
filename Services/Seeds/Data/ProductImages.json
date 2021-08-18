@@ -21,12 +21,12 @@
   },
   {
     "ProductId": 3,
-    "ImageUrl" : "images/PCsharp.jpg",
+    "ImageUrl" : "images/PAttack.jfif",
     "IsMainPhoto": true
   },
   {
     "ProductId": 4,
-    "ImageUrl" : "images/PAttack.jfif",
+    "ImageUrl" : "images/PCsharp.jpg",
     "IsMainPhoto": true
   }
 ]
