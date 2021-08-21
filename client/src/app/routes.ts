@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 export const appRoutes: Routes =
   [
     { path: "home", component: MainPageComponent },
+    { path: "products", component: ProductComponent },
     { path: "products/:id", component: ProductComponent },
     { path: "productDetail", component: ProductDetailsComponent },
     { path: "login", component: LoginPageComponent },

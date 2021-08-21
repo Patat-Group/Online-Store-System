@@ -6,7 +6,7 @@
 
   <div class=" row txt6">
     <div class="col-md-4">
-      <strong>1</strong>-<strong>50</strong> results for "<strong>Laptop</strong>"
+      <strong>{{lengthProducts}}</strong> results for "<strong>{{categoryName}}</strong>"
     </div>
     <div class="col-md-4">
       &nbsp;
@@ -15,15 +15,13 @@
       &nbsp;&nbsp;
       &nbsp;
       Tags:&nbsp;
-      <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-secondary" id="dropdownMenuButton" ngbDropdownToggle>Dropdown button</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-          <button ngbDropdownItem>Action</button>
-          <button ngbDropdownItem>Another Action</button>
-          <button ngbDropdownItem>Something else here</button>
-        </div>
-      </div>
+      <select class="custom-select mb-3" (change)="onTagSelected($event)">
+        <option *ngFor="let item of productsTags" [value]="item.id">
+          {{ item.name }}
+        </option>
+      </select>
     </div>
+
     <div class="col-md-4">
       &nbsp;
       &nbsp;
@@ -31,34 +29,32 @@
       &nbsp;&nbsp;
       &nbsp;
       Sort by:&nbsp;
-      <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-secondary" id="dropdownMenuButton" ngbDropdownToggle>Dropdown button</button>
-        <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-          <button ngbDropdownItem>Action</button>
-          <button ngbDropdownItem>Another Action</button>
-          <button ngbDropdownItem>Something else here</button>
-        </div>
-      </div>
+      <select class="custom-select mb-3" (change)="onSortSelected($event)">
+        <option [value]="1">ByNewest</option>
+        <option [value]="2">ByLowerPrice</option>
+        <option [value]="3">ByHigherPrice</option>
+
+      </select>
     </div>
 
   </div>
 
-  <section class="wrapper" >
-    <div class="row" >
+  <section class="wrapper">
+    <div class="row">
       <div class="col-md-3" *ngFor="let item of products">
         <div class="card-sl">
           <div class="card-image">
-            <img src="{{item.imageUrl}}" style="width: 400px; height: 200px;"/>
+            <img src="{{item.imageUrl}}" style="width: 400px; height: 200px;" />
           </div>
           <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
           <div class="card-heading">
-            <a routerLink="/productDetail/{{item.id}}" > {{item.name}}</a>
+            <a routerLink="/productDetail/{{item.id}}"> {{item.name}}</a>
           </div>
           <div class="card-text">
             {{item.shortDescription}}
           </div>
           <div class="card-heading">
-            {{item.price}}
+            {{item.price}} $
           </div>
           <div>
             <div class="card-text">
@@ -87,8 +83,6 @@
   </section>
 
 
-
-
   <nav class="d-flex">
     <ul class="pagination">
       <li class="page-item">
@@ -108,7 +102,7 @@
       </li>
     </ul>
   </nav>
-  <br/>
+  <br />
 
   <app-footer></app-footer>
 

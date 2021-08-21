@@ -2,7 +2,7 @@
 {
     public class ProductParams
     {
-        private int pageSize = 10;
+        private int pageSize = 8;
         public int MaxPageNumber { get; set; } = 20;
         public int NumberOfPages { get; set; }
 

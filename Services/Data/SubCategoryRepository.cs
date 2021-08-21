@@ -22,6 +22,11 @@ namespace Services.Data
             return await _context.SubCategories.ToListAsync();
         }
 
+        public async Task<IReadOnlyList<SubCategory>> getAllSubCategoriesByCategoryId(int categoryId)
+        {
+            return await _context.SubCategories.Where(x => x.CategoryId == categoryId).ToListAsync();
+        }
+
         public Task<PagedList<SubCategory>> GetProductsByCategory(int categoryId, ProductParams productParams)
         {
             throw new System.NotImplementedException();

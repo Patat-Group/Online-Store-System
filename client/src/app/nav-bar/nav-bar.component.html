@@ -3,11 +3,13 @@
     <a href="/" class="navbar-brand">Ptata</a>
     <form class="mr-2 my-auto w-100 d-inline-block order-2 flex-shrink-2">
       <div class="input-group">
-          <input type="text" class="form-control border border-right-1 search-input" placeholder="Search...">
+        <input type="text" class="form-control border border-right-1 search-input" placeholder="Search..."
+          (keydown.enter)="search($event)">
       </div>
     </form>
   </div>
-  <button class="fancy-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar7" (click)="toggleCollapsed()" [attr.aria-expanded]="!collapsed">
+  <button class="fancy-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar7"
+    (click)="toggleCollapsed()" [attr.aria-expanded]="!collapsed">
 
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -17,11 +19,13 @@
         <a class="nav-link" href="#">العربية</a>
       </li>
       <li class="nav-item ">
-        <a class="nav-link" routerLink="/login" [hidden]="isUserLoggedIn">Sign in</a>      </li>
+        <a class="nav-link" routerLink="/login" [hidden]="isUserLoggedIn">Sign in</a>
+      </li>
       <li class="nav-item ">
 
-        <a class="fa fa-sign-out" data-tooltip="Log Out" type="button" aria-hidden="true" [hidden]="!isUserLoggedIn" href="javascript:void(0);" (click)="logoutUser()"></a>
-    </li>
+        <a class="fa fa-sign-out" data-tooltip="Log Out" type="button" aria-hidden="true" [hidden]="!isUserLoggedIn"
+          href="javascript:void(0);" (click)="logoutUser()"></a>
+      </li>
       <li class="nav-item ">
         <a class="nav-link" routerLink="/profile" [hidden]="!isUserLoggedIn">{{username}}</a>
       </li>

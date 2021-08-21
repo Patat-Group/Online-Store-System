@@ -5,7 +5,7 @@ import { Category } from '../Models/Category';
 import { VipAds } from '../Models/VipAds';
 import { CategoryServicesService } from '../Services/CategoryServices/category-services.service';
 import { VipService } from '../Services/VIPServices/vip.service';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 
 
@@ -22,7 +22,7 @@ export class MainPageComponent implements OnInit {
 
   constructor(config: NgbCarouselConfig, private categoryService: CategoryServicesService
     , private vipAdsServices: VipService, private router: Router) {
-    config.interval = 2000;
+    config.interval = 3000;
     config.keyboard = true;
     config.pauseOnHover = true;
     vipAds: [];

@@ -44,8 +44,16 @@ namespace API.Controllers
             throw new Exception("Error happen when get SubCategory ");
         }
 
+        [HttpGet("category/{id}")]
+        public async Task<IReadOnlyList<SubCategoryToReturnDto>> GetAllByCategoryId(int id)
+        {
+            var subCategories = await _subCategoryRepo.getAllSubCategoriesByCategoryId(id);
+            var data = _mapper.Map<IReadOnlyList<SubCategory>, IReadOnlyList<SubCategoryToReturnDto>>(subCategories);
+            return data.ToList();
+        }
+
         [HttpGet("product/{productId}")]
-        public async Task<IReadOnlyList<SubCategoryToReturnDto>> GetAllBtProductId(int productId)
+        public async Task<IReadOnlyList<SubCategoryToReturnDto>> GetAllByProductId(int productId)
         {
             var subCategories = await _subCategoryRepo.GetAllSubCategoriesByProductId(productId);
             var data = _mapper.Map<IReadOnlyList<SubCategory>, IReadOnlyList<SubCategoryToReturnDto>>(subCategories);

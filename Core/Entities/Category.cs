@@ -9,6 +9,5 @@ namespace Core.Entities
         public string ImageUrl { get; set; }
         public ICollection<Product>? Products { get; set; }
         public ICollection<SubCategory>? SubCategories { get; set; }
-
     }
 }

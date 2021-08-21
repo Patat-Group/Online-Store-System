@@ -34,7 +34,7 @@ namespace Services.Seeds
                         LongDescription = product.LongDescription,
                         Price = product.Price,
                         DateAdded = DateTime.UtcNow,
-                        CategoryId =product.CategoryId
+                        CategoryId = product.CategoryId
                     };
 
                     var user = await userManager.FindByNameAsync(userNames[counter]);

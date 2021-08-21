@@ -9,7 +9,7 @@ using Services.Data;
 namespace Services.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20210818010251_InitialCreate")]
+    [Migration("20210820155817_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

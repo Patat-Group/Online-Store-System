@@ -4,11 +4,27 @@
     "ImageUrl": "images/ASUSAds.jpg"
   },
   {
-  "Name": "Lenovo",
-  "ImageUrl": "images/lenovoAds.jpg"
+    "Name": "Lenovo",
+    "ImageUrl": "images/lenovoAds.jpg"
   },
   {
-  "Name": "Dell",
-  "ImageUrl": "images/dellAds.jfif"
+    "Name": "noon1",
+    "ImageUrl": "images/noon1.gif"
+  },
+  {
+    "Name": "noon2",
+    "ImageUrl": "images/noon2.gif"
+  },
+  {
+    "Name": "noon3",
+    "ImageUrl": "images/noon3.gif"
+  },
+  {
+    "Name": "noon4",
+    "ImageUrl": "images/noon4.gif"
+  },
+  {
+    "Name": "noon5",
+    "ImageUrl": "images/noon5.jpg"
   }
 ]

@@ -193,5 +193,10 @@ namespace Services.Data
         {
             throw new System.NotImplementedException();
         }
+
+        public Task<IReadOnlyList<Product>> getAllSubCategoriesByCategoryId(int categoryId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
