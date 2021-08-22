@@ -4,25 +4,25 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.2"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9"/>
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.11.0"/>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.1.4"/>
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.4"/>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.11.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.1.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.1.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Services\Services.csproj"/>
+    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\images\307fedaf668902799cb6f97b419d36db.jpg"/>
-    <_ContentIncludedByDefault Remove="wwwroot\images\Bonus_BP01-Power-Market-Photo-scaled.jpg"/>
-    <_ContentIncludedByDefault Remove="wwwroot\images\GreenAbstract.jpg"/>
-    <_ContentIncludedByDefault Remove="wwwroot\images\HTB1Ni4DJpXXXXbRXFXXq6xXFXXXX.jpg"/>
-    <_ContentIncludedByDefault Remove="wwwroot\images\R7be2db39a6bdb3522d653784ac56efdf.jfif"/>
+    <_ContentIncludedByDefault Remove="wwwroot\images\307fedaf668902799cb6f97b419d36db.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\Bonus_BP01-Power-Market-Photo-scaled.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\GreenAbstract.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\HTB1Ni4DJpXXXXbRXFXXq6xXFXXXX.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\images\R7be2db39a6bdb3522d653784ac56efdf.jfif" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\images"/>
+    <Folder Include="wwwroot\images" />
   </ItemGroup>
 </Project>

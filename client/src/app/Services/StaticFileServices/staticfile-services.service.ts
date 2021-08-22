@@ -15,5 +15,8 @@ export class StaticFileServicesService {
   getLoginImage(): Observable<Blob> {
     return this.http.get(this.loginImageUrl, {responseType: 'blob'});
   }
+  getPictureWithUrl(pictureUrl:string): Observable<Blob> {
+    return this.http.get(pictureUrl , {responseType: 'blob'});
+  }
 
 }

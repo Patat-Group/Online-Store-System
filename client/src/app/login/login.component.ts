@@ -41,6 +41,11 @@ export class LoginPageComponent implements OnInit {
         localStorage.setItem('email', this.loginResult.email);
         localStorage.setItem('token', this.loginResult.token);
         this.usersService.setUsername(this.loginResult.username);
+        this.usersService.updateLastSeen().subscribe((data:any) => {
+          console.log(data);
+        }, (error: any) => {
+          console.log(error);
+        });
         this.router.navigateByUrl('/');
 
       }, error => {

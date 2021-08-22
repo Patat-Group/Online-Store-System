@@ -10,4 +10,5 @@
   telegramUrl: string | undefined ="";
   email: string | undefined ="";
   phoneNumber: string | undefined ="";
+  lastSeen: string | undefined ="";
 }

@@ -1,0 +1,208 @@
+@mixin object-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$circleSize: 165px;
+$radius: 100px;
+$shadow: 0 0 10px 0 rgba(255,255,255,.35);
+$fontColor: rgb(250,250,250);
+
+.profile-pic {
+  color: transparent;
+  width: 165px;
+  height: 180px;
+  transition: all .3s ease;
+  @include object-center;
+  position: relative;
+  transition: all .3s ease;
+
+  input {
+    display: none;
+  }
+
+  img {
+    position: absolute;
+    object-fit: cover;
+    width: $circleSize;
+    height: $circleSize ;
+    box-shadow: $shadow;
+    border-radius: $radius;
+    z-index: 0;
+  }
+
+  .-label {
+    cursor: pointer;
+    height: $circleSize;
+    width: $circleSize;
+  }
+
+  &:hover {
+    .-label {
+      @include object-center;
+      background-color: rgba(0,0,0,.6);
+      z-index: 10000;
+      color: $fontColor;
+      transition: background-color .2s ease-in-out;
+      border-radius: $radius;
+      margin-bottom: 0;
+    }
+  }
+
+  span{
+    display: inline-flex;
+    padding: .2em;
+    height: 2em;
+    margin-top: 10px;
+  }
+  i{
+    display: inline-flex;
+    padding: .2em;
+    height: 2em;
+    margin-top: 10px;
+  }
+}
+.update-image{
+  margin-bottom: 10px;
+}
+/////////////////////////
+// Body styling 🐾
+/////////---------->
+
+body {
+  height: 100vh;
+  background-color: rgb(25, 24, 21);
+  @include object-center;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+.fullName{
+  font-family: "Segoe UI", serif;
+  font-size: 15px;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  width: 165px;
+}
+.label-location{
+  font-family: "Segoe UI", serif;
+  font-size: 14px;
+  margin-left: 5px;
+}
+.label-location-value{
+  font-family: "Segoe UI", serif;
+  font-size: 15px;
+  margin-left: 5px;
+  font-weight: bold;
+}
+.left-side{
+  width: 165px;
+  height: 350px;
+  text-align: center;
+  margin-top: 15px;
+  margin-left: 70px;
+}
+.user-info-left{
+  position: absolute;
+  left: 0px;
+  width:  280px;
+  margin-left: 15px;
+}
+.user-contact-info{
+  margin-top: 50px;
+  margin-left: 5px;
+  width: 210px;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  left: 0px;
+}
+.contact-info{
+  width: auto;
+  height: 60%;
+}
+.contact-info-whatsapp{
+  width: auto;
+  height: 55%;
+}
+.about-me-label{
+  font-family: "Segoe UI", serif;
+  font-size: 35px;
+  margin-top: 15px;
+}
+.about-me-value{
+  font-family: "Segoe UI", serif;
+  font-size: 20px;
+}
+.middle-side{
+  margin-left: 150px;
+  width: 900px;
+}
+body {
+  background-color: #eee
+}
+
+.badge {
+  font-size: 25px;
+  font-weight: 200;
+  width:90px;
+}
+
+.badge i {
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.about-rating {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 6px
+}
+
+.total-ratings {
+  font-size: 12px
+}
+
+.bg-custom {
+  background-color: #b7dd29 !important;
+}
+
+.progress {
+  margin-top: 13px;
+}
+.rate-info {
+  margin-top: 5px !important;
+  position: relative;
+  left: -25px;
+}
+.main-div{
+  height: 500px;
+}
+.rating-num{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.rating-radio{
+  padding: 0;
+}
+.rating-col{
+  width: 50px;
+  margin-top: 17px;
+
+}
+.rating-div{
+  margin-top: 5px;
+}
+.progress-col{
+  margin-right:15px;
+  margin-top:13px;
+  padding-left: 0;
+}
+.full-page{
+  width: auto;
+  height: auto;
+  overflow-x: hidden;
+}

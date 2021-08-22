@@ -56,7 +56,7 @@ namespace Services.Data
 
         public async Task<int> GetMyRateToUser(string userSourceRateId, string userDestinationRateId)
         {
-            var userDestinationRate = await _context.Ratings.SingleOrDefaultAsync(x =>
+            var userDestinationRate = await _context.Ratings.FirstOrDefaultAsync(x =>
                 x.UserSourceRateId == userSourceRateId && x.UserDestinationRateId == userDestinationRateId);
             if (userDestinationRate == null) return -1;
             return (int) userDestinationRate.Star + 1;
@@ -64,9 +64,9 @@ namespace Services.Data
 
         public async Task<bool> RemoveOldRateIfExists(string userSourceRateId, string userDestinationRateId)
         {
-            var userTotalRating = await _context.UsersRated.SingleOrDefaultAsync(x =>
+            var userTotalRating = await _context.UsersRated.FirstOrDefaultAsync(x =>
                 x.UserId == userDestinationRateId);
-            var oldUserRate = await _context.Ratings.SingleOrDefaultAsync(x =>
+            var oldUserRate = await _context.Ratings.FirstOrDefaultAsync(x =>
                 x.UserSourceRateId == userSourceRateId && x.UserDestinationRateId == userDestinationRateId);
             if (oldUserRate == null) return true;
             var oldUserRateValue = oldUserRate.Star;

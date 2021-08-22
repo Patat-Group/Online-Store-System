@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using API.DTOs.UserDtos;
 using AutoMapper;
@@ -177,6 +178,27 @@ namespace API.Controllers
             }
 
             throw new Exception("Error In Creating User ");
+        }
+        
+        [HttpPut("photo")]
+        [Authorize]
+        public async Task<IActionResult> UpdateImage([FromForm] UserImageUpdateDto entity)
+        {
+            var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
+            if (user == null) return Unauthorized("User is Unauthorized");
+            
+            var file = entity.File;
+            if (file == null)
+                return BadRequest("Please add photo to your product.");
+
+            var path = Path.Combine("wwwroot/images/", user.UserName+"_profile_photo"+file.FileName);
+            var stream = new FileStream(path, FileMode.Create);
+            await file.CopyToAsync(stream);
+            await stream.DisposeAsync();
+            user.PictureUrl=path.Substring(7);
+            var result = await _userRepo.UpdateUser(user);
+            if (result) return Ok(new {message="Update Succeeded"});
+            throw new Exception("Error happen when update user photo");
         }
     }
 }

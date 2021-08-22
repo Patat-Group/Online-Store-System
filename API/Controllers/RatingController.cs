@@ -57,7 +57,7 @@ namespace API.Controllers
             };
             var result = await _ratingRepo.GiveRate(newUserRate);
             if (result)
-                return Ok("Setting new rate done successfully");
+                return Ok((new {message="Setting new rate done successfully"}));
             throw new Exception("Error Occured While Setting New Rate.");
         }
 
@@ -73,7 +73,7 @@ namespace API.Controllers
             if (userFromRate.Id == userToRate.Id) return BadRequest("You Can't Remove Your Own Rate");
             var result = await _ratingRepo.RemoveOldRateIfExists(userFromRate.Id, userToRate.Id);
             if (result)
-                return Ok("Removing rate done successfully");
+                return Ok((new {message = "Removing rate done successfully"}));
             throw new Exception("Error Occured While Removing Rate");
         }
 

@@ -4,6 +4,7 @@ import { MainPageComponent } from "./main/main.component";
 import { ProductComponent } from "./Product/product.component";
 import {LoginPageComponent} from "./login/login.component";
 import { RegisterComponent } from './register/register.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 export const appRoutes: Routes =
   [
     { path: "home", component: MainPageComponent },
@@ -12,5 +13,7 @@ export const appRoutes: Routes =
     { path: "productDetail", component: ProductDetailsComponent },
     { path: "login", component: LoginPageComponent },
     { path: "register", component: RegisterComponent },
+    { path: "profile", component: UserProfileComponent },
+    { path: "profile/:username", component: UserProfileComponent },
     { path: "**", component: MainPageComponent }
   ];

@@ -23,6 +23,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatSelectModule} from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { RegisterComponent } from './register/register.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,6 +35,7 @@ import { RegisterComponent } from './register/register.component';
     CategoriesNavBarComponent,
     LoginPageComponent,
     RegisterComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
