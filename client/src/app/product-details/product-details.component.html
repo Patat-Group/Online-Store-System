@@ -2,129 +2,95 @@
   <div>
     <app-nav-bar></app-nav-bar>
   </div>
+  <div *ngIf="product">
 
+    <div class="">
+      <div class="left-icon">
+        <div *ngFor="let image of product.imagesUrl">
+          <img class="imgSpec" onclick="document.getElementById('img-holder').style" src="{{image}}" id="left-circle">
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="column">
+          <div id="img-holder"></div>
+        </div>
+        <div class="column2">
+          <br />
+          <h2>{{product.name}}</h2>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <p>
+            {{product.shortDescription}}
+          </p>
 
-  <div class="">
+          <div class="row">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br /><br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="col-5 ml-3">
+              <i class="fa fa-user"></i> {{product.userName}}
+            </div>
+            <div class="col-5 ml-3">
+              <h3 class="">{{product.price}} $</h3>
+            </div>
+          </div>
+          <i class="fa fa-map-marker ml-3" aria-hidden="true"></i> {{product.address}}
+          <div class="mt-1">
+            <a href="{{product.whatsappUrl}}"><img src="assets/images/icons/whatsapp.png" alt="image"
+                style="width: 16%; height: 16%;"></a>
+            <a href="{{product.telegramUrl}}"><img src="assets/images/icons/telegram.png" alt="image"
+                style="width: 13%; height: 13%;"></a>
+            <a href="{{product.facebookUrl}}"><img src="assets/images/icons/facebook.png" alt="image"
+                style="width: 13%; height: 13%;"></a>
+          </div>
+        </div>
 
-    <div class="left-icon">
-      <div>
-        <img class="imgSpec"
-          onclick="document.getElementById('img-holder').style.backgroundImage = 'url(https://static-assets.glossier.com/production/spree/images/attachments/000/003/755/portrait_normal/LashSlick.jpg?1556563261)'"
-          src="https://static-assets.glossier.com/production/spree/images/attachments/000/003/755/square_tiny/LashSlick.jpg?1556563261"
-          id="left-circle">
+        <div class="tags">
+          <p>Laptops</p>
+        </div>
+        <div class="tags">
+          <p>Laptops</p>
+        </div>
+        <div class="tags">
+          <p>Laptops</p>
+        </div>
+        <div class="tags">
+          <p>Laptops</p>
+        </div>
+
       </div>
-      <div>
-        <img class="imgSpec"
-          onclick="document.getElementById('img-holder').style.backgroundImage = 'url(https://static-assets.glossier.com/production/spree/images/attachments/000/002/019/portrait_normal/Carousel-6-lashslick.jpg?1559849241)'"
-          src="https://static-assets.glossier.com/production/spree/images/attachments/000/002/019/square_tiny/Carousel-6-lashslick.jpg?1559849241"
-          id="left-circle">
-      </div>
-      <div>
-        <img class="imgSpec"
-          onclick="document.getElementById('img-holder').style.backgroundImage = 'url(https://static-assets.glossier.com/production/spree/images/attachments/000/002/010/portrait_normal/Carousel-6.jpg?1524866348)'"
-          src="https://static-assets.glossier.com/production/spree/images/attachments/000/002/010/square_tiny/Carousel-6.jpg?1524866348"
-          id="left-circle">
-      </div>
-      <div>
-        <img class="imgSpec"
-          onclick="document.getElementById('img-holder').style.backgroundImage = 'url(https://static-assets.glossier.com/production/spree/images/attachments/000/002/009/portrait_normal/04_BeforeAfter_Diarrha.jpg?1571950361)'"
-          src="https://static-assets.glossier.com/production/spree/images/attachments/000/002/009/square_tiny/04_BeforeAfter_Diarrha.jpg?1571950361"
-          id="left-circle">
-      </div>
+    </div>
+
+    <div class=" specRow">
     </div>
 
     <div class="row">
-      <div class="column">
-        <div id="img-holder"></div>
-      </div>
-      <div class="column2">
-
-        <h2>Product</h2>
-        <p>
-          blablablablablablablablablablablablablablalablabbb
-          blablablablablablablablablablablablablablablalabla
-          blablablablablablablablablablablablablablablalabla
-          blablablablablablablablablablablablablablablalabla
-          blablablablablablablablablablablablablablablalabla
-          blablablablablablablablablablablablablablablalabla
-          blablablablablablablablablablablablablablablalabla
-          blablablablablablablablablablablablablablablalabla
-          blablablablablablablablablablablablablablablalabla
-          blablablablablablablablablablablablablablablalabla
+      <div>
+        <h3 class="descTitle">Description</h3>
+        <p class="desc">
+          {{product.longDescription}}
         </p>
-        <div class="row">
-
-          <div class="col-5 ml-3">
-            <i class="fa fa-user"></i> Ahmad Nour
-          </div>
-          <div class="col-5 ml-3">
-            <h3 class="">999$</h3>
-          </div>
-        </div>
-        <i class="fa fa-map-marker ml-3" aria-hidden="true"></i> Hamah - Noria
-        <div class="mt-1">
-          <img src="assets/images/icons/whatsapp.png" alt="image" style="width: 16%; height: 16%;">
-          <img src="assets/images/icons/telegram.png" alt="image" style="width: 13%; height: 13%;">
-          <img src="assets/images/icons/tele.png" alt="image" style="width: 13%; height: 13%;">
-        </div>
       </div>
-
-      <div class="tags">
-        <p>Laptops</p>
-      </div>
-      <div class="tags">
-        <p>Laptops</p>
-      </div>
-      <div class="tags">
-        <p>Laptops</p>
-      </div>
-      <div class="tags">
-        <p>Laptops</p>
-      </div>
-
     </div>
+
   </div>
-
-  <div class=" specRow">
-  </div>
-
-  <div class="row">
-    <div>
-      <h3 class="descTitle">Description</h3>
-      <p class="desc">
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-        kljsakl djk sla j kldjskaldjsal kjlkdjslajdl sjadklj a skdjakla jsdklj sakldj sakljdl kasjdlsaj dlkasjdk
-        ljsakldja skldjaklj sakldj kslajkl djskaldjsalk
-      </p>
-    </div>
-  </div>
-
-
 </div>
 <app-footer></app-footer>
