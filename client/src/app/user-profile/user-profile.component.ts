@@ -1,11 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter,TemplateRef } from '@angular/core';
 import { StaticFileServicesService } from '../Services/StaticFileServices/staticfile-services.service';
 import {UsersService} from "../Services/UserServices/user-services.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import { HttpEventType } from '@angular/common/http';
 import { UserInfo } from '../Models/UserInfo';
 import { UserRate } from '../Models/UserRate';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -18,7 +19,8 @@ export class UserProfileComponent implements OnInit {
   constructor( private staticFileServicesService: StaticFileServicesService,
                private usersService: UsersService,
                private router: Router,
-               private route: ActivatedRoute
+               private route: ActivatedRoute,
+               private dialog: MatDialog
                ) {
     usersService.getLoggedInName
       .subscribe(user => this.changeUsername(user));
@@ -29,6 +31,7 @@ export class UserProfileComponent implements OnInit {
   whatsappImage: any;
   telegramImage: any;
   telephoneImage: any;
+  genderImage: any;
   isImageLoading :boolean | any;
   isPhotoHover=false;
   isUserLoggedIn=this.usersService.isLoggedIn();
@@ -50,6 +53,9 @@ export class UserProfileComponent implements OnInit {
   currnetUsername:any;
   userInfo= new UserInfo();
   userRate=new UserRate();
+  openDialogWithTemplateRef(templateRef: TemplateRef<any>) {
+    this.dialog.open(templateRef);
+  }
   ngOnInit(): void {
     const username = this.route.snapshot.paramMap.get('username');
     if(username==null) {
@@ -64,6 +70,7 @@ export class UserProfileComponent implements OnInit {
         this.getTelegramImage();
         this.getTelephoneImage();
         this.getWhatsappImage();
+
       }
     }
     else
@@ -181,6 +188,16 @@ export class UserProfileComponent implements OnInit {
       reader.readAsDataURL(image);
     }
   }
+  createGenderImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.genderImage = reader.result;
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
   getLoginImage() {
     this.isImageLoading = true;
       console.log("http://localhost:5000"+this.userInfo.pictureUrl);
@@ -214,6 +231,20 @@ export class UserProfileComponent implements OnInit {
       console.log(error);
     });
   }
+  getGenderImage() {
+    if(this.userInfo.gender?.toLowerCase()=="female")
+    this.staticFileServicesService.getPictureWithUrl("http://localhost:5000"+"/images/female.png").subscribe((data: Blob) => {
+      this.createGenderImageFromBlob(data);
+    }, (error: any) => {
+      console.log(error);
+    });
+    else
+      this.staticFileServicesService.getPictureWithUrl("http://localhost:5000"+"/images/male.png").subscribe((data: Blob) => {
+        this.createGenderImageFromBlob(data);
+      }, (error: any) => {
+        console.log(error);
+      });
+  }
   getTelegramImage() {
     this.staticFileServicesService.getPictureWithUrl("http://localhost:5000"+"/images/telegram.png").subscribe((data: Blob) => {
       this.createTelegramImageFromBlob(data);
@@ -231,6 +262,7 @@ export class UserProfileComponent implements OnInit {
       console.log(this.userInfo.pictureUrl)
       this.getLoginImage();
       this.getUserRateToUser();
+      this.getGenderImage();
     }, (error: any) => {
       console.log(error)
     });
@@ -371,4 +403,5 @@ export class UserProfileComponent implements OnInit {
   {
     return Math.round((number + Number.EPSILON) * 100) / 100;
   }
+
 }

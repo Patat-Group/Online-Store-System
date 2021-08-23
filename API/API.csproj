@@ -23,6 +23,13 @@
     <_ContentIncludedByDefault Remove="wwwroot\images\R7be2db39a6bdb3522d653784ac56efdf.jfif" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\images" />
+    <Content Update="wwwroot\images\female.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\images\male.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 </Project>

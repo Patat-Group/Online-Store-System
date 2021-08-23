@@ -22,6 +22,8 @@ import { MatButtonModule} from '@angular/material/button';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatSelectModule} from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { RegisterComponent } from './register/register.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 @NgModule({
@@ -51,6 +53,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     ScrollingModule,
     MatSelectModule,
     MatSliderModule,
+    MatDialogModule,
     RouterModule.forRoot(appRoutes)
   ],
   exports: [
@@ -61,6 +64,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     ScrollingModule,
     MatSelectModule,
     MatSliderModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -81,11 +81,13 @@ body {
 }
 .fullName{
   font-family: "Segoe UI", serif;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   display: block;
-  text-align: center;
+  text-align: left;
   width: 165px;
+  padding: 0;
+
 }
 .label-location{
   font-family: "Segoe UI", serif;
@@ -148,7 +150,7 @@ body {
 .badge {
   font-size: 25px;
   font-weight: 200;
-  width:90px;
+  width:80px;
 }
 
 .badge i {
@@ -159,11 +161,13 @@ body {
 .about-rating {
   font-size: 15px;
   font-weight: 500;
-  margin-top: 6px
+  margin-top: 6px;
+  width:80px;
 }
 
 .total-ratings {
-  font-size: 12px
+  font-size: 12px;
+  width:80px;
 }
 
 .bg-custom {
@@ -184,20 +188,17 @@ body {
 .rating-num{
   padding-left: 5px;
   padding-right: 5px;
+  width: 60px;
 }
 .rating-radio{
   padding: 0;
 }
-.rating-col{
-  width: 50px;
-  margin-top: 17px;
-
-}
 .rating-div{
-  margin-top: 5px;
+  width: 100px;
+  margin: 5px 0 0;
 }
 .progress-col{
-  margin-right:15px;
+  margin-right:35px;
   margin-top:13px;
   padding-left: 0;
 }
@@ -205,4 +206,34 @@ body {
   width: auto;
   height: auto;
   overflow-x: hidden;
+}
+.ratings{
+  padding-right: 0;
+}
+.rating-col{
+  margin: 17px 0 0;
+  width: 90px;
+}
+.username{
+  font-family: "Segoe UI", serif;
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  width: 165px;
+  color: #586069;
+  position: relative;
+  bottom: 5px;
+}
+.gender-image{
+  height: auto;
+  width: 36px;
+  padding: 0 ;
+  position: relative;
+  bottom: 7px;
+  right: 10px;
+}
+.name-with-gender{
+  width: 220px;
+  margin-left: 10px;
 }
