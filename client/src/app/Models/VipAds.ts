@@ -1,3 +1,3 @@
 export class VipAds {
-    imageUrl :string |any;
+    imageUrl :string |any ="";
 }

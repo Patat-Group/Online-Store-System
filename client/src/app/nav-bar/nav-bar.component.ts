@@ -46,6 +46,7 @@ export class NavBarComponent implements OnInit {
   logoutUser() {
     this.usersService.logout();
     this.isUserLoggedIn = false;
+    this.router.navigateByUrl("/");
   }
   reloadComponent() {
     this.ngOnChanges();

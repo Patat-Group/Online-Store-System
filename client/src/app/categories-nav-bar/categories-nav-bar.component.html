@@ -18,14 +18,14 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
+      <li class="nav-item ">
+        <a class="nav-link" href="/">HOME</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">ELECTRONICS</a>
+        <a class="nav-link" href="https://localhost:4200/products/8">ELECTRONICS</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">CARS</a>
+        <a class="nav-link" href="https://localhost:4200/products/9">CARS</a>
       </li>
     </ul>
   </div>
@@ -35,7 +35,7 @@
 
   <ng-template matMenuContent >
 
-    <a mat-menu-item *ngFor="let item of categoryItems" href="{{item.imageUrl}}">
+    <a mat-menu-item *ngFor="let item of categoryItems" href="https://localhost:4200/products/{{item.id}}">
       {{item.name}}
     </a>
   </ng-template>

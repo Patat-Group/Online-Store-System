@@ -17,7 +17,7 @@ import { NavigationExtras, Router } from '@angular/router';
 
 export class MainPageComponent implements OnInit {
 
-  vipAds: VipAds[] | any;
+  vipAds: VipAds[] = [];
   categories: Category[] | any;
 
   constructor(config: NgbCarouselConfig, private categoryService: CategoryServicesService

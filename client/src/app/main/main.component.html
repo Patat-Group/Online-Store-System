@@ -1,12 +1,13 @@
 <div ngClass="page">
   <div>
     <app-nav-bar></app-nav-bar>
+    <app-categories-nav-bar></app-categories-nav-bar>
   </div>
   <section class="container-carousel">
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let img of vipAds">
         <div class="picsum-img-wrapper">
-          <img src={{img.imageUrl}} height="300" width="100%" style="object-fit: cover;">
+          <img src="{{img.imageUrl}}" height="300" width="100%" style="object-fit: cover;">
         </div>
       </ng-template>
     </ngb-carousel>
