@@ -6,6 +6,7 @@
     <div class="profile-pic row-sm">
       <label class="-label" for="file" [hidden]="!isUserLoggedIn || !isUserOwnProfile">
         <span class="glyphicon glyphicon-camera"></span>
+        <i class="fa fa-camera"></i>
         <span class="update-image">Update Photo</span>
       </label>
       <input id="file" type="file" (change)="uploadFile($event)" accept="image/png, .jpeg, .jpg, image/" [hidden]="!isUserLoggedIn || !isUserOwnProfile"/>
@@ -48,7 +49,8 @@
       </div>
       <div class="col-sm-2">
         <a href="{{userInfo.whatsappUrl}}" target="_blank"><img class="contact-info-whatsapp" [src]="whatsappImage" alt=""/></a>
-      </div>
+      </div >
+      <button mat-raised-button color="warn" class="report-user-button" [hidden]="!isUserLoggedIn || isUserOwnProfile" (click)="openDialogWithTemplateRef(reportDialog)">Report User </button>
     </div>
     </div>
   </div>
@@ -131,8 +133,11 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-2 right-side">
-    <label class=""></label>
+  <div class="col-sm-1 right-side" [hidden]="!isUserLoggedIn || !isUserOwnProfile">
+    <div class="setting">
+      <a class="setting-link" routerLink="/profile/setting"><i class="fa fa-cog setting-icon fa-2x " aria-hidden="true"></i></a>
+
+    </div>
   </div>
 </div>
 <app-footer></app-footer>
@@ -146,4 +151,15 @@
   <mat-dialog-actions align="end">
     <button mat-button matDialogClose color="primary">OK</button>
   </mat-dialog-actions>
+</ng-template>
+
+<ng-template #reportDialog>
+<h2 matDialogTitle>Report User</h2>
+<mat-dialog-content class="report-dialog">
+  <textarea matInput class="report-string-input" placeholder="Why you want to report this user ?"></textarea>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button matDialogClose color="warn">Ok</button>
+  <button mat-flat-button matDialogClose color="primary">Cancel</button>
+</mat-dialog-actions>
 </ng-template>

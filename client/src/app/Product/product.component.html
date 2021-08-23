@@ -41,7 +41,7 @@
 
   <section class="wrapper">
     <div class="row">
-      <div class="col-md-3" *ngFor="let item of products">
+      <div class="col-md-3" *ngFor="let item of products;let indexOfelement=index;">
         <div class="card-sl">
           <div class="card-image">
             <img src="{{item.imageUrl}}" style="width: 400px; height: 200px;" />
@@ -59,7 +59,7 @@
           <div>
             <div class="card-text">
               <i class="fa fa-user" aria-hidden="true"></i>
-              <a routerLink="/productDetail/{{item.id}}"> {{item.username}}</a>
+              <a routerLink="/profile/{{item.username}}"> {{item.username}}</a>
               &nbsp;
               &nbsp;
               &nbsp;
@@ -73,12 +73,12 @@
               &nbsp;
               &nbsp;&nbsp;
               &nbsp;
-              &nbsp;&nbsp;
+              &nbsp;
               &nbsp;
               &nbsp;
               <i class="fa fa-star" aria-hidden="true"></i>
-              4.7
-              (33)
+              {{this.productsUsersRatesAvg[indexOfelement]}}
+              ({{this.productsUsersRatesCount[indexOfelement]}})
             </div>
           </div>
         </div>

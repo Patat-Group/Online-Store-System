@@ -5,7 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ITag } from '../Models/Tags';
 import { CategoryServicesService } from '../Services/CategoryServices/category-services.service';
 import { DataSharingForSearchService } from '../Services/data-sharing-for-search.service';
-
+import {UsersService} from "../Services/UserServices/user-services.service";
+import {Observable} from "rxjs";
 @Component({
     selector: 'app-product',
     templateUrl: './product.component.html',
@@ -17,13 +18,15 @@ export class ProductComponent implements OnInit {
     searchProduct: string | any = "";
     categoryId: string | any = "";
     productsTags: ITag[] | any = [];
+    productsUsersRatesAvg: any = [];
+    productsUsersRatesCount:any = [];
     tagId = 0;
     sortId = 0;
     lengthProducts = 0;
     categoryName: string | any = "";
 
 
-    constructor(private productsService: ProductsService, private route: ActivatedRoute,
+    constructor(private productsService: ProductsService, private route: ActivatedRoute,private usersService: UsersService,
         private categoryService: CategoryServicesService, private dataSharing: DataSharingForSearchService) {
     }
 
@@ -38,14 +41,22 @@ export class ProductComponent implements OnInit {
         this.loadProduct();
         this.loadTags();
         this.loadCategory();
+
         localStorage.removeItem('search');
     }
 
+    loadRatings() {
+      for (var i in this.products)
+      {
+        this.getUserRate(this.products[i].username,i);
+      }
+  }
     loadProduct() {
         this.productsService.getProductsWithCategory(+this.categoryId, this.tagId,
             this.sortId, this.searchProduct).subscribe(list => {
                 this.products = list;
                 this.lengthProducts = this.products.length;
+                this.loadRatings();
             }, error => console.log(error))
     }
     loadTags() {
@@ -74,4 +85,36 @@ export class ProductComponent implements OnInit {
             })
         }
     }
+  getUserRate(username:string,id:any){
+    this.usersService.getUserRateWithUsername(username).subscribe((data: any) => {
+      const userRate=data;
+      const totalRateCount= userRate.oneStarCount
+        + userRate.twoStarCount
+        + userRate.threeStarCount
+        + userRate.fourStarCount
+        + userRate.fiveStarCount;
+      let ratioOfTotalRate=
+        userRate.oneStarCount
+        + 2*userRate.twoStarCount
+        + 3*userRate.threeStarCount
+        + 4*userRate.fourStarCount
+        + 5*userRate.fiveStarCount;
+      if(totalRateCount==0) {
+        ratioOfTotalRate = 0;
+      }
+      else {
+       ratioOfTotalRate = this.roundFloat(ratioOfTotalRate /totalRateCount);
+      }
+      this.productsUsersRatesAvg[id]=ratioOfTotalRate;
+      this.productsUsersRatesCount[id]=totalRateCount;
+    }, (error: any) => {
+      this.productsUsersRatesAvg[id]=0;
+      this.productsUsersRatesCount[id]=0;
+      console.log(error)
+    });
+  }
+  roundFloat(number:any)
+  {
+    return Math.round((number + Number.EPSILON) * 10) / 10;
+  }
 }

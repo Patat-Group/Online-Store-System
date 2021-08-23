@@ -5,6 +5,7 @@ import { ProductComponent } from "./Product/product.component";
 import { LoginPageComponent } from "./login/login.component";
 import { RegisterComponent } from './register/register.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserSettingComponent } from './user-setting/user-setting.component';
 export const appRoutes: Routes =
   [
     { path: "home", component: MainPageComponent },
@@ -14,6 +15,7 @@ export const appRoutes: Routes =
     { path: "login", component: LoginPageComponent },
     { path: "register", component: RegisterComponent },
     { path: "profile", component: UserProfileComponent },
+    { path: "profile/setting", component: UserSettingComponent },
     { path: "profile/:username", component: UserProfileComponent },
-    { path: "**", component: MainPageComponent }
+    { path: "**", component: MainPageComponent },
   ];

@@ -26,6 +26,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterComponent } from './register/register.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserSettingComponent } from './user-setting/user-setting.component';
+import { UserChangePasswordComponent } from './user-change-password/user-change-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +40,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     LoginPageComponent,
     RegisterComponent,
     UserProfileComponent,
+    UserSettingComponent,
+    UserChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,50 @@
+<div class="main-div">
+  <app-nav-bar></app-nav-bar>
+  <app-categories-nav-bar></app-categories-nav-bar>
+  <div class="update-div">
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col">
+          <h2 class ="update-header no-select-with-text">Profile Setting</h2>
+          <div class="form-group ">
+            <label  class="no-select-with-text input-label">Name :</label>
+            <div class="row  input-name-div">
+              <div class="col-sm-5">
+                <label for="InputFirstName" class="no-select-with-text" hidden></label>
+                <input class="form-control input-name" id="InputFirstName" formControlName="InputFirstName"
+                       aria-describedby="firstNameHelp" placeholder="First Name" [required]="true" value="{{userInfo.firstName}}" ></div>
+              <div class="col-sm-auto"><span></span></div>
+              <div class="col-sm-5"><label for="InputLastName" class="no-select-with-text" hidden></label>
+                <input class="form-control input-name" id="InputLastName" formControlName="InputLastName"
+                       aria-describedby="lastNameHelp" placeholder="Last Name" [required]="true" value="{{userInfo.lastName}}" ></div>
+            </div>
+            <label for="InputPhoneNumber" class="no-select-with-text input-label" >Phone Number :</label>
+            <input class="form-control" id="InputPhoneNumber" formControlName="InputPhoneNumber"
+                   aria-describedby="phoneNumberHelp" placeholder="Enter Your Phone Number" [required]="true" (keypress)="omitSpecialCharToPhoneNumber($event)"  value="{{userInfo.phoneNumber}}">
+            <label for="InputAddress" class="no-select-with-text input-label">Address :</label>
+            <input class="form-control" id="InputAddress" formControlName="InputAddress" aria-describedby="addressHelp" placeholder="Enter Your Address" value="{{userInfo.address}}">
+            <label for="InputDescription" class="no-select-with-text input-label">Description :</label>
+            <textarea class="form-control input-textarea" id="InputDescription" formControlName="InputDescription" aria-describedby="descriptionHelp" placeholder="Talk About Yourself" rows="4" cols="50" value="{{userInfo.description}}"></textarea>
+            <label  class="no-select-with-text input-label">Gender :</label>
+            <div class="gender-div">
+              <label>
+                <input type="radio"  [checked]="userInfo.gender?.toLowerCase()=='male'" name="gender" value="male" (input)="onGenderChange($event)">
+              </label> Male  &nbsp;
+              <label>
+                <input type="radio" name="gender" value="female" [checked]="userInfo.gender?.toLowerCase()=='female'" (input)="onGenderChange($event)">
+              </label> Female
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary update">Update</button>
+          <button type="submit" class="btn btn-primary change-password">Change Password</button>
+        </div>
+        <div class="col">
+          <img class="updateImage no-select-with-text" [src]="imageToShow"
+               alt="Place image title">
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <app-footer></app-footer>
+</div>

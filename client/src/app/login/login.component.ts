@@ -35,7 +35,8 @@ export class LoginPageComponent implements OnInit {
       this.emptyUsername = false;
       this.emptyPassword = false;
       this.errorInLogin = false;
-      this.usersService.login(this.loginForm.value.InputEmail, this.loginForm.value.InputPassword).subscribe(data => {
+      this.usersService.login(this.loginForm.value.InputEmail, this.loginForm.value.InputPassword)
+                        .subscribe(data => {
         this.loginResult = data;
         localStorage.setItem('username', this.loginResult.username);
         localStorage.setItem('email', this.loginResult.email);
@@ -54,7 +55,6 @@ export class LoginPageComponent implements OnInit {
         this.errorInLogin = true;
 
       });
-
     }
     else
     {
@@ -86,9 +86,7 @@ export class LoginPageComponent implements OnInit {
       reader.readAsDataURL(image);
     }
   }
-  toggleShow() {
-    this.showPassword = !this.showPassword;
-  }
+
   getLoginImage() {
     this.isImageLoading = true;
     this.staticFileServicesService.getLoginImage().subscribe(data => {
@@ -98,7 +96,9 @@ export class LoginPageComponent implements OnInit {
       this.isImageLoading = false;
     });
   }
-
+  toggleShow() {
+    this.showPassword = !this.showPassword;
+  }
   ngOnInit(): void {
     this.getLoginImage();
   }
