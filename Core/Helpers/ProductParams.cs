@@ -2,15 +2,16 @@
 {
     public class ProductParams
     {
-        private int pageSize = 8;
-        public int MaxPageNumber { get; set; } = 20;
-        public int NumberOfPages { get; set; }
+        private const int maxPageSize = 100;
+        private int pageSize = 6;
+        // public int MaxPageNumber { get; set; }
+        // public int NumberOfPages { get; set; }
 
         public int PageNumber { get; set; } = 1;
 
         public int PageSize
         {
-            set { pageSize = value > MaxPageNumber ? 10 : value; }
+            set { pageSize = (value > maxPageSize) ? 10 : value; }
             get => pageSize;
         }
 

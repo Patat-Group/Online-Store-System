@@ -87,26 +87,27 @@
     </div>
   </section>
 
+  <!-- <pagination
+       [totalItems]="pagination.totalItems"
+       itemsPerPage]="pagination.itemPerPage"
+       [(ngModel)] ="pagination.currentPage"
+      (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+      lastText="&raquo;">
 
-  <nav class="d-flex">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+    </pagination> -->
+
+
+  <div class="d-flex justify-content-center" *ngIf="pagination">
+    <!-- <pagination [boundaryLinks]="false"
+        [totalItems]="pagination.totalItems" 
+        [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage" 
+        (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
+        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination> -->
+    <pagination [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+      [maxSize]="pagination.totalPages" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" ></pagination>
+  </div>
   <br />
 
   <app-footer></app-footer>

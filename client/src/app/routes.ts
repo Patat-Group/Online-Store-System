@@ -10,7 +10,7 @@ export const appRoutes: Routes =
   [
     { path: "home", component: MainPageComponent },
     { path: "products", component: ProductComponent },
-    { path: "products/:id", component: ProductComponent },
+    { path: "products/:id", component: ProductComponent},
     { path: "productDetail/:idx", component: ProductDetailsComponent },
     { path: "login", component: LoginPageComponent },
     { path: "register", component: RegisterComponent },

@@ -77,7 +77,8 @@ namespace API
             });
 
             services.AddCors();
-            services.Configure<FormOptions>(o => {
+            services.Configure<FormOptions>(o =>
+            {
                 o.ValueLengthLimit = int.MaxValue;
                 o.MultipartBodyLengthLimit = int.MaxValue;
                 o.MemoryBufferThreshold = int.MaxValue;
@@ -111,9 +112,7 @@ namespace API
             app.UseRouting();
 
             app.UseCors(x => x.WithOrigins("https://localhost:4200")
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials());
+                                .AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
             app.UseStaticFiles();
 

@@ -36,8 +36,8 @@ namespace API.Controllers
             var productForReturn = _mapper
                 .Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
 
-            Response.AddPagination(productParams.PageNumber, productParams.PageSize,
-               productParams.MaxPageNumber, productParams.NumberOfPages);
+            Response.AddPagination(products.CurrentPage, products.PageSize,
+               products.TotalCount, products.TotalPage);
 
             return productForReturn;
 
@@ -51,9 +51,9 @@ namespace API.Controllers
             var productForReturn = _mapper
                             .Map<IReadOnlyList<Product>, IReadOnlyList<ProductsToReturnDto>>(products);
 
-            Response.AddPagination(productParams.PageNumber, productParams.PageSize,
-               productParams.MaxPageNumber, productParams.NumberOfPages);
-               
+            Response.AddPagination(products.CurrentPage, products.PageSize,
+               products.TotalCount, products.TotalPage);
+    
             return productForReturn;
 
             throw new Exception("Error happen when get products");

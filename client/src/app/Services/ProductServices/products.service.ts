@@ -4,21 +4,36 @@ import { Observable } from 'rxjs';
 import { Products } from 'src/app/Models/Products';
 import { map } from 'rxjs/operators';
 import { ITag } from 'src/app/Models/Tags';
-import { Pagination } from 'src/app/Models/Pagination';
+import { getPaginationHeaders, getPaginationResult } from '../PaginationHelper';
+import { ProductsParam } from 'src/app/Models/ProductParams';
+import { PaginatedResult } from 'src/app/Models/Pagination';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-
-  constructor(private http: HttpClient) { }
+  productParams: ProductsParam;
   baseUrl = 'http://localhost:5000/api/Product';
   baseUrl2 = 'http://localhost:5000/api/subCategory/category/';
 
+  constructor(private http: HttpClient) {
+    this.productParams = new ProductsParam();
+  }
+
+
   getProductsWithCategory(categoryIdFilter?: number | any,
     subCategoryIdFilter?: number | any, sortId?: number | any,
-    searchProduct?: string | any) {
+    searchProduct?: string | any, currentPage?: number | any,
+    itemsPerPage?: number | any ): Observable<PaginatedResult<Products[]>> {
+
+    const paginatedResult: PaginatedResult<Products[]> = new PaginatedResult<Products[]>();
+
     let params = new HttpParams();
+    if (currentPage != null && itemsPerPage != null) {
+      params = params.append('pageNumber', currentPage);
+      params = params.append('pageSize', itemsPerPage);
+      console.log("waiting......");
+    }
     if (categoryIdFilter != 0 && categoryIdFilter != null && categoryIdFilter != undefined)
       params = params.append("CategoryIdFilter", categoryIdFilter);
     if (subCategoryIdFilter !== 0)
@@ -32,12 +47,31 @@ export class ProductsService {
     if (searchProduct != null) {
       params = params.append("Search", searchProduct);
     }
-    return this.http.get<Pagination>(this.baseUrl, { observe: 'response', params })
+
+
+
+    return this.http.get<Products[]>(this.baseUrl, { observe: 'response', params })
       .pipe(
         map(response => {
-          return response.body;
+          paginatedResult.result = response.body;
+          console.log("headers2  " + (response.headers.get('Pagination')));
+          if (response.headers.get('Pagination') != null) {
+            paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
+          }
+          return paginatedResult;
         })
       );
+
+    // return this.http.get<Products[]>(this.baseUrl, { observe: 'response', params })
+    //   .pipe(
+    //     map(response => {
+    //       return response.body;
+    //     })
+    //   );
+  }
+
+  setProductsParams(params: ProductsParam) {
+    this.productParams = params;
   }
 
   getTags(id: number) {

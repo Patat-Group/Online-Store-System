@@ -5,5 +5,9 @@ export interface Pagination {
   itemsPerPage: number;
   totalItems: number;
   totalPages: number;
-  result :Products[] |any;
+}
+
+export class PaginatedResult<T>{
+  result: T | any;
+  pagination: Pagination | any;
 }
