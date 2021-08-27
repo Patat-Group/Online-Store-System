@@ -39,6 +39,7 @@ namespace API.Helpers
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.User.Address))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
                 .ForMember(dest => dest.FacebookUrl, opt => opt.MapFrom(src => src.User.FacebookUrl))
+                .ForMember(dest => dest.phoneNumber, opt => opt.MapFrom(src => src.User.PhoneNumber))
                 .ForMember(dest => dest.TelegramUrl, opt => opt.MapFrom(src => src.User.TelegramUrl))
                 .ForMember(dest => dest.WhatsappUrl, opt => opt.MapFrom(src => src.User.WhatsappUrl));
 

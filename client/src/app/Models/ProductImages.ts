@@ -1,4 +1,4 @@
-export interface IProductImages {
+export class IProductImages {
     id: number | any;
     name: string | any;
     shortDescription: string | any;
@@ -8,6 +8,7 @@ export interface IProductImages {
     userName: string | any;
     facebookUrl: string | any;
     whatsappUrl: string | any;
+    phoneNumber: string | any;
     telegramUrl: string | any;
-    imagesUrl: string[] | undefined;
+    imagesUrl: string[] | any;
 }

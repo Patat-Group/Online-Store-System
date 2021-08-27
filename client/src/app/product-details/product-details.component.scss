@@ -3,15 +3,16 @@
 }
 
 .imgSpec {
-  filter: brightness(50%);
+  filter: opacity(55%);
 }
 
 .imgSpec:hover {
-  filter: brightness(100%);
+  filter: opacity(100%);
+  cursor: pointer;
 }
 
 .imgSpec.selected {
-  filter: brightness(100%);
+  filter: opacity(100%);
 }
 
 
@@ -22,7 +23,7 @@
   float: left;
   height: auto;
   width: 15%;
-  margin-left: 15px;
+  margin-left: 25px;
   margin-top: 30px;
 }
 
@@ -77,11 +78,11 @@
 
 .column2 {
   float: left;
-  width: 43%;
+  width: 37%;
   height: 90vh;
   justify-content: center;
   margin-top: 27px;
-  margin-left: 220px;
+  margin-left: 260px;
 }
 
 .row:after {
@@ -120,13 +121,20 @@
   display: table;
 }
 #img-holder {
-  background-image: url("https://static-assets.glossier.com/production/spree/images/attachments/000/003/755/portrait_normal/LashSlick.jpg?1556563261");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   height: 500px;
-  width: 690px;
-  border-radius: 10%;
+  width: 750px;
+  border-radius: 9%;
+}
+.img-holder {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 500px;
+  width: 750px;
+  border-radius: 9%;
 }
 
 li {
@@ -150,29 +158,52 @@ li {
 }
 
 .tags {
-  margin-top: -120px;
   margin-left: 10px;
-  background-color: cadetblue;
+  background-color: #BEB7B7;
   width: 70px;
   height: 30px;
   text-align: center;
   color: white;
-  border-radius: 20%;
+  border-radius: 50px;
 }
 
 .specRow {
   background-color: cadetblue;
-  margin-top: -50px;
+  position: relative;
+  top: -50px;
   width: 96%;
   height: 0.5px;
   margin-left: 28px;
 }
 
 .descTitle{
-  margin: 34px;
+  margin: 5px 34px 34px;
 }
 .desc{
   margin-left: 39px;
   margin-right: 39px;
   margin-top: -5px;
+}
+.username{
+  text-decoration: none;
+  color: #8296D9;
+  font-weight: bolder;
+
+}
+.short-description{
+  height: 230px;
+}
+.tag{
+  border-radius: 50px;
+  background-color: #BEB7B7;
+  width:auto;
+  max-width: 120px;
+  border-width: 0;
+  margin-left: 20px;
+  margin-top: 15px;
+  outline: none;
+  color: #F5F5F5;
+  font-family: "Segoe UI", serif;
+  font-size: 18px;
+  font-weight: bolder;
 }

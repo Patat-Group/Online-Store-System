@@ -24,6 +24,7 @@ export class UsersService {
   getUserToUserRateUrl = this.baseRatingUrl+"myrate/";
   setUserToUserRateUrl = this.baseRatingUrl;
   getUserRate=this.baseRatingUrl+'details/';
+  updateUserPasswordUrl=this.baseUrl+"password/";
   loginUserUrl = this.baseUrl+"login/";
   updatePhotoUserUrl = this.baseUrl+"photo/";
   registerUserUrl = this.baseUrl+"register/";
@@ -62,6 +63,16 @@ export class UsersService {
     body["username"]=username;
     body["value"]=value;
     return this.http.put(this.setUserToUserRateUrl,body,httpOptions).pipe();
+  }
+  public updateUserPassword(oldPassword:string,newPassword :string): Observable<any> {
+    var headersObject = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem('token'));
+    const httpOptions = {
+      headers: headersObject
+    };
+    var body:any = {};
+    body["currentPassword"]=oldPassword;
+    body["newPassword"]=newPassword;
+    return this.http.put(this.updateUserPasswordUrl,body,httpOptions).pipe();
   }
   public updateLastSeen() :Observable<any>
   {

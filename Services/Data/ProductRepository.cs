@@ -1,4 +1,5 @@
 ﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,7 +36,6 @@ namespace Services.Data
 
             products = products.OrderByDescending(d => d.DateAdded);
             products = products.Where(p => p.IsSold == false);
-
             if (productParams.CategoryIdFilter != 0)
             {
                 products = _context.Products
@@ -52,21 +52,27 @@ namespace Services.Data
                         products = products.Where(c => c.CategoryId == category.Id);
                     }
                 }
-
-                if (productParams.SubCategoryIdFilter != 0)
+            }
+            if (productParams.SubCategoryIdFilter != 0)
+            {
+                var subCategory = await _context.SubCategories
+                    .FirstOrDefaultAsync(n => n.Id == productParams.SubCategoryIdFilter);
+                if (subCategory != null)
                 {
-                    var subCategory = await _context.SubCategories
-                        .FirstOrDefaultAsync(n => n.Id == productParams.SubCategoryIdFilter);
-                    if (subCategory != null)
+                    var productsBySubCategory = _context.productAndSubCategories
+                        .Where(i => i.SubCategoryId == subCategory.Id);
+                    if (productsBySubCategory != null)
                     {
-                        var productsBySubCategory = _context.productAndSubCategories
-                            .Where(i => i.SubCategoryId == subCategory.Id);
-
-                        if (productsBySubCategory != null)
-                        {
-                            products = products.Where(x => productsBySubCategory.Any(e => e.ProductId == x.Id));
-                        }
+                        products = products.Where(x => productsBySubCategory.Any(e => e.ProductId == x.Id));
                     }
+                    else
+                    {
+                        products = products.Take(0);
+                    }
+                }
+                else
+                {   
+                    products = products.Take(0);
                 }
             }
 

@@ -6,15 +6,18 @@ import { LoginPageComponent } from "./login/login.component";
 import { RegisterComponent } from './register/register.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserSettingComponent } from './user-setting/user-setting.component';
+import { UserChangePasswordComponent } from './user-change-password/user-change-password.component';
 export const appRoutes: Routes =
   [
     { path: "home", component: MainPageComponent },
     { path: "products", component: ProductComponent },
+    { path: "products/tags/:tagId", component: ProductComponent },
     { path: "products/:id", component: ProductComponent},
     { path: "productDetail/:idx", component: ProductDetailsComponent },
     { path: "login", component: LoginPageComponent },
     { path: "register", component: RegisterComponent },
     { path: "profile", component: UserProfileComponent },
+    { path: "profile/setting/password", component: UserChangePasswordComponent },
     { path: "profile/setting", component: UserSettingComponent },
     { path: "profile/:username", component: UserProfileComponent },
     { path: "**", component: MainPageComponent },

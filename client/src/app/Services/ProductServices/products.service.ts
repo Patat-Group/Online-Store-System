@@ -15,6 +15,8 @@ export class ProductsService {
   productParams: ProductsParam;
   baseUrl = 'http://localhost:5000/api/Product';
   baseUrl2 = 'http://localhost:5000/api/subCategory/category/';
+  getTagNameUrl = 'http://localhost:5000/api/subCategory/';
+  getProductTagsUrl = 'http://localhost:5000/api/LinkProductWithSubCategory/';
 
   constructor(private http: HttpClient) {
     this.productParams = new ProductsParam();
@@ -76,5 +78,14 @@ export class ProductsService {
 
   getTags(id: number) {
     return this.http.get<ITag[]>(this.baseUrl2 + id);
+  }
+  getProductTags(id:number)
+  {
+    return this.http.get(this.getProductTagsUrl + id);
+  }
+  getTagName(id:number): Observable<any>
+  {
+    console.log(this.getTagNameUrl + id);
+    return this.http.get(this.getTagNameUrl + id);
   }
 }

@@ -7,46 +7,28 @@
     <div class="">
       <div class="left-icon">
         <div *ngFor="let image of product.imagesUrl">
-          <img class="imgSpec" onclick="document.getElementById('img-holder').style" src="{{image}}" id="left-circle">
+          <img class="imgSpec" (click)="changeCurrentImage(image)" [class.selected]="currentImage==image" [src]="image" id="left-circle">
         </div>
       </div>
 
       <div class="row">
         <div class="column">
-          <div id="img-holder"></div>
+          <div id="img-holder"><img class="img-holder" [src]="currentImage"></div>
+          <div class="col">
+            <button *ngFor="let item of productTags" class="btn btn-primary tag" (click)="onTagClick(item.id)">{{item.name}}</button>
+            </div>
         </div>
         <div class="column2">
           <br />
           <h2>{{product.name}}</h2>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <p>
+          <p class="short-description">
             {{product.shortDescription}}
           </p>
 
           <div class="row">
             <br />
-            <br />
-            <br />
-            <br />
-            <br /><br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
             <div class="col-5 ml-3">
-              <i class="fa fa-user"></i> {{product.userName}}
+              <i class="fa fa-user"></i> <a class="username" routerLink="/profile/{{product.userName}}">  {{product.userName}}</a>
             </div>
             <div class="col-5 ml-3">
               <h3 class="">{{product.price}} $</h3>
@@ -54,27 +36,18 @@
           </div>
           <i class="fa fa-map-marker ml-3" aria-hidden="true"></i> {{product.address}}
           <div class="mt-1">
-            <a href="{{product.whatsappUrl}}"><img src="assets/images/icons/whatsapp.png" alt="image"
+            <a href="{{product.facebookUrl}}" target="_blank"><img src="assets/images/icons/facebook.png" alt="image"
+                                                   style="width: 13%; height: 13%;"></a>
+            <a role="button" (click)="openDialogWithTemplateRef(phoneNumberDialog)"><img src="assets/images/icons/tele.png" alt="image"
+                                                   style="width: 13%; height: 13%;"></a>
+            <a href="{{product.telegramUrl}}" target="_blank"><img src="assets/images/icons/telegram.png" alt="image"
+                                                   style="width: 13%; height: 13%;"></a>
+            <a href="{{product.whatsappUrl}}" target="_blank"><img src="assets/images/icons/whatsapp.png" alt="image"
                 style="width: 16%; height: 16%;"></a>
-            <a href="{{product.telegramUrl}}"><img src="assets/images/icons/telegram.png" alt="image"
-                style="width: 13%; height: 13%;"></a>
-            <a href="{{product.facebookUrl}}"><img src="assets/images/icons/facebook.png" alt="image"
-                style="width: 13%; height: 13%;"></a>
+
           </div>
         </div>
 
-        <div class="tags">
-          <p>Laptops</p>
-        </div>
-        <div class="tags">
-          <p>Laptops</p>
-        </div>
-        <div class="tags">
-          <p>Laptops</p>
-        </div>
-        <div class="tags">
-          <p>Laptops</p>
-        </div>
 
       </div>
     </div>
@@ -94,3 +67,12 @@
   </div>
 </div>
 <app-footer></app-footer>
+<ng-template #phoneNumberDialog>
+  <h2 matDialogTitle>Phone Number</h2>
+  <mat-dialog-content>
+    <p>Tel: {{product.phoneNumber}}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose color="primary">OK</button>
+  </mat-dialog-actions>
+</ng-template>

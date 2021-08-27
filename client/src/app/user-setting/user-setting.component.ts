@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UsersService} from "../Services/UserServices/user-services.service";
 import {StaticFileServicesService} from "../Services/StaticFileServices/staticfile-services.service";
-import {FormBuilder} from "@angular/forms";
+import {FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {Router} from "@angular/router";
 import {UserInfo} from "../Models/UserInfo";
 
@@ -16,20 +16,19 @@ export class UserSettingComponent implements OnInit {
   currentGender: string | any;
   currnetUsername: string | any;
   userInfo= new UserInfo();
-  updateForm = this.formBuilder.group({
-    InputFirstName: '',
-    InputLastName: '',
-    InputAddress: '',
-    InputDescription: '',
-    InputPhoneNumber:'',
-
-  });
   constructor(
     private usersService: UsersService,
     private staticFileServicesService: StaticFileServicesService,
     private formBuilder: FormBuilder,
     private router: Router,
   ) {}
+  updateForm = this.formBuilder.group({
+    InputFirstName: '',
+    InputLastName: '',
+    InputAddress: '',
+    InputDescription: '',
+    InputPhoneNumber:''
+  });
 
   ngOnInit(): void {
     if (this.usersService.isLoggedOut())
@@ -46,13 +45,31 @@ export class UserSettingComponent implements OnInit {
     this.usersService.getUserDataWithUsername(this.currnetUsername).subscribe((data: any) => {
       console.log(data)
       this.userInfo=data;
+      this.updateForm.value.InputAddress=this.userInfo.address;
+      this.updateForm.value.InputFirstName=this.userInfo.firstName;
+      this.updateForm.value.InputLastName=this.userInfo.lastName;
+      this.updateForm.value.InputPhoneNumber=this.userInfo.phoneNumber;
+      this.updateForm.value.InputDescription=this.userInfo.description;
+      this.currentGender=this.userInfo.gender?.toLowerCase();
     }, (error: any) => {
       console.log(error)
-    });
-
-
+    })
   }
   onSubmit() {
+      const userInfo= new UserInfo();
+      console.log(this.updateForm.value.InputAddress);
+      userInfo.address=this.updateForm.value.InputAddress;
+      userInfo.firstName=this.updateForm.value.InputFirstName;
+      userInfo.lastName=this.updateForm.value.InputLastName;
+      userInfo.phoneNumber=this.updateForm.value.InputPhoneNumber;
+      userInfo.description=this.updateForm.value.InputDescription;
+      userInfo.gender=this.currentGender;
+      this.usersService.updateUserInfo(userInfo).subscribe( (data: any)=> {
+        if(data.message=="Update Succeeded")
+          this.router.navigateByUrl("/profile");
+      }, (error: any) => {
+        console.log(error);
+      });
 
   }
   createImageFromBlob(image: Blob) {

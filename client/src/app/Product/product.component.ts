@@ -22,7 +22,7 @@ export class ProductComponent implements OnInit {
   productsTags: ITag[] | any = [];
   productsUsersRatesAvg: any = [];
   productsUsersRatesCount: any = [];
-  tagId = 0;
+  tagId : any=0;
   sortId = 0;
   lengthProducts = 0;
   categoryName: string | any = "";
@@ -35,12 +35,23 @@ export class ProductComponent implements OnInit {
 
   constructor(private productsService: ProductsService, private route: ActivatedRoute, private usersService: UsersService,
     private categoryService: CategoryServicesService, private dataSharing: DataSharingForSearchService) {
-  
+
 
   }
 
   ngOnInit(): void {
     this.categoryId = this.route.snapshot.paramMap.get('id');
+    this.tagId= this.route.snapshot.paramMap.get('tagId');
+    if(this.tagId!=null)
+    {
+      console.log(this.tagId);
+      this.productsService.getTagName(this.tagId).subscribe((data:any) => {
+        console.log(data);
+      this.categoryName=data.name;
+    },error => console.log(error))
+    }
+    else
+      this.tagId=0;
     // this.dataSharing.sharingDate.subscribe(val => {
     //     this.searchProduct = val;
     // })
@@ -50,8 +61,6 @@ export class ProductComponent implements OnInit {
     this.loadProduct();
     this.loadTags();
     this.loadCategory();
-
-
     localStorage.removeItem('search');
   }
 
