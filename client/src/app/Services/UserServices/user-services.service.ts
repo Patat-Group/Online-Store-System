@@ -79,7 +79,7 @@ export class UsersService {
     var userInfoToUpdate:any = {};
     const currentDate =new Date().toLocaleString()
     userInfoToUpdate["lastSeen"]=currentDate.replace(",","");
-    console.log(userInfoToUpdate);
+    // console.log(userInfoToUpdate);
     var headersObject = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem('token'));
     const httpOptions = {
       headers: headersObject
@@ -97,7 +97,7 @@ export class UsersService {
     };
     const formData = new FormData();
     formData.append('File', newPicture, newPicture.name);
-    console.log(formData);
+    // console.log(formData);
     return this.http.put(this.updatePhotoUserUrl,formData,httpOptions).pipe();
   }
   public updateUserInfo(userInfo:UserInfo): Observable<String>{
@@ -108,7 +108,7 @@ export class UsersService {
       if(value!="")
       userInfoToUpdate[key.toString()]=value;
     }
-    console.log(userInfoToUpdate);
+    // console.log(userInfoToUpdate);
     var headersObject = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem('token'));
     const httpOptions = {
       headers: headersObject

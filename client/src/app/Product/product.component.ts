@@ -22,14 +22,14 @@ export class ProductComponent implements OnInit {
   productsTags: ITag[] | any = [];
   productsUsersRatesAvg: any = [];
   productsUsersRatesCount: any = [];
-  tagId : any=0;
+  tagId: any = 0;
   sortId = 0;
   lengthProducts = 0;
   categoryName: string | any = "";
   productsParams: ProductsParam = new ProductsParam();
-  pagination: Pagination |any={};
-  currentPage =1;
-
+  pagination: Pagination | any = {};
+  currentPage = 1;
+  imageMain: string | any;
 
 
 
@@ -41,17 +41,16 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryId = this.route.snapshot.paramMap.get('id');
-    this.tagId= this.route.snapshot.paramMap.get('tagId');
-    if(this.tagId!=null)
-    {
+    this.tagId = this.route.snapshot.paramMap.get('tagId');
+    if (this.tagId != null) {
       console.log(this.tagId);
-      this.productsService.getTagName(this.tagId).subscribe((data:any) => {
+      this.productsService.getTagName(this.tagId).subscribe((data: any) => {
         console.log(data);
-      this.categoryName=data.name;
-    },error => console.log(error))
+        this.categoryName = data.name;
+      }, error => console.log(error))
     }
     else
-      this.tagId=0;
+      this.tagId = 0;
     // this.dataSharing.sharingDate.subscribe(val => {
     //     this.searchProduct = val;
     // })
@@ -74,11 +73,16 @@ export class ProductComponent implements OnInit {
     this.productsService.getProductsWithCategory(+this.categoryId, this.tagId,
       this.sortId, this.searchProduct, this.currentPage, this.pagination?.itemsPerPage).subscribe((list: PaginatedResult<Products[]>) => {
         this.products = list.result;
-        console.log("products   " + this.products);
+        //  console.log("products   " + this.products.imageUrl);
+        // for(let i =0 ; i <this.products.length ; i ++){
+        //   console.log(this.products.imagesUrl[0]);
+        //   console.log(this.products.imageUrl);
+
+        // }
         this.lengthProducts = this.products.length;
         this.pagination = list.pagination;
-        this.currentPage =list.pagination.currentPage;
-        console.log(this.pagination);
+        this.currentPage = list.pagination.currentPage;
+        // console.log(this.pagination);
         this.loadRatings();
       }, error => console.log(error))
   }
@@ -142,8 +146,8 @@ export class ProductComponent implements OnInit {
     return Math.round((number + Number.EPSILON) * 10) / 10;
   }
   pageChanged(event: any): void {
-      this.currentPage = event.page;
-      console.log("sd  "+event.page);
-      this.loadProduct();
+    this.currentPage = event.page;
+    console.log("sd  " + event.page);
+    this.loadProduct();
   }
 }

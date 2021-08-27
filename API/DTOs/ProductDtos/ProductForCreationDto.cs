@@ -13,7 +13,7 @@ namespace API.DTOs.ProductDtos
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
-        public string CategoryName { get; set; }
+        public int CategoryId { get; set; }
         public double Price { get; set; } = 0.0;
         public DateTime DateAdded { get; set; }
     }

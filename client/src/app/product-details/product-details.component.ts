@@ -34,9 +34,9 @@ export class ProductDetailsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.productId = this.route.snapshot.paramMap.get('idx');
-    console.log("id " + this.productId);
+    // console.log("id " + this.productId);
     this.getProductWithImages();
-    console.log("p " + this.product);
+    // console.log("p " + this.product);
   }
 
   toggleClass(event: any, className: string) {

@@ -31,6 +31,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { ProductsService } from './Services/ProductServices/products.service';
+import { AddProductComponent } from './add-product/add-product.component';
 
 @NgModule({
   imports: [
@@ -66,7 +67,8 @@ import { ProductsService } from './Services/ProductServices/products.service';
     UserSettingComponent,
     UserChangePasswordComponent,
     ProductComponent,
-    MainPageComponent
+    MainPageComponent,
+    AddProductComponent
   ],
   exports: [
     MatButtonModule,

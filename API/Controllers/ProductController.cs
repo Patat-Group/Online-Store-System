@@ -73,7 +73,7 @@ namespace API.Controllers
 
         [HttpPost("addProduct")]
         [Authorize]
-        public async Task<IActionResult> AddProduct([FromBody] ProductForCreationDto entity)
+        public async Task<ActionResult<int>> AddProduct([FromBody] ProductForCreationDto entity)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (user == null) return Unauthorized("User is Unauthorized");
@@ -85,11 +85,12 @@ namespace API.Controllers
                 LongDescription = entity.LongDescription,
                 ShortDescription = entity.ShortDescription,
                 DateAdded = entity.DateAdded,
+                CategoryId =entity.CategoryId,
                 UserId = user.Id
             };
 
             if (await _productRepo.Add(product) == true)
-                return Ok();
+                return Ok(product.Id);
 
             throw new Exception("Error happen when Add product");
         }

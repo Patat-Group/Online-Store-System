@@ -14,6 +14,9 @@ namespace API.DTOs.ProductImagesDtos
         [Required]
         public IFormFile File { get; set; }
 
+        // [Required]
+        // public bool IsMainPhoto { get; set; }
+
         public DateTime DateAdded { get; }
     }
 }

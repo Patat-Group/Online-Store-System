@@ -6,7 +6,7 @@
 
   <div class=" row txt6">
     <div class="col-md-4" >
-      <strong>{{lengthProducts}}</strong> results for "<strong>{{categoryName}}</strong>"
+      <strong>{{pagination.totalItems}}</strong> results for "<strong>{{categoryName}}</strong>"
     </div>
     <div class="col-md-4">
       &nbsp;
@@ -87,24 +87,8 @@
     </div>
   </section>
 
-  <!-- <pagination
-       [totalItems]="pagination.totalItems"
-       itemsPerPage]="pagination.itemPerPage"
-       [(ngModel)] ="pagination.currentPage"
-      (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
-      lastText="&raquo;">
-
-    </pagination> -->
-
-
   <div class="d-flex justify-content-center" *ngIf="pagination">
-    <!-- <pagination [boundaryLinks]="false"
-        [totalItems]="pagination.totalItems"
-        [itemsPerPage]="pagination.itemsPerPage"
-        [(ngModel)]="pagination.currentPage"
-        (pageChanged)="pageChanged($event)" previousText="&lsaquo;"
-        nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
-      </pagination> -->
+ 
     <pagination class="pagination" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
       [maxSize]="pagination.totalPages" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" ></pagination>
   </div>

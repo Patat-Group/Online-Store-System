@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Products } from 'src/app/Models/Products';
 import { map } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { ITag } from 'src/app/Models/Tags';
 import { getPaginationHeaders, getPaginationResult } from '../PaginationHelper';
 import { ProductsParam } from 'src/app/Models/ProductParams';
 import { PaginatedResult } from 'src/app/Models/Pagination';
+import { ProductsForAdd } from 'src/app/Models/ProductForAdd';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class ProductsService {
   getProductsWithCategory(categoryIdFilter?: number | any,
     subCategoryIdFilter?: number | any, sortId?: number | any,
     searchProduct?: string | any, currentPage?: number | any,
-    itemsPerPage?: number | any ): Observable<PaginatedResult<Products[]>> {
+    itemsPerPage?: number | any): Observable<PaginatedResult<Products[]>> {
 
     const paginatedResult: PaginatedResult<Products[]> = new PaginatedResult<Products[]>();
 
@@ -34,7 +35,7 @@ export class ProductsService {
     if (currentPage != null && itemsPerPage != null) {
       params = params.append('pageNumber', currentPage);
       params = params.append('pageSize', itemsPerPage);
-      console.log("waiting......");
+      // console.log("waiting......");
     }
     if (categoryIdFilter != 0 && categoryIdFilter != null && categoryIdFilter != undefined)
       params = params.append("CategoryIdFilter", categoryIdFilter);
@@ -50,26 +51,26 @@ export class ProductsService {
       params = params.append("Search", searchProduct);
     }
 
-
-
     return this.http.get<Products[]>(this.baseUrl, { observe: 'response', params })
       .pipe(
         map(response => {
           paginatedResult.result = response.body;
-          console.log("headers2  " + (response.headers.get('Pagination')));
+          // console.log("headers2  " + (response.headers.get('Pagination')));
           if (response.headers.get('Pagination') != null) {
             paginatedResult.pagination = JSON.parse(response.headers.get('Pagination')!);
           }
           return paginatedResult;
         })
       );
+  }
 
-    // return this.http.get<Products[]>(this.baseUrl, { observe: 'response', params })
-    //   .pipe(
-    //     map(response => {
-    //       return response.body;
-    //     })
-    //   );
+  AddProduct(productForAdd: ProductsForAdd): Observable<number> {
+    var headersObject = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem('token'));
+    const httpOptions = {
+      headers: headersObject
+    };
+    // console.log("data for add product: " + productForAdd);
+    return this.http.post<number>(this.baseUrl + '/addProduct', productForAdd, httpOptions).pipe();
   }
 
   setProductsParams(params: ProductsParam) {
@@ -79,12 +80,10 @@ export class ProductsService {
   getTags(id: number) {
     return this.http.get<ITag[]>(this.baseUrl2 + id);
   }
-  getProductTags(id:number)
-  {
+  getProductTags(id: number) {
     return this.http.get(this.getProductTagsUrl + id);
   }
-  getTagName(id:number): Observable<any>
-  {
+  getTagName(id: number): Observable<any> {
     console.log(this.getTagNameUrl + id);
     return this.http.get(this.getTagNameUrl + id);
   }

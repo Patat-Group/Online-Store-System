@@ -27,7 +27,7 @@ namespace API.Helpers
             CreateMap<Product, ProductsToReturnDto>()
                 .ForMember(dest => dest.ImageUrl,
                     opt => opt.MapFrom(
-                        src => src.Images.Where(im => im.IsMainPhoto).Select(x => apiUrl + x.ImageUrl)))
+                        src => src.Images.Where(im => im.IsMainPhoto).Select(x => apiUrl + x.ImageUrl).Take(1)))
                 .ForMember(dest => dest.Address,
                     opt => opt.MapFrom(src => src.User.Address))
                 .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.UserName));

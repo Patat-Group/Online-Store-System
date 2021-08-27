@@ -98,8 +98,8 @@ export class UserProfileComponent implements OnInit {
         console.log(error);
       });
     }
-    console.log("Own Profile : "+this.isUserOwnProfile);
-    console.log("Logged In : "+this.isUserLoggedIn);
+    // console.log("Own Profile : "+this.isUserOwnProfile);
+    // console.log("Logged In : "+this.isUserLoggedIn);
   }
 
   private getUserToUserRate() {
@@ -200,7 +200,7 @@ export class UserProfileComponent implements OnInit {
   }
   getLoginImage() {
     this.isImageLoading = true;
-      console.log("http://localhost:5000"+this.userInfo.pictureUrl);
+      // console.log("http://localhost:5000"+this.userInfo.pictureUrl);
       this.staticFileServicesService.getPictureWithUrl("http://localhost:5000"+this.userInfo.pictureUrl).subscribe((data: Blob) => {
         this.createImageFromBlob(data);
         this.isImageLoading = false;
@@ -254,12 +254,12 @@ export class UserProfileComponent implements OnInit {
   }
   getUserData() {
     this.usersService.getUserDataWithUsername(this.currnetUsername).subscribe((data: any) => {
-      console.log(data)
+      // console.log(data)
       this.userInfo=data;
       this.currentLastSeen=this.userInfo.lastSeen;
       this.wordPresentLastSeen=this.transform(this.currentLastSeen);
       this.secondsFromLastSeen=this.getSecondsFromDate(this.currentLastSeen);
-      console.log(this.userInfo.pictureUrl)
+      // console.log(this.userInfo.pictureUrl)
       this.getLoginImage();
       this.getUserRateToUser();
       this.getGenderImage();
@@ -271,7 +271,7 @@ export class UserProfileComponent implements OnInit {
   }
   getUserRateToUser(){
     this.usersService.getUserRateWithUsername(this.currnetUsername).subscribe((data: any) => {
-      console.log(data)
+      // console.log(data)
       this.userRate=data;
       this.totalRateCount= this.userRate.oneStarCount
         + this.userRate.twoStarCount
@@ -341,7 +341,7 @@ export class UserProfileComponent implements OnInit {
     let fileToUpload = <File>files[0];
     this.usersService.updateUserProfilePicture(fileToUpload)
       .subscribe((event :any) => {
-           console.log("done upload");
+          //  console.log("done upload");
            this.getUserData();
       }, (error: any) => {
         console.log(error)
@@ -388,7 +388,7 @@ export class UserProfileComponent implements OnInit {
     if(this.isSettingRate==false) {
       this.isSettingRate=true;
       this.newRateValue = event.target.value;
-      console.log(this.newRateValue);
+      // console.log(this.newRateValue);
       this.usersService.setRateUserToUser(this.currnetUsername, this.newRateValue).subscribe((event: any) => {
         this.getUserToUserRate();
         this.getUserRateToUser();
