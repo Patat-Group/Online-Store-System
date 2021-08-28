@@ -6,7 +6,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class DataSharingForSearchService {
   // sharingDate = new BehaviorSubject<any>(null);
-  // @Output() searchData: EventEmitter<any> = new EventEmitter();
+  @Output() static searchDataEmitter: EventEmitter<any> = new EventEmitter();
   public static sharedData: string ="";
   constructor() { }
   public static get data(): string {
@@ -14,5 +14,6 @@ export class DataSharingForSearchService {
   }
   public static set data(value: string) {
     this.sharedData = value;
+    this.searchDataEmitter.emit(value);
   }
 }

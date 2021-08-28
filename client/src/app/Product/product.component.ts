@@ -34,20 +34,15 @@ export class ProductComponent implements OnInit {
 
 
   constructor(private productsService: ProductsService, private route: ActivatedRoute, private usersService: UsersService,
-    private categoryService: CategoryServicesService, private dataSharing: DataSharingForSearchService) {
+              private categoryService: CategoryServicesService, private dataSharing: DataSharingForSearchService) {
 
-
+    DataSharingForSearchService.searchDataEmitter
+      .subscribe(search => this.reload(search));
   }
 
-  ngOnInit(): void {
+  reload(search:string): void{
     this.categoryId = this.route.snapshot.paramMap.get('id');
     this.tagId = this.route.snapshot.paramMap.get('tagId');
-
-    this.searchProduct = localStorage.getItem("search");
-    this.categoryName = localStorage.getItem("search");
-    // this.dataSharing.sharingDate.subscribe(val => {
-    //     this.searchProduct = val;
-    // })
     if (this.tagId != null) {
       console.log(this.tagId);
       this.productsService.getTagName(this.tagId).subscribe((data: any) => {
@@ -55,15 +50,37 @@ export class ProductComponent implements OnInit {
         this.categoryName = data.name;
       }, error => console.log(error))
     }
-    else{
+    else
       this.tagId = 0;
-    }
+
+    this.searchProduct = search;
+    this.categoryName = search;
     console.log(this.categoryName);
     this.loadProduct();
     this.loadTags();
     this.loadCategory();
     localStorage.removeItem('search');
-    
+  }
+  ngOnInit(): void {
+    this.categoryId = this.route.snapshot.paramMap.get('id');
+    this.tagId = this.route.snapshot.paramMap.get('tagId');
+    if (this.tagId != null) {
+      console.log(this.tagId);
+      this.productsService.getTagName(this.tagId).subscribe((data: any) => {
+        console.log(data);
+        this.categoryName = data.name;
+      }, error => console.log(error))
+    }
+    else
+      this.tagId = 0;
+
+    this.searchProduct = localStorage.getItem("search");
+    this.categoryName = localStorage.getItem("search");
+    console.log(this.categoryName);
+    this.loadProduct();
+    this.loadTags();
+    this.loadCategory();
+    localStorage.removeItem('search');
   }
 
   loadRatings() {
@@ -75,12 +92,12 @@ export class ProductComponent implements OnInit {
   loadProduct() {
     this.productsService.getProductsWithCategory(+this.categoryId, this.tagId,
       this.sortId, this.searchProduct, this.currentPage, this.pagination?.itemsPerPage).subscribe((list: PaginatedResult<Products[]>) => {
-        this.products = list.result;
-        this.lengthProducts = this.products.length;
-        this.pagination = list.pagination;
-        this.currentPage = list.pagination.currentPage;
-        this.loadRatings();
-      }, error => console.log(error))
+      this.products = list.result;
+      this.lengthProducts = this.products.length;
+      this.pagination = list.pagination;
+      this.currentPage = list.pagination.currentPage;
+      this.loadRatings();
+    }, error => console.log(error))
   }
   loadTags() {
     if (this.categoryId != null && this.categoryId != undefined) {
