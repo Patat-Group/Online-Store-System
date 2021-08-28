@@ -27,7 +27,7 @@ export class ProductsService {
   getProductsWithCategory(categoryIdFilter?: number | any,
     subCategoryIdFilter?: number | any, sortId?: number | any,
     searchProduct?: string | any, currentPage?: number| any,
-    itemsPerPage?: number | any,UserFilter?: string | any,): Observable<PaginatedResult<Products[]>> {
+    itemsPerPage?: number | any,UserFilter?: string | any): Observable<PaginatedResult<Products[]>> {
 
     const paginatedResult: PaginatedResult<Products[]> = new PaginatedResult<Products[]>();
 

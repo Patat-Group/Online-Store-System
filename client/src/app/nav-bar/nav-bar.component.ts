@@ -58,16 +58,8 @@ export class NavBarComponent implements OnInit {
     var str = ev.target.value;
     DataSharingForSearchService.data = str.toString();
     localStorage.setItem('search', str);
-    DataSharingForSearchService.sharedData = DataSharingForSearchService.data;
     this.router.navigate(['products']);
   }
-
-  // get data(): any {
-  //   return this.dataSharingForSearch.sharedData;
-  // }
-  // set data(value: any) {
-  //   this.dataSharingForSearch.sharedData = value;
-  // }
 
 }
 export class NgbdDropdownConfig {

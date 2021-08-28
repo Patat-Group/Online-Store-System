@@ -42,6 +42,12 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.categoryId = this.route.snapshot.paramMap.get('id');
     this.tagId = this.route.snapshot.paramMap.get('tagId');
+
+    this.searchProduct = localStorage.getItem("search");
+    this.categoryName = localStorage.getItem("search");
+    // this.dataSharing.sharingDate.subscribe(val => {
+    //     this.searchProduct = val;
+    // })
     if (this.tagId != null) {
       console.log(this.tagId);
       this.productsService.getTagName(this.tagId).subscribe((data: any) => {
@@ -49,18 +55,15 @@ export class ProductComponent implements OnInit {
         this.categoryName = data.name;
       }, error => console.log(error))
     }
-    else
+    else{
       this.tagId = 0;
-    // this.dataSharing.sharingDate.subscribe(val => {
-    //     this.searchProduct = val;
-    // })
-    this.searchProduct = localStorage.getItem("search");
-    this.categoryName = localStorage.getItem("search");
+    }
     console.log(this.categoryName);
     this.loadProduct();
     this.loadTags();
     this.loadCategory();
     localStorage.removeItem('search');
+    
   }
 
   loadRatings() {
