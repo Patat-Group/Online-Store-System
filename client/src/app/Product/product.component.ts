@@ -73,16 +73,9 @@ export class ProductComponent implements OnInit {
     this.productsService.getProductsWithCategory(+this.categoryId, this.tagId,
       this.sortId, this.searchProduct, this.currentPage, this.pagination?.itemsPerPage).subscribe((list: PaginatedResult<Products[]>) => {
         this.products = list.result;
-        //  console.log("products   " + this.products.imageUrl);
-        // for(let i =0 ; i <this.products.length ; i ++){
-        //   console.log(this.products.imagesUrl[0]);
-        //   console.log(this.products.imageUrl);
-
-        // }
         this.lengthProducts = this.products.length;
         this.pagination = list.pagination;
         this.currentPage = list.pagination.currentPage;
-        // console.log(this.pagination);
         this.loadRatings();
       }, error => console.log(error))
   }

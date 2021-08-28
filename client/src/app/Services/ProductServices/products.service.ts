@@ -26,8 +26,8 @@ export class ProductsService {
 
   getProductsWithCategory(categoryIdFilter?: number | any,
     subCategoryIdFilter?: number | any, sortId?: number | any,
-    searchProduct?: string | any, currentPage?: number | any,
-    itemsPerPage?: number | any): Observable<PaginatedResult<Products[]>> {
+    searchProduct?: string | any, currentPage?: number| any,
+    itemsPerPage?: number | any,UserFilter?: string | any,): Observable<PaginatedResult<Products[]>> {
 
     const paginatedResult: PaginatedResult<Products[]> = new PaginatedResult<Products[]>();
 
@@ -49,6 +49,9 @@ export class ProductsService {
       params = params.append("SortByHigerPrice", "true");
     if (searchProduct != null) {
       params = params.append("Search", searchProduct);
+    }
+    if (UserFilter != null) {
+      params = params.append("UserFilter", UserFilter);
     }
 
     return this.http.get<Products[]>(this.baseUrl, { observe: 'response', params })
@@ -76,7 +79,13 @@ export class ProductsService {
   setProductsParams(params: ProductsParam) {
     this.productParams = params;
   }
-
+  deleteProduct(id: number): Observable<any> {
+    var headersObject = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem('token'));
+    const httpOptions = {
+      headers: headersObject
+    };
+    return this.http.delete(this.baseUrl +"/"+ id, httpOptions).pipe();
+  }
   getTags(id: number) {
     return this.http.get<ITag[]>(this.baseUrl2 + id);
   }

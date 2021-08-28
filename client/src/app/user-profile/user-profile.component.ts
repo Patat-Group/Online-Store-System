@@ -7,6 +7,9 @@ import { UserInfo } from '../Models/UserInfo';
 import { UserRate } from '../Models/UserRate';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog} from '@angular/material/dialog';
+import {Products} from "../Models/Products";
+import {ProductsService} from "../Services/ProductServices/products.service";
+import {PaginatedResult, Pagination} from "../Models/Pagination";
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -16,8 +19,11 @@ export class UserProfileComponent implements OnInit {
 
   @Output() public onUploadImageFinished = new EventEmitter();
   newRateValue: any;
+  currentProductId=0;
+
   constructor( private staticFileServicesService: StaticFileServicesService,
                private usersService: UsersService,
+               private productsService: ProductsService,
                private router: Router,
                private route: ActivatedRoute,
                private dialog: MatDialog
@@ -53,10 +59,30 @@ export class UserProfileComponent implements OnInit {
   currnetUsername:any;
   userInfo= new UserInfo();
   userRate=new UserRate();
+  products: Products[] | any = [];
+  pagination: Pagination | any = {};
+
+  lengthProducts=0;
+  currentPage =1;
   openDialogWithTemplateRef(templateRef: TemplateRef<any>) {
     this.dialog.open(templateRef);
   }
+  openDialogDeleteProduct(templateRef: TemplateRef<any>,productId:any) {
+    console.log(productId);
+    this.currentProductId=productId;
+    this.dialog.open(templateRef);
+  }
+  loadProduct() {
+    this.productsService.getProductsWithCategory("", 0,
+      0,null, this.currentPage, this.pagination?.itemsPerPage,this.currnetUsername).subscribe((list: PaginatedResult<Products[]>) => {
+      this.products = list.result;
+      this.lengthProducts = this.products.length;
+      this.pagination = list.pagination;
+      this.currentPage = list.pagination.currentPage;
+    }, error => console.log(error))
+  }
   ngOnInit(): void {
+    this.pagination
     const username = this.route.snapshot.paramMap.get('username');
     if(username==null) {
       if (this.usersService.isLoggedOut())
@@ -263,6 +289,7 @@ export class UserProfileComponent implements OnInit {
       this.getLoginImage();
       this.getUserRateToUser();
       this.getGenderImage();
+      this.loadProduct();
     }, (error: any) => {
       console.log(error)
     });
@@ -403,5 +430,18 @@ export class UserProfileComponent implements OnInit {
   {
     return Math.round((number + Number.EPSILON) * 100) / 100;
   }
+  pageChanged(event: any): void {
+    this.currentPage = event.page;
+    this.loadProduct();
+  }
 
+
+  deleteCurrentProduct() {
+    this.productsService.deleteProduct(this.currentProductId).subscribe((data: any) => {
+      console.log(data);
+      window.location.reload();
+    }, (error: any) => {
+      console.log(error);
+    });
+  }
 }

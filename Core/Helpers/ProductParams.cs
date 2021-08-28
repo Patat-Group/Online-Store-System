@@ -21,5 +21,7 @@
         public string Search { get; set; }
         public int CategoryIdFilter { get; set; } = 0;
         public int SubCategoryIdFilter { get; set; } = 0;
+        
+        public string UserFilter { get; set; } = "";
     }
 }

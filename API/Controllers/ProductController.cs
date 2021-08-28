@@ -131,17 +131,17 @@ namespace API.Controllers
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return Unauthorized("User is Unauthorized");
+            if (user == null) return Unauthorized(new {message="User is Unauthorized"});
 
             var product = await _productRepo.GetById(id);
             if (product == null)
-                return BadRequest(@"you can't delete product not exist");
+                return BadRequest(new {message="you can't delete product not exist"});
 
             if (product.UserId != user.Id)
-                return Unauthorized("You cannot Delete a product owned by another user");
+                return Unauthorized(new {message="You cannot Delete a product owned by another user"});
 
             if (await _productRepo.Delete(id) == true)
-                return Ok("Done");
+                return Ok(new {message="Done"});
 
             throw new Exception("Error happen when delete product");
         }

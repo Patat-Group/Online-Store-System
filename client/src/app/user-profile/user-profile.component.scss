@@ -108,19 +108,18 @@ body {
   margin-left: 70px;
 }
 .user-info-left{
-  position: absolute;
-  left: 0px;
+  position: relative;
+  left: -50px;
   width:  280px;
-  margin-left: 15px;
 }
 .user-contact-info{
-  margin-top: 50px;
-  margin-left: 5px;
+  margin-top: 25px;
+  margin-left: 15px;
   width: 210px;
   display: flex;
   justify-content: space-between;
-  position: absolute;
-  left: 0px;
+  position: relative;
+  left: 0;
 }
 .contact-info{
   width: auto;
@@ -183,7 +182,8 @@ body {
   left: -25px;
 }
 .main-div{
-  height: 500px;
+  height: auto;
+  font-family: "Segoe UI", serif;
 }
 .rating-num{
   padding-left: 5px;
@@ -204,7 +204,6 @@ body {
 }
 .full-page{
   width: auto;
-  height: auto;
   overflow-x: hidden;
 }
 .ratings{
@@ -268,3 +267,132 @@ body {
   height: 60px;
 
 }
+
+
+.wrapper {
+  min-height: 300px;
+  min-width: 300px;
+  margin-left: 15px;
+  margin-bottom: 5px;
+  padding-right: 15px;
+}
+
+.card-sl {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 20px;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.card-image img {
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 8px 8px 0px 0;
+}
+
+.card-action {
+  position: relative;
+  float: right;
+  margin-top: -25px;
+  margin-right: 20px;
+  color: #221E3A;
+  background: #fff;
+  border-radius: 50%;
+  padding: 15px;
+  font-size: 18px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-action:hover {
+  color: #fff;
+  background: #221E3A;
+  -webkit-animation: pulse 1.5s infinite;
+}
+
+.card-heading {
+  font-size: 18px;
+  font-weight: bold;
+  background: #fff;
+  padding: 10px 15px;
+}
+
+.card-text {
+  padding: 10px 15px;
+  background: #fff;
+  font-size: 14px;
+  color: #636262;
+  height: 60px;
+}
+
+.card-button:hover {
+  text-decoration: none;
+  background-color: #1d3461;
+  color: #fff;
+}
+
+.pagination {
+  text-align: center;
+  margin: 10px auto 0;
+}
+
+.delete-button{
+  font-family: "Segoe UI", serif;
+  font-size: 18px;
+  align-content: center;
+  width: 100%;
+}
+.product-line{
+    background-color: cadetblue;
+    position: relative;
+    width: 96%;
+    height: 0.5px;
+    margin-left: 28px;
+}
+.descTitle{
+  margin: 15px 34px 0px;
+  text-align: center;
+}
+.user-products-div{
+margin-top: 50px;
+}
+
+.shortDesc {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 50px;
+  @supports (-webkit-line-clamp: 2) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: initial;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+}
+.add-button{
+  width: 120px;
+  position: relative;
+  left:89vw;
+  bottom: 38px;
+}
+.delete-product-string{
+  font-family: "Segoe UI", serif;
+  font-size: 18px;
+}
+.no-products{
+  width: 100%;
+  height: 150px;
+}
+.no-products-label{
+  font-family: "Segoe UI", serif;
+  font-size: 30px;
+  color: gray;
+  width: 99.5%;
+  padding: 10px 0;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
+

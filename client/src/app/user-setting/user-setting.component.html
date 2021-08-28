@@ -18,13 +18,39 @@
                 <input class="form-control input-name" id="InputLastName" formControlName="InputLastName"
                        aria-describedby="lastNameHelp" placeholder="Last Name" [required]="true" value="{{userInfo.lastName}}" ></div>
             </div>
-            <label for="InputPhoneNumber" class="no-select-with-text input-label" >Phone Number :</label>
-            <input class="form-control" id="InputPhoneNumber" formControlName="InputPhoneNumber"
-                   aria-describedby="phoneNumberHelp" placeholder="Enter Your Phone Number" [required]="true" (keypress)="omitSpecialCharToPhoneNumber($event)"  value="{{userInfo.phoneNumber}}">
             <label for="InputAddress" class="no-select-with-text input-label">Address :</label>
             <input class="form-control" id="InputAddress" formControlName="InputAddress" aria-describedby="addressHelp" placeholder="Enter Your Address" value="{{userInfo.address}}">
             <label for="InputDescription" class="no-select-with-text input-label">Description :</label>
             <textarea class="form-control input-textarea" id="InputDescription" formControlName="InputDescription" aria-describedby="descriptionHelp" placeholder="Talk About Yourself" rows="4" cols="50" value="{{userInfo.description}}"></textarea>
+
+            <span class="contact-info-span">Contact Info:</span>
+            <div class="row input-contact-info">
+              <div class="col-sm-1 contact-margin"><img src="assets/images/icons/tele.png" alt="image"
+                                                        style="width: 45px; height: auto;"></div>
+              <div class="col-sm-5 contact-margin contact-info"><label for="InputPhoneNumber" class="contact-info">
+                <input class="form-control contact-info" formControlName="InputPhoneNumber" id="InputPhoneNumber" (keypress)="omitSpecialCharToPhoneNumber($event)" value="{{userInfo.phoneNumber}}" >
+              </label>
+              </div>
+              <div class="col-sm-1 contact-margin"><img src="assets/images/icons/facebook.png" alt="image"
+                                                        style="width: 45px; height: auto;"></div>
+              <div class="col-sm-5 contact-margin contact-info"><label for="InputFacebook" class="contact-info">
+                <input class="form-control contact-info" formControlName="InputFacebook" id="InputFacebook"  value="{{userInfo.facebookUrl}}">
+              </label>
+              </div>
+              <div class="w-100"></div>
+              <div class="col-sm-1 contact-margin"><img src="assets/images/icons/telegram.png" alt="image"
+                                                        style="width: 45px; height: auto;"></div>
+              <div class="col-sm-5 contact-margin contact-info"><label for="InputTelegram" class="contact-info">
+                <input class="form-control contact-info" formControlName="InputTelegram" id="InputTelegram" value="{{userInfo.telegramUrl}}">
+              </label>
+              </div>
+              <div class="col-sm-1 contact-margin"><img src="assets/images/icons/whatsapp.png" alt="image"
+                                                        style="width: 50px; height: auto;"></div>
+              <div  class="col-sm-5 contact-margin contact-info"><label for="InputWhatsapp" class="contact-info">
+                <input class="form-control contact-info" formControlName="InputWhatsapp" id="InputWhatsapp" value="{{userInfo.whatsappUrl}}">
+              </label>
+              </div>
+            </div>
             <label  class="no-select-with-text input-label">Gender :</label>
             <div class="gender-div">
               <label>
@@ -35,6 +61,7 @@
               </label> Female
             </div>
           </div>
+
           <button type="submit" class="btn btn-primary update">Update</button>
           <button routerLink="/profile/setting/password" class="btn btn-primary change-password">Change Password</button>
         </div>

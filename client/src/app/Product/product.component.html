@@ -50,7 +50,7 @@
           <div class="card-heading">
             <a routerLink="/productDetail/{{item.id}}"> {{item.name}}</a>
           </div>
-          <div class="card-text">
+          <div class="card-text shortDesc">
             {{item.shortDescription}}
           </div>
           <div class="card-heading">
@@ -88,7 +88,7 @@
   </section>
 
   <div class="d-flex justify-content-center" *ngIf="pagination">
- 
+
     <pagination class="pagination" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
       [maxSize]="pagination.totalPages" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" ></pagination>
   </div>

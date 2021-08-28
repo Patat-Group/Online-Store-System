@@ -1,6 +1,7 @@
 ﻿#nullable enable
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
@@ -91,6 +92,12 @@ namespace Services.Data
                 products = products.OrderBy(p => p.Price);
             }
 
+            if (productParams.UserFilter!="")
+            {
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.UserName.ToLower() == productParams.UserFilter.ToLower());
+                products = user != null ? products.Where(p => p.UserId == user.Id) : products.Take(0);
+            }
             if (productParams.SortByNewest)
             {
                 products = products.OrderByDescending(d => d.DateAdded);

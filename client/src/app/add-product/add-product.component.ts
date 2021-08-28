@@ -63,7 +63,7 @@ export class AddProductComponent implements OnInit {
         }, err => console.log(err));
       }
     }, err => console.log(err))
-    this.router.navigate(['home']);
+    this.router.navigateByUrl("/profile")
   }
   onCategorySelected(ev: any) {
     this.categoryId = ev.target.value;

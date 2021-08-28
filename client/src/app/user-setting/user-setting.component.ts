@@ -27,7 +27,10 @@ export class UserSettingComponent implements OnInit {
     InputLastName: '',
     InputAddress: '',
     InputDescription: '',
-    InputPhoneNumber:''
+    InputPhoneNumber:'',
+    InputTelegram:'',
+    InputWhatsapp:'',
+    InputFacebook:'',
   });
 
   ngOnInit(): void {
@@ -50,6 +53,9 @@ export class UserSettingComponent implements OnInit {
       this.updateForm.value.InputLastName=this.userInfo.lastName;
       this.updateForm.value.InputPhoneNumber=this.userInfo.phoneNumber;
       this.updateForm.value.InputDescription=this.userInfo.description;
+      this.updateForm.value.InputFacebook=this.userInfo.facebookUrl;
+      this.updateForm.value.InputWhatsapp=this.userInfo.whatsappUrl;
+      this.updateForm.value.InputTelegram=this.userInfo.telegramUrl;
       this.currentGender=this.userInfo.gender?.toLowerCase();
     }, (error: any) => {
       console.log(error)
@@ -62,6 +68,9 @@ export class UserSettingComponent implements OnInit {
       userInfo.firstName=this.updateForm.value.InputFirstName;
       userInfo.lastName=this.updateForm.value.InputLastName;
       userInfo.phoneNumber=this.updateForm.value.InputPhoneNumber;
+      userInfo.facebookUrl=this.updateForm.value.InputFacebook;
+      userInfo.whatsappUrl=this.updateForm.value.InputWhatsapp;
+      userInfo.telegramUrl=this.updateForm.value.InputTelegram;
       userInfo.description=this.updateForm.value.InputDescription;
       userInfo.gender=this.currentGender;
       this.usersService.updateUserInfo(userInfo).subscribe( (data: any)=> {

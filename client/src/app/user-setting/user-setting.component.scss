@@ -22,6 +22,7 @@
   font-size: 18px;
   height: 89px;
   max-height: 170px;
+  margin-bottom: 5px;
 }
 .update{
   border-radius: 50px;
@@ -149,6 +150,10 @@
   width: 430px;
   left: 2px;
 }
+.input-contact-info{
+  position: relative;
+  width: 600px;
+}
 .input-name{
   width: 195px;
 }
@@ -158,4 +163,15 @@
   background-color: #3A3652;
   border-width: 0;
   width: 160px;
+}
+.contact-info{
+  width: 150px;
+}
+.contact-info-span{
+  font-family: "Segoe UI", serif;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+.contact-margin{
+  margin-top: 10px;
 }

@@ -134,16 +134,57 @@
     </div>
   </div>
   <div class="col-sm-1 right-side" [hidden]="!isUserLoggedIn || !isUserOwnProfile">
-    <div class="">
-      <button type="button" class="btn btn-primary" routerLink="/AddProduct">Add Product</button>
-    </div>
     <div class="setting">
       <a class="setting-link" routerLink="/profile/setting"><i class="fa fa-cog setting-icon fa-2x " aria-hidden="true"></i></a>
 
     </div>
   </div>
+  <br>
+  <div class="user-products-div">
+    <div class="product-line"></div>
+    <div class="row">
+      <div class="col-sm-12">
+    <h3 class="descTitle">User's Products</h3>
+      </div>
+      <button type="button" class="btn btn-primary add-button" routerLink="/AddProduct" [hidden]="!isUserLoggedIn || !isUserOwnProfile">Add Product</button>
+    </div>
+    <br>
+    <section class="wrapper" [hidden]="lengthProducts==0" >
+      <div class="row">
+        <div class="col-md-3" *ngFor="let item of products;let indexOfelement=index;">
+          <div class="card-sl">
+            <div class="card-image">
+              <img src="{{item.imageUrl}}" style="width: 400px; height: 200px;" />
+            </div>
+            <div class="card-heading">
+              <a routerLink="/productDetail/{{item.id}}"> {{item.name}}</a>
+            </div>
+            <div class="card-text shortDesc">
+              {{item.shortDescription}}
+            </div>
+            <div class="card-heading">
+              {{item.price}} $
+            </div>
+            <div>
+              <button mat-flat-button matDialogClose color="warn" class="delete-button" [hidden]="!isUserLoggedIn || !isUserOwnProfile" (click)="openDialogDeleteProduct(deleteProductDialog,item.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="d-flex justify-content-center" *ngIf="pagination" [hidden]="lengthProducts==0">
+
+      <pagination class="pagination" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+                  [maxSize]="pagination.totalPages" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [hidden]="lengthProducts==0"></pagination>
+    </div>
+    <div class="no-products" [hidden]="lengthProducts!=0">
+      <label class="no-products-label">No Products Yet</label>
+    </div>
+  </div>
+  <app-footer></app-footer>
 </div>
-<app-footer></app-footer>
+
 </div>
 
 <ng-template #phoneNumberDialog>
@@ -165,4 +206,15 @@
   <button mat-flat-button matDialogClose color="warn">Ok</button>
   <button mat-flat-button matDialogClose color="primary">Cancel</button>
 </mat-dialog-actions>
+</ng-template>
+
+<ng-template #deleteProductDialog>
+  <h2 matDialogTitle>Delete Product</h2>
+  <mat-dialog-content class="report-dialog">
+    <p matInput class="delete-product-string" >Are you sure you want to delete this product?</p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button matDialogClose color="warn" (click)="deleteCurrentProduct()">Yes</button>
+    <button mat-flat-button matDialogClose color="primary">No</button>
+  </mat-dialog-actions>
 </ng-template>
