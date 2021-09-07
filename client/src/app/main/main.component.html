@@ -17,11 +17,11 @@
 
     <div class="row text-center">
       <div class="col-sm-3 mt-2 text-center" *ngFor="let category of categories">
-        <div class="card text-white card-has-bg click-col" style="background-image:url('{{category.imageUrl}}');">
-          <img class="card-img d-none" src="{{category.imageUrl}}">
+        <div class="card text-white card-has-bg click-col" style="background-image:url('{{category.imageUrl}}');" routerLink="/products/{{category.id}}">
+          <img class="card-img d-none" src="{{category.imageUrl}}" routerLink="/products/{{category.id}}">
           <div class="card-img-overlay d-flex flex-column">
             <div class="card-body align-items-center d-flex justify-content-center">
-              <h4 class="card-title mt-0 "><a class="text-white" routerLink="/products/{{category.id}}">
+              <h4 class="card-title mt-0 "><a class="text-white category-link" routerLink="/products/{{category.id}}">
                   {{category.name}}</a></h4>
             </div>
           </div>

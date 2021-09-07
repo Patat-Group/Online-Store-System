@@ -40,7 +40,7 @@
                             </select>
                         </div>
                         <div class="mt-3 ml-2">
-                            <label for="Images" class="no-select-with-text mb-3">Add images to your product from 1 -4
+                            <label for="Images" class="no-select-with-text mb-3">Add images to your product (1-4)
                                 images</label>
                         </div>
                         <div class="mt-3 ml-2">
@@ -51,6 +51,10 @@
 
                     <button type="submit" class="btn btn-primary update">Add</button>
                 </div>
+              <div class="col">
+                <img class="updateImage no-select-with-text" [src]="imageToShow"
+                     alt="Place image title">
+              </div>
             </div>
         </form>
     </div>

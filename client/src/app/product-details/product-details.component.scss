@@ -4,6 +4,7 @@
 
 .imgSpec {
   filter: opacity(55%);
+  object-fit: contain;
 }
 
 .imgSpec:hover {
@@ -117,23 +118,17 @@
   content: "";
   display: table;
 }
-#img-holder {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 500px;
-  width: 750px;
-  border-radius: 9%;
-}
 .img-holder {
   background-position: center;
-  background-size: cover;
   background-repeat: no-repeat;
   height: 500px;
   width: 750px;
-  border-radius: 9%;
+  border-radius: 15%;
+  object-fit: contain;
 }
-
+.price-text{
+  width: 150px;
+}
 li {
   font-size: 0.7em;
   margin-bottom: 10px;

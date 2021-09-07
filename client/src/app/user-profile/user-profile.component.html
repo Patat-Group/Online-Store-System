@@ -154,10 +154,10 @@
         <div class="col-md-3" *ngFor="let item of products;let indexOfelement=index;">
           <div class="card-sl">
             <div class="card-image">
-              <img src="{{item.imageUrl}}" style="width: 400px; height: 200px;" />
+              <img src="{{item.imageUrl}}" style="width: 400px; height: 200px; object-fit: contain;" />
             </div>
             <div class="card-heading">
-              <a routerLink="/productDetail/{{item.id}}"> {{item.name}}</a>
+              <a routerLink="/productDetail/{{item.id}}" style="text-decoration: none;"> {{item.name}}</a>
             </div>
             <div class="card-text shortDesc">
               {{item.shortDescription}}

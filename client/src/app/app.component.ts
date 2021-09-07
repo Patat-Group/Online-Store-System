@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
     private usersService: UsersService,
   ) { }
   ngOnInit(): void {
-    const counter = interval(60000);
+    const counter = interval(4000);
 
     const updateLastSeen = counter
       .subscribe((event: any) => {

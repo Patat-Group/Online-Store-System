@@ -41,6 +41,7 @@ export class ProductComponent implements OnInit {
   }
 
   reload(search:string): void{
+
     this.categoryId = this.route.snapshot.paramMap.get('id');
     this.tagId = this.route.snapshot.paramMap.get('tagId');
     if (this.tagId != null) {
@@ -52,7 +53,8 @@ export class ProductComponent implements OnInit {
     }
     else
       this.tagId = 0;
-
+    this.pagination= {};
+    this.currentPage = 1;
     this.searchProduct = search;
     this.categoryName = search;
     console.log(this.categoryName);
@@ -73,7 +75,7 @@ export class ProductComponent implements OnInit {
     }
     else
       this.tagId = 0;
-
+    this.sortId = 1;
     this.searchProduct = localStorage.getItem("search");
     this.categoryName = localStorage.getItem("search");
     console.log(this.categoryName);

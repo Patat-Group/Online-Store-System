@@ -30,9 +30,9 @@
       &nbsp;
       Sort by:&nbsp;
       <select class="custom-select mb-3" (change)="onSortSelected($event)">
-        <option [value]="1">ByNewest</option>
-        <option [value]="2">ByLowerPrice</option>
-        <option [value]="3">ByHigherPrice</option>
+        <option [value]="1">Newest</option>
+        <option [value]="2">Lower Price</option>
+        <option [value]="3">Higher Price</option>
 
       </select>
     </div>
@@ -44,11 +44,11 @@
       <div class="col-md-3" *ngFor="let item of products;let indexOfelement=index;">
         <div class="card-sl">
           <div class="card-image">
-            <img src="{{item.imageUrl}}" style="width: 400px; height: 200px;" />
+            <img src="{{item.imageUrl}}" style="width: 400px; height: 200px; object-fit: contain;" />
           </div>
-          <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
+
           <div class="card-heading">
-            <a routerLink="/productDetail/{{item.id}}"> {{item.name}}</a>
+            <a routerLink="/productDetail/{{item.id}}" style="text-decoration: none;"> {{item.name}}</a>
           </div>
           <div class="card-text shortDesc">
             {{item.shortDescription}}

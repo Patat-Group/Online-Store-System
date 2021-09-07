@@ -27,7 +27,8 @@ export class AddProductComponent implements OnInit {
   categories: Category[] | any = [];
   categoryId: number = 1;
   fileImage: any = [];
-
+  imageToShow: any;
+  isImageLoading: boolean | any;
   constructor(private usersService: UsersService,
     private categoryService: CategoryServicesService,
     private productService: ProductsService,
@@ -37,6 +38,7 @@ export class AddProductComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.getMainImage();
     this.categoryService.GetCategories().subscribe(list => {
       this.categories = list;
     }, err => console.log(err));
@@ -79,6 +81,26 @@ export class AddProductComponent implements OnInit {
 
   async update() {
     console.log("update..");
+  }
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.imageToShow = reader.result;
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
+  getMainImage() {
+    this.isImageLoading = true;
+    this.staticFileServicesService.getLoginImage().subscribe(data => {
+      this.createImageFromBlob(data);
+      this.isImageLoading = false;
+    }, error => {
+      this.isImageLoading = false;
+    });
   }
 
 }
