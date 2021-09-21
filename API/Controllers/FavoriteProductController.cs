@@ -8,8 +8,8 @@ using Core.Entities;
 using Core.Helpers;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Services.Data;
 
 namespace API.Controllers
 {
@@ -31,17 +31,17 @@ namespace API.Controllers
             _userRepo = userRepo;
             _mapper = mapper;
         }
-        
+
         [HttpGet("all")]
-        public async Task<IReadOnlyList<FavoriteProductToReturnDto>?> GetAllFavoritesWithSpec([FromQuery] ProductParams? productParams)
+        public async Task<ActionResult<IReadOnlyList<FavoriteProductToReturnDto>?>> GetAllFavoritesWithSpec([FromQuery] ProductParams? productParams)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return null;
+            if (user == null) return BadRequest("not found user!");
 
             var favorites = await _favoriteRepo.GetAllWithSpec(productParams);
             var favoritesToReturn =
                 _mapper.Map<IReadOnlyList<FavoriteProduct>, IReadOnlyList<FavoriteProductToReturnDto>>(favorites);
-            return favoritesToReturn;
+            return Ok(favoritesToReturn);
             throw new Exception("Error happen when get From Favorite");
         }
 
@@ -104,7 +104,7 @@ namespace API.Controllers
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
             if (user == null) return Unauthorized("User is Unauthorized");
-            
+
             var product = await _productRepo.GetById(productId);
             if (product == null) return BadRequest("Bad Product Id");
             var favoriteProduct = await _favoriteRepo.Get(user.Id, productId);

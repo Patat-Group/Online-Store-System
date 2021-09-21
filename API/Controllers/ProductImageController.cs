@@ -8,6 +8,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Interfaces.Core;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -30,27 +31,33 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<IReadOnlyList<ProductImagesForReturnDto>> GetImagesForProduct(int productId)
+        [HttpGet(Name = nameof(GetImagesForProduct))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductImagesForReturnDto>))]
+        public async Task<ActionResult<ProductImagesForReturnDto>> GetImagesForProduct(int productId)
         {
             var images = await _imageRepository.GetAllImagesForProduct(productId);
-            var imagesForReturn =
-                _mapper.Map<IReadOnlyList<ProductImage>, IReadOnlyList<ProductImagesForReturnDto>>(images);
-            return imagesForReturn;
+            var imagesForReturn = _mapper.Map<IReadOnlyList<ProductImage>,
+                 IReadOnlyList<ProductImagesForReturnDto>>(images);
+            return Ok(imagesForReturn);
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductImagesForReturnDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         public async Task<ActionResult<ProductImagesForReturnDto>> GetImage(int id)
         {
             var image = await _imageRepository.GetImageById(id);
             if (image == null)
                 return NotFound("this image is not exist.");
             var imageForReturn = _mapper.Map<ProductImagesForReturnDto>(image);
-            return imageForReturn;
+            return Ok(imageForReturn);
         }
 
-
+        // Need Fix ..
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductImageForAddDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(string))]
         [Authorize]
         public async Task<IActionResult> AddImage(int productId, [FromForm] ProductImageForAddDto entity)
         {
@@ -84,12 +91,14 @@ namespace API.Controllers
             imageForAdd.ImageUrl = path.Substring(7);
 
             if (await _imageRepository.AddImage(imageForAdd))
-                return Ok();
+                return CreatedAtAction(nameof(GetImagesForProduct), new { productId = imageForAdd.ProductId }, imageForAdd);
 
             throw new Exception("Error happen when add photo to your product");
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductImage))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(string))]
         [Authorize]
         public async Task<IActionResult> SetImageMain(int id)
         {
@@ -103,11 +112,14 @@ namespace API.Controllers
                 return Unauthorized("You cannot Update an image product owned by another user");
 
             if (await _imageRepository.SetMainImage(id))
-                return Ok();
+                return Ok(image);
             throw new Exception("Error happen when set image main");
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         [Authorize]
         public async Task<IActionResult> DeleteImage(int id)
         {
@@ -126,7 +138,7 @@ namespace API.Controllers
                 return NotFound("Not Found Image in Server.");
 
             if (await _imageRepository.DeleteImage(id))
-                return Ok();
+                return NoContent();
             throw new Exception("Error happen when remove image");
         }
     }

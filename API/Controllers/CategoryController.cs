@@ -21,6 +21,7 @@ namespace API.Controllers
             _categoryRepo = categoryRepo;
             _mapper = mapper;
         }
+
         [HttpGet]
         public async Task<IReadOnlyList<CategoryReturnDto>> GetAll()
         {

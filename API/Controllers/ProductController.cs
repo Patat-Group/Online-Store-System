@@ -21,7 +21,6 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepo;
 
-
         public ProductController(IGenericRepository<Product, int> productRepo, IMapper mapper, IUserRepository userRepo)
         {
             _productRepo = productRepo;
@@ -30,7 +29,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IReadOnlyList<ProductsToReturnDto>> GetProducts([FromQuery] ProductParams? productParams)
+        public async Task<ActionResult<IReadOnlyList<ProductsToReturnDto>>> GetProducts([FromQuery] ProductParams? productParams)
         {
             var products = await _productRepo.GetAllWithSpec(productParams);
             var productForReturn = _mapper
@@ -39,7 +38,7 @@ namespace API.Controllers
             Response.AddPagination(products.CurrentPage, products.PageSize,
                products.TotalCount, products.TotalPage);
 
-            return productForReturn;
+            return Ok(productForReturn);
 
             throw new Exception("Error happen when get products..");
         }
@@ -53,7 +52,7 @@ namespace API.Controllers
 
             Response.AddPagination(products.CurrentPage, products.PageSize,
                products.TotalCount, products.TotalPage);
-    
+
             return productForReturn;
 
             throw new Exception("Error happen when get products");
@@ -85,7 +84,7 @@ namespace API.Controllers
                 LongDescription = entity.LongDescription,
                 ShortDescription = entity.ShortDescription,
                 DateAdded = entity.DateAdded,
-                CategoryId =entity.CategoryId,
+                CategoryId = entity.CategoryId,
                 UserId = user.Id
             };
 
@@ -131,17 +130,17 @@ namespace API.Controllers
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var user = await _userRepo.GetUserByUserClaims(HttpContext.User);
-            if (user == null) return Unauthorized(new {message="User is Unauthorized"});
+            if (user == null) return Unauthorized(new { message = "User is Unauthorized" });
 
             var product = await _productRepo.GetById(id);
             if (product == null)
-                return BadRequest(new {message="you can't delete product not exist"});
+                return BadRequest(new { message = "you can't delete product not exist" });
 
             if (product.UserId != user.Id)
-                return Unauthorized(new {message="You cannot Delete a product owned by another user"});
+                return Unauthorized(new { message = "You cannot Delete a product owned by another user" });
 
             if (await _productRepo.Delete(id) == true)
-                return Ok(new {message="Done"});
+                return Ok(new { message = "Done" });
 
             throw new Exception("Error happen when delete product");
         }
